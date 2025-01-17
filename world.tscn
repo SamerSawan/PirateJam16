@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=4 uid="uid://5xolxvllve38"]
+[gd_scene load_steps=4 format=4 uid="uid://5xolxvllve38"]
 
 [ext_resource type="TileSet" uid="uid://csnobhxg8s7v6" path="res://tile_sets/new_tile_set.tres" id="1_lxv7o"]
 [ext_resource type="PackedScene" uid="uid://cn4ikwt7enju2" path="res://characters/player/player.tscn" id="2_g308q"]
+[ext_resource type="PackedScene" uid="uid://ydo25uiqa5c4" path="res://characters/human_citizen/human_citizen.tscn" id="3_qege0"]
 
 [node name="World" type="Node2D"]
 
@@ -18,3 +19,6 @@ remote_path = NodePath("../../Camera2D")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(32, -65)
 zoom = Vector2(3, 3)
+
+[node name="Human Citizen" parent="." instance=ExtResource("3_qege0")]
+position = Vector2(356, -66)
