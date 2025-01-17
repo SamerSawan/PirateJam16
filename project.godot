@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="piratejam16"
+run/main_scene="res://world.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 
@@ -50,6 +51,7 @@ attack={
 [layer_names]
 
 2d_physics/layer_1="Ground"
+2d_physics/layer_5="Player"
 
 [rendering]
 
