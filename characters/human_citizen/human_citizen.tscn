@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://ydo25uiqa5c4"]
+
+[ext_resource type="Script" path="res://characters/human_citizen/human_citizen.gd" id="1_dl03e"]
+[ext_resource type="Texture2D" uid="uid://bip46mj7ha2fk" path="res://assets/enemies/slime_resurrect.png" id="2_0eko6"]
+[ext_resource type="PackedScene" uid="uid://bc7oaxyg4mtb6" path="res://scripts/Stats/StatsComponent.tscn" id="3_c06hs"]
+[ext_resource type="PackedScene" uid="uid://d0b10s33fdy8n" path="res://scripts/Detection/vision_component/vision_component.tscn" id="4_020l5"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="5_so3ab"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_im8p6"]
+atlas = ExtResource("2_0eko6")
+region = Rect2(8, 19, 17, 13)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wsf7e"]
+radius = 9.0
+height = 18.0
+
+[node name="Human Citizen" type="Node2D" node_paths=PackedStringArray("vision_component", "stats_component")]
+script = ExtResource("1_dl03e")
+vision_component = NodePath("VisionComponent")
+stats_component = NodePath("StatsComponent")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_im8p6")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+collision_layer = 32
+collision_mask = 17
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CapsuleShape2D_wsf7e")
+
+[node name="StatsComponent" parent="." node_paths=PackedStringArray("root") instance=ExtResource("3_c06hs")]
+root = NodePath("..")
+
+[node name="VisionComponent" parent="." instance=ExtResource("4_020l5")]
+target_layers = Array[int]([5])
+occlusion_layers = Array[int]([1])
+
+[node name="Node2D" type="Node2D" parent="." node_paths=PackedStringArray("blackboard")]
+script = ExtResource("5_so3ab")
+blackboard = NodePath("@Node@217275")
