@@ -3,7 +3,7 @@ class_name VisionComponent
 
 ## Hook to sees_target signal to detect whatever u need
 ## Edit children if needed
-signal sees_target
+signal sees_target(raycast, target)
 
 @export var vision_area_2d : Area2D
 @export var detection_raycaster : DetectionRaycaster
