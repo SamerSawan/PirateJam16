@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=23 format=3 uid="uid://b6k06ponlse1f"]
+[gd_resource type="BehaviorTree" load_steps=24 format=3 uid="uid://b6k06ponlse1f"]
 
 [ext_resource type="Script" path="res://ai/tasks/IsAggro.gd" id="1_ao5jv"]
 [ext_resource type="Script" path="res://ai/tasks/IsEnemyInArea.gd" id="1_sard6"]
@@ -81,8 +81,11 @@ max_duration = 3.0
 custom_name = "Idle In Place"
 children = [SubResource("BTPlayAnimation_tjmsy"), SubResource("BTRandomWait_pdeg5")]
 
+[sub_resource type="BTSequence" id="BTSequence_2k4cc"]
+children = [SubResource("BTProbability_7r78l"), SubResource("BTSequence_jif5i")]
+
 [sub_resource type="BTSelector" id="BTSelector_fdcjp"]
-children = [SubResource("BTSequence_87chv"), SubResource("BTProbability_7r78l"), SubResource("BTSequence_jif5i")]
+children = [SubResource("BTSequence_87chv"), SubResource("BTSequence_2k4cc")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_f5t40")

@@ -1,9 +1,9 @@
 extends BTCondition
 
-##Are we aggro'd
+
 
 func _tick(delta: float) -> Status:
-	if agent.cur_aggro_state == agent.AGGRO_STATES.AGGRO:
+	if agent.cur_aggro_state == agent.AGGRO_STATES.IDLE:
 		return SUCCESS
 	else:
 		return FAILURE
