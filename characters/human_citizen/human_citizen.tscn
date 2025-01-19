@@ -93,9 +93,8 @@ _data = {
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_oe6x5"]
 
-[node name="Human Citizen" type="Node2D" node_paths=PackedStringArray("navigation_agent", "vision_component", "aggro_timer", "aggro_hsm", "idle_state", "aggro_state", "stats_component")]
+[node name="Human Citizen" type="Node2D" node_paths=PackedStringArray("vision_component", "aggro_timer", "aggro_hsm", "idle_state", "aggro_state", "stats_component")]
 script = ExtResource("1_dl03e")
-navigation_agent = NodePath("NavigationAgent2D")
 vision_component = NodePath("VisionComponent")
 aggro_timer = NodePath("AggroTimer")
 aggro_hsm = NodePath("AggroLimboHSM")
