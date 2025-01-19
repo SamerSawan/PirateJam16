@@ -1,0 +1,50 @@
+[gd_resource type="BehaviorTree" load_steps=13 format=3 uid="uid://bnw1vcxcyoj0u"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_w2k2i"]
+
+[sub_resource type="BBNode" id="BBNode_bdwli"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_3t1fo"]
+animation_player = SubResource("BBNode_bdwli")
+animation_name = &"Walk"
+blend = 0.1
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_nt6vy"]
+min_duration = 2.0
+max_duration = 4.0
+
+[sub_resource type="BTSequence" id="BTSequence_w42uw"]
+custom_name = "Idle Around"
+children = [SubResource("BTPlayAnimation_3t1fo"), SubResource("BTRandomWait_nt6vy")]
+
+[sub_resource type="BTProbability" id="BTProbability_4odoh"]
+run_chance = 0.33
+children = [SubResource("BTSequence_w42uw")]
+
+[sub_resource type="BBNode" id="BBNode_mg08m"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_fmkcg"]
+animation_player = SubResource("BBNode_mg08m")
+animation_name = &"Idle"
+blend = 0.1
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_h5bwr"]
+max_duration = 3.0
+
+[sub_resource type="BTSequence" id="BTSequence_ab2tl"]
+custom_name = "Idle In Place"
+children = [SubResource("BTPlayAnimation_fmkcg"), SubResource("BTRandomWait_h5bwr")]
+
+[sub_resource type="BTSequence" id="BTSequence_i6ghn"]
+children = [SubResource("BTProbability_4odoh"), SubResource("BTSequence_ab2tl")]
+
+[sub_resource type="BTSelector" id="BTSelector_651nn"]
+children = [SubResource("BTSequence_i6ghn")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_w2k2i")
+root_task = SubResource("BTSelector_651nn")
