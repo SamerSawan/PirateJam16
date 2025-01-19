@@ -31,5 +31,6 @@ func _process(delta: float) -> void:
 
 func _clear_visible_targets() -> void:
 	if visible_targets.size() > 0:
-		print("Visible Targets: %s" % visible_targets)
+		#print("Visible Targets: %s" % visible_targets)
+		pass
 	visible_targets.clear()
