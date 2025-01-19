@@ -1,8 +1,9 @@
 extends BTAction
 
 func _tick(delta: float) -> Status:
-	if "vision_component" in agent:
-		var vision : VisionComponent = agent.vision_component
+	var _agent : CharacterBody2D = agent
+	if _agent is Creature and "vision_component" in _agent:
+		var vision : VisionComponent = _agent.vision_component
 		var targets = vision.detection_raycaster.detection_targets
 		
 		blackboard.set_var("closest_target", null)
@@ -18,12 +19,13 @@ func _tick(delta: float) -> Status:
 			closest_target = blackboard.get_var("closest_target")
 		
 		for target in targets:
-			var target_distance = target.global_position.distance_to(agent.global_position)
-			var closest_target_distance = closest_target.global_position.distance_to(agent.global_position)
+			var target_distance = target.global_position.distance_to(_agent.global_position)
+			var closest_target_distance = closest_target.global_position.distance_to(_agent.global_position)
 			if target_distance < closest_target_distance:
 				blackboard.set_var("closest_target", target)
 		
 		if closest_target:
+			print("Closest target acquired")
 			return SUCCESS
 	
 	return FAILURE

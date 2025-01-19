@@ -1,11 +1,13 @@
-[gd_scene load_steps=18 format=3 uid="uid://ydo25uiqa5c4"]
+[gd_scene load_steps=20 format=3 uid="uid://ydo25uiqa5c4"]
 
 [ext_resource type="Script" path="res://characters/human_citizen/human_citizen.gd" id="1_dl03e"]
 [ext_resource type="Texture2D" uid="uid://bip46mj7ha2fk" path="res://assets/enemies/slime_resurrect.png" id="2_0eko6"]
 [ext_resource type="PackedScene" uid="uid://bc7oaxyg4mtb6" path="res://scripts/Stats/StatsComponent.tscn" id="3_c06hs"]
 [ext_resource type="PackedScene" uid="uid://d0b10s33fdy8n" path="res://scripts/Detection/vision_component/vision_component.tscn" id="4_020l5"]
+[ext_resource type="Script" path="res://scripts/Movement/movement_component.gd" id="4_p7ccd"]
 [ext_resource type="Script" path="res://ai/hsm_debug.gd" id="5_81nm0"]
 [ext_resource type="BehaviorTree" uid="uid://b6k06ponlse1f" path="res://ai/trees/human_citizen/aggro.tres" id="5_rjsdt"]
+[ext_resource type="Script" path="res://scripts/Navigation/navigation_component.gd" id="5_s4xqs"]
 [ext_resource type="BehaviorTree" uid="uid://bnw1vcxcyoj0u" path="res://ai/trees/human_citizen/idle.tres" id="6_vaeu3"]
 [ext_resource type="Script" path="res://ai/states/IdleState.gd" id="6_w2tby"]
 [ext_resource type="Script" path="res://ai/states/AggroState.gd" id="7_pavjj"]
@@ -93,39 +95,50 @@ _data = {
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_oe6x5"]
 
-[node name="Human Citizen" type="Node2D" node_paths=PackedStringArray("navigation_agent_2d", "vision_component", "aggro_timer", "aggro_hsm", "idle_state", "aggro_state", "stats_component")]
+[node name="Human Citizen" type="CharacterBody2D" node_paths=PackedStringArray("vision_component", "aggro_timer", "aggro_hsm", "idle_state", "aggro_state", "stats_component", "movement_component", "navigation_agent", "navigation_component")]
+collision_layer = 32
+motion_mode = 1
 script = ExtResource("1_dl03e")
-navigation_agent_2d = NodePath("NavigationAgent2D")
 vision_component = NodePath("VisionComponent")
 aggro_timer = NodePath("AggroTimer")
 aggro_hsm = NodePath("AggroLimboHSM")
 idle_state = NodePath("AggroLimboHSM/IdleState")
 aggro_state = NodePath("AggroLimboHSM/AggroState")
 stats_component = NodePath("StatsComponent")
+movement_component = NodePath("MovementComponent")
+navigation_agent = NodePath("NavigationAgent2D")
+navigation_component = NodePath("NavigationComponent")
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-simplify_path = true
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 10)
+shape = SubResource("CapsuleShape2D_wsf7e")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_0eko6")
 hframes = 10
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2(0, 10)
-collision_layer = 32
-collision_mask = 17
-gravity_scale = 0.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-shape = SubResource("CapsuleShape2D_wsf7e")
-
 [node name="StatsComponent" parent="." node_paths=PackedStringArray("root") instance=ExtResource("3_c06hs")]
 root = NodePath("..")
+max_speed = Vector2(128, 128)
+
+[node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("body", "stats_component")]
+script = ExtResource("4_p7ccd")
+body = NodePath("..")
+stats_component = NodePath("../StatsComponent")
+friction = 128.0
 
 [node name="VisionComponent" parent="." instance=ExtResource("4_020l5")]
 position = Vector2(0, 10)
 target_layers = Array[int]([5])
 occlusion_layers = Array[int]([1])
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+simplify_path = true
+
+[node name="NavigationComponent" type="Node2D" parent="." node_paths=PackedStringArray("root", "navigation_agent")]
+script = ExtResource("5_s4xqs")
+root = NodePath("..")
+navigation_agent = NodePath("../NavigationAgent2D")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -134,19 +147,16 @@ libraries = {
 
 [node name="AggroLimboHSM" type="LimboHSM" parent="."]
 script = ExtResource("5_81nm0")
-debug = true
 
-[node name="IdleState" type="BTState" parent="AggroLimboHSM" node_paths=PackedStringArray("parent")]
+[node name="IdleState" type="BTState" parent="AggroLimboHSM"]
 behavior_tree = ExtResource("6_vaeu3")
 blackboard_plan = SubResource("BlackboardPlan_0bx61")
 script = ExtResource("6_w2tby")
-parent = NodePath("../..")
 
-[node name="AggroState" type="BTState" parent="AggroLimboHSM" node_paths=PackedStringArray("parent")]
+[node name="AggroState" type="BTState" parent="AggroLimboHSM"]
 behavior_tree = ExtResource("5_rjsdt")
 blackboard_plan = SubResource("BlackboardPlan_oe6x5")
 script = ExtResource("7_pavjj")
-parent = NodePath("../..")
 
 [node name="AggroTimer" type="Timer" parent="."]
 wait_time = 4.0

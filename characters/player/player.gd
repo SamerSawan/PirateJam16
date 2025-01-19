@@ -5,8 +5,6 @@ extends PlatformerCharacter2D
 
 @export_range(0, 100, 0.2, "or_greater") var move_speed : float = 120.0
 
-
-
 func _physics_process(delta: float) -> void:
 	velocity = move_speed * direction.normalized()
 	move_and_slide()
