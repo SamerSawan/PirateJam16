@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://ydo25uiqa5c4"]
+[gd_scene load_steps=18 format=3 uid="uid://ydo25uiqa5c4"]
 
 [ext_resource type="Script" path="res://characters/human_citizen/human_citizen.gd" id="1_dl03e"]
 [ext_resource type="Texture2D" uid="uid://bip46mj7ha2fk" path="res://assets/enemies/slime_resurrect.png" id="2_0eko6"]
 [ext_resource type="PackedScene" uid="uid://bc7oaxyg4mtb6" path="res://scripts/Stats/StatsComponent.tscn" id="3_c06hs"]
 [ext_resource type="PackedScene" uid="uid://d0b10s33fdy8n" path="res://scripts/Detection/vision_component/vision_component.tscn" id="4_020l5"]
+[ext_resource type="Script" path="res://ai/hsm_debug.gd" id="5_81nm0"]
 [ext_resource type="BehaviorTree" uid="uid://b6k06ponlse1f" path="res://ai/trees/human_citizen/aggro.tres" id="5_rjsdt"]
 [ext_resource type="BehaviorTree" uid="uid://bnw1vcxcyoj0u" path="res://ai/trees/human_citizen/idle.tres" id="6_vaeu3"]
 [ext_resource type="Script" path="res://ai/states/IdleState.gd" id="6_w2tby"]
@@ -47,6 +48,8 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_d5cdg"]
 resource_name = "RunPanicked"
+length = 0.2
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -54,10 +57,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [3, 3]
+"values": [3, 8, 8]
 }
 
 [sub_resource type="Animation" id="Animation_e0o3c"]
@@ -130,6 +133,8 @@ libraries = {
 }
 
 [node name="AggroLimboHSM" type="LimboHSM" parent="."]
+script = ExtResource("5_81nm0")
+debug = true
 
 [node name="IdleState" type="BTState" parent="AggroLimboHSM" node_paths=PackedStringArray("parent")]
 behavior_tree = ExtResource("6_vaeu3")

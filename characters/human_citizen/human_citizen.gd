@@ -25,7 +25,10 @@ func _init_state_machines():
 
 func _on_see_target(raycast, target):
 	if target in vision_component.detection_raycaster.detection_targets:
+		print("Dispatching transition to start aggro")
 		aggro_hsm.dispatch(&"aggro_start")
+		aggro_timer.start()
 
 func _on_aggro_timer_timeout():
+	print("Dispatching transition to end aggro")
 	aggro_hsm.dispatch(&"aggro_stop")

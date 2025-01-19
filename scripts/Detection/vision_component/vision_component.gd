@@ -23,10 +23,13 @@ func _ready():
 
 func _is_colliding_with_target(raycast, target):
 	visible_targets.append(target)
+	
 	sees_target.emit(raycast, target)
 
 func _process(delta: float) -> void:
 	call_deferred("_clear_visible_targets")
 
 func _clear_visible_targets() -> void:
+	if visible_targets.size() > 0:
+		print("Visible Targets: %s" % visible_targets)
 	visible_targets.clear()

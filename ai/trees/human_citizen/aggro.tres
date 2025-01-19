@@ -30,7 +30,7 @@ custom_name = "Run Away"
 children = [SubResource("BTPlayAnimation_dwx1e"), SubResource("BTRandomWait_uqrto")]
 
 [sub_resource type="BTCooldown" id="BTCooldown_wxtl2"]
-duration = 1.0
+duration = 2.0
 children = [SubResource("BTSequence_lfbks")]
 
 [sub_resource type="BTSequence" id="BTSequence_58w6g"]
