@@ -1,3 +1,12 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+demo/ai/trees/01_agent_melee_simple.tres
+demo/ai/trees/02_agent_charger.tres
+demo/ai/trees/03_agent_imp.tres
+demo/ai/trees/04_agent_skirmisher.tres
+demo/ai/trees/05_agent_ranged.tres
+demo/ai/trees/06_agent_melee_combo.tres
+demo/ai/trees/07_agent_melee_nuanced.tres
+demo/ai/trees/08_agent_demon.tres
+demo/ai/trees/09_agent_summoner.tres
