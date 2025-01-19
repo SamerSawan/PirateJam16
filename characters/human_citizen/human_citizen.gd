@@ -1,7 +1,7 @@
 extends Creature
 class_name HumanCitizen
 
-@export var navigation_agent : NavigationAgent2D
+@export var navigation_agent_2d : NavigationAgent2D
 @export var vision_component : VisionComponent
 @export var aggro_timer : Timer
 
@@ -10,6 +10,8 @@ class_name HumanCitizen
 @export var idle_state: LimboState
 @export var aggro_state: LimboState
 @export_category("")
+
+@export var flee_distance : float = 128.0
 
 func _ready():
 	_init_state_machines()
