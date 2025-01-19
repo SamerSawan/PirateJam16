@@ -6,16 +6,18 @@ class_name MovementComponent
 ## Component with stats such as max_speed
 @export var stats_component: StatsComponent
 
-## Is multiplied by delta to determine how quickly or slowly acceleration can increase/decrease
-@export var acceleration_coefficient : Vector2 = Vector2(640.0, 64.0)
+## Is multiplied by delta to determine how quickly or slowly acceleration can increase/decrease, 
+## will ideally be a very high number
+@export var acceleration_coefficient : Vector2 = Vector2(256, 256)
 ## Base friction that is multipled by the friction coefficient and delta to move towards 0
-@export var friction : float = 256
+@export var friction : float = 32
 
 ## Applys friction, moving from velocity.x, to zero, by friction * coefficient * delta
 func apply_friction(delta: float, friction_coefficient : float = 1): # for moving x via friction
 	body.velocity.x = move_toward(body.velocity.x, 0, (friction * friction_coefficient) * delta)
+	body.velocity.y = move_toward(body.velocity.y, 0, (friction * friction_coefficient) * delta)
 
-## Applysn knockback in direction
+## Applys knockback in direction
 func take_knockback(knockback : Vector2): # take knockback in a direction
 	body.velocity += knockback
 
@@ -29,12 +31,13 @@ func move(delta: float, direction: Vector2, speed : Vector2, max_speed : Vector2
 	var direction_normalized = direction.normalized()
 	
 	# store new velocity, move from body velocity, to normalized direction * speed by delta * accel coefficient
-	new_velocity.x = move_toward(body.velocity.x, direction_normalized.x * speed.x, acceleration_coefficient.x * delta) 
-	new_velocity.y = move_toward(body.velocity.y, direction_normalized.y * speed.y, acceleration_coefficient.y * delta) 
+	new_velocity.x = move_toward(body.velocity.x, direction_normalized.x * speed.x, 128 * acceleration_coefficient.x * delta) 
+	new_velocity.y = move_toward(body.velocity.y, direction_normalized.y * speed.y, 128 * acceleration_coefficient.y * delta) 
 	
 	# store new velocity but clamped to max speed stat which is from the stats component by default
 	body.velocity.x = clampf(new_velocity.x, -max_speed.x, max_speed.x)
 	body.velocity.y = clampf(new_velocity.y, -max_speed.y, max_speed.y)
+	print("New velocity: " + str(body.velocity))
 #endregion
 
 ##region Jump
