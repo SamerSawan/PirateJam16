@@ -1,4 +1,4 @@
-extends Node2D
+extends CharacterBody2D
 class_name Creature
 
 @export var stats_component : StatsComponent
