@@ -15,7 +15,7 @@ signal is_colliding_with_target(raycast, target)
 @export var delete_raycasts_instantly: bool = false ## for testing
 @export var raycast_for_tilemap_layers: bool = true ## simply to not send unnecesary raycasts at tilemaps and such
 
-@onready var detection_targets: Array[Node2D] = [] # array to store all viable node2d's inside of the detection_area
+@onready var detection_targets: Array[Node2D] = [] ## array for all nodes within area that are on the specified layers provided
 
 var send_raycasts : bool = false
 

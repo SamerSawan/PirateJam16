@@ -12,6 +12,8 @@ signal sees_target(raycast, target)
 @export var target_layers : Array[int] ## What layer is your target on
 @export var occlusion_layers : Array[int] ## Which layers occlude vision, (walls, etc.)
 
+var visible_targets : Array[Node2D] ## pass by ref for easier access
+
 func _ready():
 	$Area2D/CollisionShape2D.get_shape().radius = vision_distance
 	for layer in target_layers:
@@ -20,4 +22,11 @@ func _ready():
 	detection_raycaster.is_colliding_with_target.connect(_is_colliding_with_target)
 
 func _is_colliding_with_target(raycast, target):
+	visible_targets.append(target)
 	sees_target.emit(raycast, target)
+
+func _process(delta: float) -> void:
+	call_deferred("_clear_visible_targets")
+
+func _clear_visible_targets() -> void:
+	visible_targets.clear()
