@@ -1,5 +1,5 @@
 extends Node
-class_name VelocityComponent
+class_name MovementComponent
 
 ## Node we are enacting velocity changes onto
 @export var body : Node2D 
@@ -20,7 +20,7 @@ func take_knockback(knockback : Vector2): # take knockback in a direction
 	body.velocity += knockback
 
 #region Movement
-## Applys movement, moving from velocity, to speed * direction, by delta * acceleration coefficient
+## Applys movement, moving from velocity, to speed * direction, by delta * acceleration coefficient, clamping the result by the max_speed in the stats_component
 func move(delta: float, direction: Vector2, speed : Vector2, max_speed : Vector2 = stats_component.get_max_speed()):
 	# store new velocity
 	var new_velocity : Vector2 = Vector2.ZERO 
@@ -37,57 +37,57 @@ func move(delta: float, direction: Vector2, speed : Vector2, max_speed : Vector2
 	body.velocity.y = clampf(new_velocity.y, -max_speed.y, max_speed.y)
 #endregion
 
-#region Jump
-## How long since the jump started
-var jump_elapsed : float = 0.0
-var is_jumping : bool = false
-
-signal triggered_jump
-signal canceled_jump
-
-## Initiate jump
-func jump(): 
-	if is_jumping:
-		return
-	
-	is_jumping = true
-	body.velocity.y = -stats_component.initial_jump_speed
-	triggered_jump.emit()
-
-## Apply jump over time
-func apply_jump(delta : float, max_speed : Vector2 = stats_component.max_speed):
-	if not is_jumping:
-		return
-	
-	jump_elapsed += delta
-	
-	## time factor on elapsed time / jump time
-	var t : float = clamp(jump_elapsed / stats_component.jump_time, 0 , 1)
-	## Ensures the jump is fast to begin and slow at the peak
-	var eased_t : float = ease(t, -4.0)
-	
-	## Linear interpolate between init jump speed and the clamped regular jump speed, by the eased time factor
-	var eased_jump_speed : float = lerp(
-		-stats_component.initial_jump_speed,
-		clampf(-stats_component.jump_speed, -max_speed.y, max_speed.y),
-		eased_t
-	)
-
-	## Apply the acceleration factor which is the eased jump speed * 1 + the accel coefficient * delta
-	var new_velocity_y = clampf(eased_jump_speed * (1 + acceleration_coefficient.y * delta), -max_speed.y, max_speed.y)
-	
-	body.velocity.y = new_velocity_y
-	
-	if jump_elapsed >= 1:
-		jump_elapsed = 0.0
-		is_jumping = false
-		return
-
-## Cancel jump
-func cancel_jump():
-	if not is_jumping:
-		return
-	
-	is_jumping = false
-	canceled_jump.emit()
-#endregion
+##region Jump
+### How long since the jump started
+#var jump_elapsed : float = 0.0
+#var is_jumping : bool = false
+#
+#signal triggered_jump
+#signal canceled_jump
+#
+### Initiate jump
+#func jump(): 
+	#if is_jumping:
+		#return
+	#
+	#is_jumping = true
+	#body.velocity.y = -stats_component.initial_jump_speed
+	#triggered_jump.emit()
+#
+### Apply jump over time
+#func apply_jump(delta : float, max_speed : Vector2 = stats_component.max_speed):
+	#if not is_jumping:
+		#return
+	#
+	#jump_elapsed += delta
+	#
+	### time factor on elapsed time / jump time
+	#var t : float = clamp(jump_elapsed / stats_component.jump_time, 0 , 1)
+	### Ensures the jump is fast to begin and slow at the peak
+	#var eased_t : float = ease(t, -4.0)
+	#
+	### Linear interpolate between init jump speed and the clamped regular jump speed, by the eased time factor
+	#var eased_jump_speed : float = lerp(
+		#-stats_component.initial_jump_speed,
+		#clampf(-stats_component.jump_speed, -max_speed.y, max_speed.y),
+		#eased_t
+	#)
+#
+	### Apply the acceleration factor which is the eased jump speed * 1 + the accel coefficient * delta
+	#var new_velocity_y = clampf(eased_jump_speed * (1 + acceleration_coefficient.y * delta), -max_speed.y, max_speed.y)
+	#
+	#body.velocity.y = new_velocity_y
+	#
+	#if jump_elapsed >= 1:
+		#jump_elapsed = 0.0
+		#is_jumping = false
+		#return
+#
+### Cancel jump
+#func cancel_jump():
+	#if not is_jumping:
+		#return
+	#
+	#is_jumping = false
+	#canceled_jump.emit()
+##endregion
