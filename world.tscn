@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=4 uid="uid://5xolxvllve38"]
+[gd_scene load_steps=5 format=4 uid="uid://5xolxvllve38"]
 
 [ext_resource type="TileSet" uid="uid://csnobhxg8s7v6" path="res://tile_sets/new_tile_set.tres" id="1_lxv7o"]
 [ext_resource type="PackedScene" uid="uid://cn4ikwt7enju2" path="res://characters/player/player.tscn" id="2_g308q"]
 [ext_resource type="PackedScene" uid="uid://ydo25uiqa5c4" path="res://characters/human_citizen/human_citizen.tscn" id="3_6r5yq"]
+[ext_resource type="PackedScene" uid="uid://wpqxxpdwj8bd" path="res://corpse.tscn" id="4_ws6y5"]
 
 [node name="World" type="Node2D"]
 
@@ -22,3 +23,6 @@ zoom = Vector2(3, 3)
 
 [node name="Human Citizen" parent="." instance=ExtResource("3_6r5yq")]
 position = Vector2(474, -83)
+
+[node name="Corpse" parent="." instance=ExtResource("4_ws6y5")]
+position = Vector2(-109, 111)
