@@ -1,6 +1,8 @@
-[gd_resource type="BehaviorTree" load_steps=11 format=3 uid="uid://b6k06ponlse1f"]
+[gd_resource type="BehaviorTree" load_steps=15 format=3 uid="uid://b6k06ponlse1f"]
 
+[ext_resource type="Script" path="res://ai/tasks/GetClosestTarget.gd" id="2_twmmo"]
 [ext_resource type="Script" path="res://ai/tasks/IsEnemyInArea.gd" id="2_wp8qp"]
+[ext_resource type="Script" path="res://ai/tasks/RunFromClosestTarget.gd" id="3_6lxbs"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_f5t40"]
 var/var/name = &"var"
@@ -11,6 +13,12 @@ var/var/hint_string = ""
 
 [sub_resource type="BTCondition" id="BTCondition_p0282"]
 script = ExtResource("2_wp8qp")
+
+[sub_resource type="BTAction" id="BTAction_4st1d"]
+script = ExtResource("2_twmmo")
+
+[sub_resource type="BTAction" id="BTAction_bcpt6"]
+script = ExtResource("3_6lxbs")
 
 [sub_resource type="BBNode" id="BBNode_txafw"]
 saved_value = NodePath("AnimationPlayer")
@@ -27,7 +35,7 @@ max_duration = 3.0
 
 [sub_resource type="BTSequence" id="BTSequence_lfbks"]
 custom_name = "Run Away"
-children = [SubResource("BTPlayAnimation_dwx1e"), SubResource("BTRandomWait_uqrto")]
+children = [SubResource("BTAction_4st1d"), SubResource("BTAction_bcpt6"), SubResource("BTPlayAnimation_dwx1e"), SubResource("BTRandomWait_uqrto")]
 
 [sub_resource type="BTCooldown" id="BTCooldown_wxtl2"]
 duration = 2.0
