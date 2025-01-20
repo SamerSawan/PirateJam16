@@ -5,6 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://ydo25uiqa5c4" path="res://characters/human_citizen/human_citizen.tscn" id="3_6r5yq"]
 [ext_resource type="PackedScene" uid="uid://wpqxxpdwj8bd" path="res://corpse.tscn" id="4_ws6y5"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_4cm5m"]
+vertices = PackedVector2Array(260.578, -24.7578, 262.563, 21.8594, 204.992, 21.1016, 193.969, -27, 103.133, -58.7969, 14, -60.7813, 14, -118.789, 147.813, -116.148, 154.938, -81.5625, 407.594, -28.2031, 285.391, -88.4766, 287.344, -117.859, 609.594, -113.172, 549.008, 1.21875, 106.109, -27, 580.148, 20.1563, 555.172, 17.6563, 442.867, -2.24219, 414.617, 19, 435.789, 19)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7, 8), PackedInt32Array(9, 10, 11, 12, 13), PackedInt32Array(3, 14, 4, 8, 10), PackedInt32Array(0, 3, 10, 9), PackedInt32Array(12, 15, 16, 13), PackedInt32Array(9, 13, 17), PackedInt32Array(18, 9, 17, 19)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(4, -129, 4, -51, 94, -49, 97, -17, 186, -17, 197, 31, 273, 32, 271, -15, 399, -18, 406, 29, 443, 29, 450, 8, 542, 11, 548, 27, 588, 31, 622, -123, 278, -128, 276, -98, 163, -92, 156, -126)])
+
 [node name="World" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -24,5 +29,5 @@ zoom = Vector2(3, 3)
 [node name="Human Citizen" parent="." instance=ExtResource("3_6r5yq")]
 position = Vector2(474, -83)
 
-[node name="Corpse" parent="." instance=ExtResource("4_ws6y5")]
-position = Vector2(-109, 111)
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_4cm5m")
