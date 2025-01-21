@@ -43,12 +43,15 @@ func _init_state_machines():
 	aggro_hsm.set_active(true)
 
 func _on_see_target(raycast : RayCast2D, target : Node):
-	if target in vision_component.detection_raycaster.detection_targets:
-		var target_teams = GameState.get_teams_of_node(target)
-		if not aggro_hsm.get_active_state() is AggroState:
-			print("Dispatching transition to start aggro")
-			aggro_hsm.dispatch(&"aggro_start")
-		aggro_timer.start()
+	if target in vision_component.detection_raycaster.detection_targets: # if has line of sight
+		# if target is an enemy
+		var target_team = GameState.get_first_team_of_node(target)
+		var enemy_teams = GameState.get_hostile_to_team(GameState.get_first_team_of_node(self))
+		if target_team in enemy_teams: # we are aggro'd if they are an enemy
+			if not aggro_hsm.get_active_state() is AggroState: # set state to aggro start
+				print("Dispatching transition to start aggro")
+				aggro_hsm.dispatch(&"aggro_start")
+			aggro_timer.start() # start aggro timer
 
 func _on_aggro_timer_timeout():
 	if not aggro_hsm.get_active_state() is IdleState:
