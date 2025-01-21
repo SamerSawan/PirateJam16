@@ -30,6 +30,15 @@ func set_team_of_node(node : Node, team_name : StringName):
 	if team_name in Teams:
 		node.add_to_group(team_name)
 
+func get_first_team_of_node(node : Node) -> Dictionary:
+	var team = {}
+	node.get_groups().any(
+		func(group_name : StringName):
+			if group_name in Teams: # if node has a team
+				team = Teams[group_name]
+	)
+	return team
+
 ## Return dict of teams that a node has
 func get_teams_of_node(node : Node) -> Dictionary:
 	var teams = {}
@@ -40,24 +49,14 @@ func get_teams_of_node(node : Node) -> Dictionary:
 	)
 	return teams
 
-## Hash nodes groups and returns an array of the names of which teams it is in
-func get_team_names_of_node(node : Node) -> Array[StringName]:
-	const team_names = []
-	node.get_groups().all(
-		func(group_name : StringName):
-			if group_name in Teams:
-				team_names.append(group_name) #pass by ref
-	)
-	return team_names
-
 ## Returns either dict or null containing hostile teams
-func get_hostile_to_team(team : StringName) -> Dictionary:
+func get_hostile_to_team(team : Dictionary) -> Dictionary:
 	if team in Teams:
 		return Teams[team]["Hostile"]
 	return {}
 
 ## Returns either dict or null containing friendly teams
-func get_friendly_to_team(team : StringName) -> Dictionary:
+func get_friendly_to_team(team : Dictionary) -> Dictionary:
 	if team in Teams:
 		return Teams[team]["Friendly"]
 	return {}
