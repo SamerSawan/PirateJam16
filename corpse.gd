@@ -24,3 +24,4 @@ func _on_area_2d_body_exited(body):
 
 func infest():
 	print("infested")
+	
