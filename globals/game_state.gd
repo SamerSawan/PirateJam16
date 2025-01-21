@@ -35,8 +35,14 @@ func get_first_team_of_node(node : Node) -> Dictionary:
 	node.get_groups().any(
 		func(group_name : StringName):
 			if group_name in Teams: # if node has a team
-				team = Teams[group_name]
+				team[group_name] = Teams[group_name]
 	)
+	#print("\n")
+	#print("First team of %s: " % node.name)
+	#print("Team: %s" % str(team))
+	#print("Node: %s" % str(node))
+	#print("\n")
+	
 	return team
 
 ## Return dict of teams that a node has
@@ -49,16 +55,19 @@ func get_teams_of_node(node : Node) -> Dictionary:
 	)
 	return teams
 
-## Returns either dict or null containing hostile teams
-func get_hostile_to_team(team : Dictionary) -> Dictionary:
-	if team in Teams:
-		return Teams[team]["Hostile"]
-	return {}
+## Returns either dict or null containing the factions hostile teams
+func get_hostile_to_team(team_name : StringName) -> Dictionary:
+	var hostiles = Teams[team_name]["Hostile"]
+	if hostiles:
+		return hostiles
+	else:
+		return {}
 
-## Returns either dict or null containing friendly teams
-func get_friendly_to_team(team : Dictionary) -> Dictionary:
-	if team in Teams:
-		return Teams[team]["Friendly"]
-	return {}
-
+## Returns either dict or null containing the factions friendly teams
+func get_friendly_to_team(team_name : StringName) -> Dictionary:
+	var friendlies = Teams[team_name]["Friendly"]
+	if friendlies:
+		return friendlies
+	else:
+		return {}
 #endregion
