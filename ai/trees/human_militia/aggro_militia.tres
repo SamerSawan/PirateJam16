@@ -1,0 +1,126 @@
+[gd_resource type="BehaviorTree" load_steps=38 format=3 uid="uid://b60rf2etvxe18"]
+
+[ext_resource type="Script" path="res://ai/tasks/PrimaryAttack.gd" id="1_epi42"]
+[ext_resource type="Script" path="res://ai/tasks/AbleToPrimaryAttack.gd" id="1_irs26"]
+[ext_resource type="Script" path="res://ai/tasks/CanNavigate.gd" id="1_l8528"]
+[ext_resource type="Script" path="res://ai/tasks/NavigateToTarget.gd" id="2_hydqv"]
+[ext_resource type="Script" path="res://ai/tasks/GetClosestTarget.gd" id="4_5conh"]
+[ext_resource type="Script" path="res://ai/tasks/MoveTowardsClosestTarget.gd" id="4_s6hmh"]
+[ext_resource type="Script" path="res://ai/tasks/RunFromClosestTarget.gd" id="5_oftt5"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_f5t40"]
+var/var/name = &"var"
+var/var/type = 3
+var/var/value = 0.0
+var/var/hint = 0
+var/var/hint_string = ""
+
+[sub_resource type="BTCondition" id="BTCondition_3lgq3"]
+script = ExtResource("1_irs26")
+
+[sub_resource type="BTAction" id="BTAction_dshi2"]
+script = ExtResource("1_epi42")
+
+[sub_resource type="BTSequence" id="BTSequence_52xuu"]
+custom_name = "Attack If Able"
+children = [SubResource("BTCondition_3lgq3"), SubResource("BTAction_dshi2")]
+
+[sub_resource type="BTCooldown" id="BTCooldown_potj6"]
+duration = 2.0
+children = [SubResource("BTSequence_52xuu")]
+
+[sub_resource type="BTAction" id="BTAction_4st1d"]
+script = ExtResource("4_5conh")
+
+[sub_resource type="BTCooldown" id="BTCooldown_wxtl2"]
+duration = 1.0
+children = [SubResource("BTAction_4st1d")]
+
+[sub_resource type="BTAction" id="BTAction_67k8j"]
+script = ExtResource("4_s6hmh")
+
+[sub_resource type="BTCooldown" id="BTCooldown_jpjkx"]
+duration = 0.3
+children = [SubResource("BTAction_67k8j")]
+
+[sub_resource type="BBNode" id="BBNode_txafw"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_dwx1e"]
+animation_player = SubResource("BBNode_txafw")
+animation_name = &"RunAway"
+blend = 0.1
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_uqrto"]
+min_duration = 0.7
+max_duration = 3.0
+
+[sub_resource type="BTSequence" id="BTSequence_lfbks"]
+custom_name = "Move Towards Enemy"
+children = [SubResource("BTCooldown_wxtl2"), SubResource("BTCooldown_jpjkx"), SubResource("BTPlayAnimation_dwx1e"), SubResource("BTRandomWait_uqrto")]
+
+[sub_resource type="BTProbability" id="BTProbability_ffotr"]
+children = [SubResource("BTSequence_lfbks")]
+
+[sub_resource type="BTAction" id="BTAction_yntyi"]
+script = ExtResource("4_5conh")
+
+[sub_resource type="BTCooldown" id="BTCooldown_hbfvn"]
+duration = 1.0
+children = [SubResource("BTAction_yntyi")]
+
+[sub_resource type="BTAction" id="BTAction_xwj1j"]
+script = ExtResource("5_oftt5")
+
+[sub_resource type="BTCooldown" id="BTCooldown_4uora"]
+duration = 0.3
+children = [SubResource("BTAction_xwj1j")]
+
+[sub_resource type="BBNode" id="BBNode_71dlb"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_mt24p"]
+animation_player = SubResource("BBNode_71dlb")
+animation_name = &"RunAway"
+blend = 0.1
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_77sj0"]
+min_duration = 0.7
+max_duration = 3.0
+
+[sub_resource type="BTSequence" id="BTSequence_ike8s"]
+custom_name = "Move Away from Enemy"
+children = [SubResource("BTCooldown_hbfvn"), SubResource("BTCooldown_4uora"), SubResource("BTPlayAnimation_mt24p"), SubResource("BTRandomWait_77sj0")]
+
+[sub_resource type="BTProbability" id="BTProbability_8yw34"]
+children = [SubResource("BTSequence_ike8s")]
+
+[sub_resource type="BTSelector" id="BTSelector_ky02u"]
+custom_name = "Move"
+children = [SubResource("BTProbability_ffotr"), SubResource("BTProbability_8yw34")]
+
+[sub_resource type="BTCooldown" id="BTCooldown_qaavb"]
+duration = 4.0
+children = [SubResource("BTSelector_ky02u")]
+
+[sub_resource type="BTSelector" id="BTSelector_fb3np"]
+children = [SubResource("BTCooldown_potj6"), SubResource("BTCooldown_qaavb")]
+
+[sub_resource type="BTCondition" id="BTCondition_lmvhi"]
+script = ExtResource("1_l8528")
+
+[sub_resource type="BTAction" id="BTAction_g2erx"]
+script = ExtResource("2_hydqv")
+
+[sub_resource type="BTSequence" id="BTSequence_54nsq"]
+custom_name = "Navigate"
+children = [SubResource("BTCondition_lmvhi"), SubResource("BTAction_g2erx")]
+
+[sub_resource type="BTParallel" id="BTParallel_dsh10"]
+children = [SubResource("BTSelector_fb3np"), SubResource("BTSequence_54nsq")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_f5t40")
+root_task = SubResource("BTParallel_dsh10")

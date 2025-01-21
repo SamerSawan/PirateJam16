@@ -1,7 +1,7 @@
 [gd_resource type="BehaviorTree" load_steps=21 format=3 uid="uid://b6k06ponlse1f"]
 
+[ext_resource type="Script" path="res://ai/tasks/HasVisionOfEnemy.gd" id="1_n4fjx"]
 [ext_resource type="Script" path="res://ai/tasks/GetClosestTarget.gd" id="2_twmmo"]
-[ext_resource type="Script" path="res://ai/tasks/IsEnemyInArea.gd" id="2_wp8qp"]
 [ext_resource type="Script" path="res://ai/tasks/RunFromClosestTarget.gd" id="3_6lxbs"]
 [ext_resource type="Script" path="res://ai/tasks/NavigateToTarget.gd" id="4_2cxck"]
 [ext_resource type="Script" path="res://ai/tasks/CanNavigate.gd" id="4_qjwfx"]
@@ -13,18 +13,8 @@ var/var/value = 0.0
 var/var/hint = 0
 var/var/hint_string = ""
 
-[sub_resource type="BTCondition" id="BTCondition_lmvhi"]
-script = ExtResource("4_qjwfx")
-
-[sub_resource type="BTAction" id="BTAction_g2erx"]
-script = ExtResource("4_2cxck")
-
-[sub_resource type="BTSequence" id="BTSequence_54nsq"]
-custom_name = "Navigate"
-children = [SubResource("BTCondition_lmvhi"), SubResource("BTAction_g2erx")]
-
 [sub_resource type="BTCondition" id="BTCondition_p0282"]
-script = ExtResource("2_wp8qp")
+script = ExtResource("1_n4fjx")
 
 [sub_resource type="BTAction" id="BTAction_4st1d"]
 script = ExtResource("2_twmmo")
@@ -61,8 +51,18 @@ children = [SubResource("BTCooldown_wxtl2"), SubResource("BTCooldown_jpjkx"), Su
 custom_name = "RunIfNeeded"
 children = [SubResource("BTCondition_p0282"), SubResource("BTSequence_lfbks")]
 
+[sub_resource type="BTCondition" id="BTCondition_lmvhi"]
+script = ExtResource("4_qjwfx")
+
+[sub_resource type="BTAction" id="BTAction_g2erx"]
+script = ExtResource("4_2cxck")
+
+[sub_resource type="BTSequence" id="BTSequence_54nsq"]
+custom_name = "Navigate"
+children = [SubResource("BTCondition_lmvhi"), SubResource("BTAction_g2erx")]
+
 [sub_resource type="BTParallel" id="BTParallel_dsh10"]
-children = [SubResource("BTSequence_54nsq"), SubResource("BTSequence_58w6g")]
+children = [SubResource("BTSequence_58w6g"), SubResource("BTSequence_54nsq")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_f5t40")
