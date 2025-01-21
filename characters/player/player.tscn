@@ -33,6 +33,7 @@ script = ExtResource("3_01yg7")
 character = NodePath("..")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Facing"]
+scale = Vector2(-1, 1)
 sprite_frames = ExtResource("1_6d5qq")
 animation = &"run"
 
