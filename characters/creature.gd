@@ -8,3 +8,4 @@ class_name Creature
 @export var navigation_component : NavigationComponent
 
 @export var is_able_to_attack : bool = true
+@export var is_friendly_fire : bool = false
