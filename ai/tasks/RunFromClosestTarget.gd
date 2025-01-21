@@ -2,9 +2,7 @@ extends BTAction
 
 func _tick(delta: float) -> Status:
 	var _agent : CharacterBody2D = agent
-	if _agent is Creature and "navigation_agent" in _agent and "flee_distance" in _agent:
-		var nav_agent : NavigationAgent2D = _agent.navigation_agent
-		
+	if _agent is Creature and "flee_distance" in _agent:
 		var closest_target = blackboard.get_var("closest_target")
 		
 		if not closest_target:
