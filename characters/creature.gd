@@ -6,3 +6,5 @@ class_name Creature
 @export var movement_component : MovementComponent
 @export var navigation_agent : NavigationAgent2D
 @export var navigation_component : NavigationComponent
+
+@export var is_able_to_attack : bool = true
