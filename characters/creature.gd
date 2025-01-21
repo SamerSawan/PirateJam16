@@ -16,9 +16,11 @@ class_name Creature
 
 func _ready():
 	# duplicate code bc may change in the future, we shall see
-	primary_attack.attack_range.enemy_in_range.connect(func(enemy):
-		current_enemy_direction = global_position.direction_to(enemy.global_position)
-	)
-	secondary_attack.attack_range.enemy_in_range.connect(func(enemy):
-		current_enemy_direction = global_position.direction_to(enemy.global_position)
-	)
+	if primary_attack:
+		primary_attack.attack_range.enemy_in_range.connect(func(enemy):
+			current_enemy_direction = global_position.direction_to(enemy.global_position)
+		)
+	if secondary_attack:
+		secondary_attack.attack_range.enemy_in_range.connect(func(enemy):
+			current_enemy_direction = global_position.direction_to(enemy.global_position)
+		)
