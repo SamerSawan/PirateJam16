@@ -10,13 +10,6 @@ func _tick(delta: float) -> Status:
 		
 		var direction_of_target : Vector2 = _agent.global_position.direction_to(closest_target.global_position)
 		
-		## init raycast
-		#var raycast = RayCast2D.new()
-		#_agent.add_child(raycast)
-		#raycast.collide_with_bodies = true
-		#raycast.set_collision_mask_value(Utils.COLLISIONLAYERS.GROUND, true)
-		#
-		
 		# set target pos to - direction of target and flee distance units
 		if not "flee_distance" in _agent:
 			return FAILURE
