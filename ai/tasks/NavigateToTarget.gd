@@ -7,9 +7,9 @@ func _tick(delta: float) -> Status:
 		if not next_pos:
 			return FAILURE
 		var direction_of_next_nav_point = _agent.global_position.direction_to(next_pos).normalized()
-		print("Direction of next nav point: " + str(direction_of_next_nav_point))
+		#print("Direction of next nav point: " + str(direction_of_next_nav_point))
 		_agent.movement_component.move( delta, direction_of_next_nav_point, _agent.stats_component.cur_speed )
 		_agent.change_orientation.emit( direction_of_next_nav_point )
-		print("Navigating to target")
+		#print("Navigating to target")
 		return SUCCESS
 	return FAILURE

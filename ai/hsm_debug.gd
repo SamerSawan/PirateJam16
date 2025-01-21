@@ -12,6 +12,6 @@ func _ready():
 		timer.start(2)
 
 func _on_timer_timeout():
-	print(Time.get_time_string_from_system())
+	#print(Time.get_time_string_from_system())
 	print("	Active State: " + str(self.get_active_state()))
-	print("	Leaf State: " + str(self.get_leaf_state()))
+	#print("	Leaf State: " + str(self.get_leaf_state()))
