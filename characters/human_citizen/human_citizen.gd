@@ -6,6 +6,7 @@ signal change_orientation
 
 @export var vision_component : VisionComponent
 @export var aggro_timer : Timer
+
 @export var male_atlas : Texture2D ## setting these to atlas texture breaks the animation for some reason, so dont do that
 @export var female_atlas : Texture2D ## setting these to atlas texture breaks the animation for some reason, so dont do that
 
@@ -45,13 +46,19 @@ func _init_state_machines():
 func _on_see_target(raycast : RayCast2D, target : Node):
 	if target in vision_component.detection_raycaster.detection_targets: # if has line of sight
 		# if target is an enemy
-		var target_team = GameState.get_first_team_of_node(target)
-		var enemy_teams = GameState.get_hostile_to_team(GameState.get_first_team_of_node(self))
-		if target_team in enemy_teams: # we are aggro'd if they are an enemy
-			if not aggro_hsm.get_active_state() is AggroState: # set state to aggro start
-				print("Dispatching transition to start aggro")
-				aggro_hsm.dispatch(&"aggro_start")
-			aggro_timer.start() # start aggro timer
+		
+		var target_team : Dictionary = GameState.get_first_team_of_node(target)
+		var self_team : Dictionary = GameState.get_first_team_of_node(self)
+		var enemy_teams : Dictionary = GameState.get_hostile_to_team(self_team.keys()[0])
+		print("Target- %s\n" % target_team)
+		print("	Self- %s\n" % self_team)
+		print("Enemies- %s\n" % enemy_teams)
+		for team in target_team:
+			if team in enemy_teams: # we are aggro'd if they are an enemy
+				if not aggro_hsm.get_active_state() is AggroState: # set state to aggro start
+					print("Dispatching transition to start aggro")
+					aggro_hsm.dispatch(&"aggro_start")
+				aggro_timer.start() # start aggro timer
 
 func _on_aggro_timer_timeout():
 	if not aggro_hsm.get_active_state() is IdleState:
