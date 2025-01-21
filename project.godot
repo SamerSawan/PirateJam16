@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 Utils="*res://globals/utils.gd"
 Debug="*res://globals/debug.gd"
+[global_group]
+
+Parasite=""
+Human=""
+Goblin=""
 
 [input]
 
