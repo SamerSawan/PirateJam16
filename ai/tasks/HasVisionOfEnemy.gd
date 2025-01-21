@@ -1,6 +1,6 @@
 extends BTCondition
 
-## Is enemy in my area
+## HasVisionOfEnemy
 
 func _tick(delta: float) -> Status:
 	var _agent : CharacterBody2D = agent
@@ -8,6 +8,6 @@ func _tick(delta: float) -> Status:
 		var vision : VisionComponent = agent.vision_component
 		var has_target = vision.visible_targets.size() > 0
 		if has_target:
-			print("Enemy is in area")
+			print("HasVisionOfEnemy")
 			return SUCCESS
 	return FAILURE
