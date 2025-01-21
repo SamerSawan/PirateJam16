@@ -1,8 +1,14 @@
 extends Creature
 class_name HumanCitizen
 
+signal change_orientation
+@export var orientation_handler : OrientationHandler
+
 @export var vision_component : VisionComponent
 @export var aggro_timer : Timer
+@export var sprite_2d : Sprite2D
+@export var male_atlas : Texture2D ## setting these to atlas texture breaks the animation for some reason, so dont do that
+@export var female_atlas : Texture2D ## setting these to atlas texture breaks the animation for some reason, so dont do that
 
 @export_category("Aggro State Machine")
 @export var aggro_hsm : LimboHSM
@@ -11,8 +17,10 @@ class_name HumanCitizen
 @export_category("")
 
 @export var flee_distance : float = 128.0
+@export var atlas_type : String = "Female"
 
 func _ready():
+	_setup_texture_variant()
 	_init_state_machines()
 	vision_component.sees_target.connect(_on_see_target)
 	aggro_timer.timeout.connect(_on_aggro_timer_timeout)
@@ -20,7 +28,13 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	movement_component.apply_friction(delta)
 	move_and_slide()
-	
+
+func _setup_texture_variant():
+	match atlas_type:
+		"Female":
+			sprite_2d.set_texture(female_atlas)
+		"Male":
+			sprite_2d.set_texture(male_atlas)
 
 func _init_state_machines():
 	aggro_hsm.add_transition(idle_state, aggro_state, &"aggro_start")
