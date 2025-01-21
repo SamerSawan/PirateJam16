@@ -1,4 +1,4 @@
-extends BTAttack
+extends BTAction
 
 # Primary attackkkkk
 
