@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bedw4s7550gr4"]
+
+[ext_resource type="Script" path="res://scripts/Attack/attack_range.gd" id="1_4hlve"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o0o87"]
+radius = 30.0
+height = 60.0
+
+[node name="AttackRange" type="Node2D" node_paths=PackedStringArray("attack_area")]
+script = ExtResource("1_4hlve")
+attack_area = NodePath("AttackRangeArea2D")
+
+[node name="AttackRangeArea2D" type="Area2D" parent="."]
+position = Vector2(10, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRangeArea2D"]
+position = Vector2(-10, 0)
+shape = SubResource("CapsuleShape2D_o0o87")
