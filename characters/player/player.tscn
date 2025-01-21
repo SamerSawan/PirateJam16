@@ -24,6 +24,9 @@ collision_layer = 16
 script = ExtResource("1_p37h2")
 move_speed = 150.0
 
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 3)
 shape = SubResource("CapsuleShape2D_lkjkp")
