@@ -97,7 +97,7 @@ _data = {
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_oe6x5"]
 
-[node name="Human Citizen" type="CharacterBody2D" node_paths=PackedStringArray("orientation_handler", "vision_component", "aggro_timer", "aggro_hsm", "idle_state", "aggro_state", "stats_component", "movement_component", "navigation_agent", "navigation_component") groups=["Human"]]
+[node name="Human Citizen" type="CharacterBody2D" node_paths=PackedStringArray("orientation_handler", "vision_component", "aggro_timer", "aggro_hsm", "idle_state", "aggro_state", "root_sprite", "stats_component", "movement_component", "navigation_agent", "navigation_component") groups=["Human"]]
 collision_layer = 32
 motion_mode = 1
 script = ExtResource("1_dl03e")
@@ -109,6 +109,7 @@ female_atlas = ExtResource("3_our81")
 aggro_hsm = NodePath("AggroLimboHSM")
 idle_state = NodePath("AggroLimboHSM/IdleState")
 aggro_state = NodePath("AggroLimboHSM/AggroState")
+root_sprite = NodePath("Sprite2D")
 stats_component = NodePath("StatsComponent")
 movement_component = NodePath("MovementComponent")
 navigation_agent = NodePath("NavigationAgent2D")
