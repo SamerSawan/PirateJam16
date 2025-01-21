@@ -43,6 +43,7 @@ custom_name = "Idle In Place"
 children = [SubResource("BTPlayAnimation_fmkcg"), SubResource("BTRandomWait_h5bwr")]
 
 [sub_resource type="BTSelector" id="BTSelector_651nn"]
+custom_name = "Idle Choice"
 children = [SubResource("BTProbability_4odoh"), SubResource("BTSequence_ab2tl")]
 
 [sub_resource type="BTCondition" id="BTCondition_3u5sa"]
