@@ -10,7 +10,7 @@ func _tick(delta: float) -> Status:
 		var closest_target = null
 		
 		# if not targets fail
-		if not targets[0]:
+		if not targets.size() > 0 or not targets[0]:
 			return FAILURE
 			
 		# if not closest target, set it
