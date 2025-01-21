@@ -6,7 +6,6 @@ signal change_orientation
 
 @export var vision_component : VisionComponent
 @export var aggro_timer : Timer
-@export var sprite_2d : Sprite2D
 @export var male_atlas : Texture2D ## setting these to atlas texture breaks the animation for some reason, so dont do that
 @export var female_atlas : Texture2D ## setting these to atlas texture breaks the animation for some reason, so dont do that
 
@@ -32,9 +31,9 @@ func _physics_process(delta: float) -> void:
 func _setup_texture_variant():
 	match atlas_type:
 		"Female":
-			sprite_2d.set_texture(female_atlas)
+			root_sprite.set_texture(female_atlas)
 		"Male":
-			sprite_2d.set_texture(male_atlas)
+			root_sprite.set_texture(male_atlas)
 
 func _init_state_machines():
 	aggro_hsm.add_transition(idle_state, aggro_state, &"aggro_start")
@@ -43,8 +42,9 @@ func _init_state_machines():
 	aggro_hsm.initialize(self)
 	aggro_hsm.set_active(true)
 
-func _on_see_target(raycast, target):
+func _on_see_target(raycast : RayCast2D, target : Node):
 	if target in vision_component.detection_raycaster.detection_targets:
+		var target_teams = GameState.get_teams_of_node(target)
 		if not aggro_hsm.get_active_state() is AggroState:
 			print("Dispatching transition to start aggro")
 			aggro_hsm.dispatch(&"aggro_start")
