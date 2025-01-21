@@ -25,7 +25,9 @@ func _tick(delta: float) -> Status:
 				blackboard.set_var("closest_target", target)
 		
 		if closest_target:
-			print("Closest target acquired")
+			#print("\n")
+			#print("Closest target acquired")
+			#print("\n")
 			return SUCCESS
 	
 	return FAILURE

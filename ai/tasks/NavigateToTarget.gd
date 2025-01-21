@@ -10,6 +10,8 @@ func _tick(delta: float) -> Status:
 		#print("Direction of next nav point: " + str(direction_of_next_nav_point))
 		_agent.movement_component.move( delta, direction_of_next_nav_point, _agent.stats_component.cur_speed )
 		_agent.change_orientation.emit( direction_of_next_nav_point )
+		#print("\n")
 		#print("Navigating to target")
+		#print("\n")
 		return SUCCESS
 	return FAILURE
