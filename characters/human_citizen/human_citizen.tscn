@@ -157,6 +157,7 @@ libraries = {
 
 [node name="AggroLimboHSM" type="LimboHSM" parent="."]
 script = ExtResource("5_81nm0")
+debug = true
 
 [node name="IdleState" type="BTState" parent="AggroLimboHSM"]
 behavior_tree = ExtResource("6_vaeu3")
