@@ -8,7 +8,7 @@ func _enter() -> void:
 		_agent = agent
 
 func _tick(delta: float) -> Status:
-	if agent:
-		_agent.primary_attack.trigger.emit(direction)
+	if agent and _agent.current_enemy_direction:
+		_agent.primary_attack.trigger.emit(_agent.current_enemy_direction)
 		return SUCCESS
 	return FAILURE
