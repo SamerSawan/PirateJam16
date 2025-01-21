@@ -21,9 +21,8 @@ func _ready():
 	detection_raycaster.collision_layers = target_layers + occlusion_layers
 	detection_raycaster.is_colliding_with_target.connect(_is_colliding_with_target)
 
-func _is_colliding_with_target(raycast, target):
+func _is_colliding_with_target(raycast : RayCast2D, target : Node):
 	visible_targets.append(target)
-	
 	sees_target.emit(raycast, target)
 
 func _process(delta: float) -> void:
