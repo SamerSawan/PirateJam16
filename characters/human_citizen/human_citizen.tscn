@@ -138,6 +138,7 @@ nodes_to_flip = Array[NodePath]([NodePath("../Sprite2D"), NodePath("../Collision
 
 [node name="VisionComponent" parent="." instance=ExtResource("4_020l5")]
 position = Vector2(0, 10)
+vision_distance = 250.0
 target_layers = Array[int]([5])
 occlusion_layers = Array[int]([1])
 
