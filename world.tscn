@@ -1,40 +1,58 @@
-[gd_scene load_steps=7 format=4 uid="uid://5xolxvllve38"]
+[gd_scene load_steps=9 format=4 uid="uid://5xolxvllve38"]
 
 [ext_resource type="Texture2D" uid="uid://dl567o5rpbvf8" path="res://assets/Tileset Piratejam 16.png" id="1_swvg1"]
 [ext_resource type="PackedScene" uid="uid://cn4ikwt7enju2" path="res://characters/player/player.tscn" id="2_g308q"]
 [ext_resource type="PackedScene" uid="uid://ydo25uiqa5c4" path="res://characters/human_citizen/human_citizen.tscn" id="3_6r5yq"]
+[ext_resource type="PackedScene" uid="uid://en70glxq832p" path="res://tile_sets/fogwall.tscn" id="4_u3haa"]
+[ext_resource type="PackedScene" uid="uid://dhb0yb38ywj21" path="res://characters/enemies/bossman.tscn" id="5_cpvgj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e7jqg"]
 texture = ExtResource("1_swvg1")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(4, -8, 8, -8, 8, 8, 4, 8)
 3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 6:0/0 = 0
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, 8, -4, -8, -8, -8, -8, 8)
 0:1/0 = 0
 1:1/0 = 0
 2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(4, -8, 8, -8, 8, 8, 4, 8)
 3:1/0 = 0
 4:1/0 = 0
 5:1/0 = 0
 6:1/0 = 0
+6:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -4, -8, -4, 8, -8, 8)
 2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(4, -8, 8, -8, 8, 8, 4, 8)
 3:2/0 = 0
 4:2/0 = 0
 5:2/0 = 0
 6:2/0 = 0
+6:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -4, -8, -4, 8, -8, 8)
 2:3/0 = 0
+2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(4, -8, 8, -8, 8, 8, 4, 8)
 3:3/0 = 0
 4:3/0 = 0
 5:3/0 = 0
 6:3/0 = 0
+6:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -4, -8, -4, 8, -8, 8)
 2:4/0 = 0
+2:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(4, -8, 4, -4, 8, -4, 8, -8)
 3:4/0 = 0
+3:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -4, -8, -4)
 4:4/0 = 0
+4:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -4, -8, -4)
 5:4/0 = 0
+5:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -4, -8, -4)
 6:4/0 = 0
+6:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -4, -4, -4, -4, -8, -8, -8)
 0:5/0 = 0
 1:5/0 = 0
 2:5/0 = 0
@@ -49,6 +67,8 @@ texture = ExtResource("1_swvg1")
 2:7/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_hjsyo"]
+physics_layer_0/collision_layer = 2
+physics_layer_0/collision_mask = 16
 sources/0 = SubResource("TileSetAtlasSource_e7jqg")
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_4cm5m"]
@@ -77,3 +97,9 @@ position = Vector2(474, -83)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_4cm5m")
+
+[node name="Fogwall" parent="." instance=ExtResource("4_u3haa")]
+tile_map_data = PackedByteArray("AAAAAPj/AAADAAAAAAABAPj/AAAEAAAAAAACAPj/AAAFAAAAAAA=")
+
+[node name="Bossman" parent="." instance=ExtResource("5_cpvgj")]
+position = Vector2(-125, -61)
