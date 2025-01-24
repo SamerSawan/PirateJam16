@@ -9,10 +9,10 @@ func _tick(delta: float) -> Status:
 			return FAILURE
 		
 		var nav_comp : NavigationComponent = _agent.navigation_component
-		nav_comp.set_target_position_safely(closest_target.global_position)
-		
-		print("\n")
-		print("Running towards closest target")
-		print("\n")
+		nav_comp.set_target_position_safely(Vector2((closest_target.global_position.x + randf_range(-10,10)), closest_target.global_position.y + randf_range(-10,10)))
+	
+		#print("\n")
+		#print("Running towards closest target")
+		#print("\n")
 		return SUCCESS
 	return FAILURE

@@ -1,11 +1,11 @@
 extends BTCooldown
 class_name BTRandomCooldown
 
-@export var min : float
-@export var max : float
+@export var min_rand : float
+@export var max_rand : float
 
 func _randomize_cooldown():
-	duration = randf_range(min, max)
+	duration = randf_range(min_rand, max_rand)
 	if duration:
 		print("Duration of BTRandomCooldown: %s" % str(duration))
 

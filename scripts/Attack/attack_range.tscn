@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/Attack/attack_range.gd" id="1_4hlve"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o0o87"]
+resource_local_to_scene = true
 radius = 30.0
 height = 60.0
 

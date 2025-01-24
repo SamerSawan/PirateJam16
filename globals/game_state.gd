@@ -18,7 +18,8 @@ const Teams : Dictionary = {
 }
 
 ## Removes all existing teams from node
-func reset_teams_of_node(node : Node, teams_to_exclude : Array[StringName] = [] ):
+func reset_teams_of_node(node : Node, #teams_to_exclude : Array[StringName] = []
+):
 	node.get_groups().all(
 		func(group_name):
 			if group_name in Teams:

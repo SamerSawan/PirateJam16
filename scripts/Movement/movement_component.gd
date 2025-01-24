@@ -37,7 +37,7 @@ func move(delta: float, direction: Vector2, speed : Vector2, max_speed : Vector2
 	# store new velocity but clamped to max speed stat which is from the stats component by default
 	body.velocity.x = clampf(new_velocity.x, -max_speed.x, max_speed.x)
 	body.velocity.y = clampf(new_velocity.y, -max_speed.y, max_speed.y)
-	print("New velocity: " + str(body.velocity))
+	#print("New velocity: " + str(body.velocity))
 #endregion
 
 ##region Jump

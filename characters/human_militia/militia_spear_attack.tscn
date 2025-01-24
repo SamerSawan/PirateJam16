@@ -87,12 +87,12 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pjt0l"]
+resource_local_to_scene = true
 size = Vector2(36, 2)
 
-[node name="MilitiaSpearAttack" type="Node2D" node_paths=PackedStringArray("spear_anim_player", "orientation_handler", "attack_range")]
+[node name="MilitiaSpearAttack" type="Node2D" node_paths=PackedStringArray("orientation_handler", "attack_range")]
 z_index = 1
 script = ExtResource("1_7sylv")
-spear_anim_player = NodePath("SpearAnimationPlayer")
 orientation_handler = NodePath("OrientationHandler")
 attack_range = NodePath("AttackRange")
 

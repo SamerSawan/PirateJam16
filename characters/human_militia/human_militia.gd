@@ -20,6 +20,7 @@ signal change_orientation
 @export var atlas_type : String = "Female"
 
 func _ready():
+	_randomize_atlas_type()
 	_setup_texture_variant()
 	_init_state_machines()
 	vision_component.sees_target.connect(_on_see_target)
@@ -28,6 +29,14 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	movement_component.apply_friction(delta)
 	move_and_slide()
+
+func _randomize_atlas_type():
+	var rng = randi_range(0, 1)
+	match rng:
+		0:
+			atlas_type = "Female"
+		1:
+			atlas_type = "Male"
 
 func _setup_texture_variant():
 	match atlas_type:

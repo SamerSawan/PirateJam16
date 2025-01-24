@@ -6,7 +6,6 @@ signal enemy_in_range(target : Node)
 @export var attack : Attack
 @export var attack_area : Area2D ## Area that we detect if enemies are within range of attack, if they are, send target_in_range signal
 
-
 func _ready() -> void:
 	attack_area.body_entered.connect(_on_body_entered)
 	attack_area.body_exited.connect(_on_body_exited)

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/Detection/vision_component/vision_component.gd" id="1_6uurm"]
 [ext_resource type="PackedScene" uid="uid://drjbn70yf418x" path="res://scripts/Detection/vision_component/detection_raycaster/detection_raycaster.tscn" id="2_pif1h"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_f8nfy"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_4q5uv"]
 resource_local_to_scene = true
 radius = 200.0
 
@@ -17,7 +17,7 @@ collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_f8nfy")
+shape = SubResource("CircleShape2D_4q5uv")
 
 [node name="DetectionRaycaster" parent="." node_paths=PackedStringArray("detection_area") instance=ExtResource("2_pif1h")]
 detection_area = NodePath("../Area2D")

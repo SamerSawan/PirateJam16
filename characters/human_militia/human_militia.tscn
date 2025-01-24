@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://d3y5dqpl0by0j"]
+[gd_scene load_steps=25 format=3 uid="uid://d3y5dqpl0by0j"]
 
 [ext_resource type="Script" path="res://characters/human_militia/human_militia.gd" id="1_ggmv3"]
 [ext_resource type="Texture2D" uid="uid://0lxqgdswx3gd" path="res://aseprite/citizen/male.tres" id="2_jsvo2"]
@@ -12,11 +12,15 @@
 [ext_resource type="Script" path="res://ai/hsm_debug.gd" id="9_akwm4"]
 [ext_resource type="BehaviorTree" uid="uid://bnw1vcxcyoj0u" path="res://ai/trees/human_citizen/idle.tres" id="10_syx6v"]
 [ext_resource type="Script" path="res://ai/states/IdleState.gd" id="11_74kud"]
-[ext_resource type="BehaviorTree" uid="uid://b60rf2etvxe18" path="res://ai/trees/human_militia/aggro_militia.tres" id="12_cnuyu"]
+[ext_resource type="BehaviorTree" uid="uid://b60rf2etvxe18" path="res://ai/trees/human_militia/militia_aggro.tres" id="12_cnuyu"]
 [ext_resource type="Script" path="res://ai/states/AggroState.gd" id="13_vh68f"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wsf7e"]
 height = 34.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qhu15"]
+resource_local_to_scene = true
+radius = 180.0
 
 [sub_resource type="Animation" id="Animation_uqbtw"]
 resource_name = "Idle"
@@ -94,6 +98,10 @@ _data = {
 "Walk": SubResource("Animation_e0o3c")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m5g8q"]
+resource_local_to_scene = true
+size = Vector2(36, 2)
+
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_0bx61"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_oe6x5"]
@@ -141,10 +149,18 @@ body = NodePath("..")
 nodes_to_flip = Array[NodePath]([NodePath("../Sprite2D"), NodePath("../Hurtbox")])
 
 [node name="VisionComponent" parent="." instance=ExtResource("7_0gt6o")]
-position = Vector2(0, 10)
-vision_distance = 250.0
+vision_distance = 180.0
 target_layers = Array[int]([5])
 occlusion_layers = Array[int]([1])
+
+[node name="Area2D" parent="VisionComponent" index="0"]
+collision_mask = 16
+
+[node name="CollisionShape2D" parent="VisionComponent/Area2D" index="0"]
+shape = SubResource("CircleShape2D_qhu15")
+
+[node name="DetectionRaycaster" parent="VisionComponent" index="1"]
+collision_layers = Array[int]([5, 1])
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_postprocessing = 1
@@ -160,6 +176,16 @@ libraries = {
 "": SubResource("AnimationLibrary_3rxky")
 }
 
+[node name="MilitiaSpearAttack" parent="." node_paths=PackedStringArray("user") instance=ExtResource("4_bgaui")]
+user = NodePath("..")
+
+[node name="Hitbox" parent="MilitiaSpearAttack/WeaponArea2D" index="0"]
+shape = SubResource("RectangleShape2D_m5g8q")
+
+[node name="AggroTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
 [node name="AggroLimboHSM" type="LimboHSM" parent="."]
 script = ExtResource("9_akwm4")
 
@@ -173,9 +199,5 @@ behavior_tree = ExtResource("12_cnuyu")
 blackboard_plan = SubResource("BlackboardPlan_oe6x5")
 script = ExtResource("13_vh68f")
 
-[node name="AggroTimer" type="Timer" parent="."]
-wait_time = 4.0
-one_shot = true
-
-[node name="MilitiaSpearAttack" parent="." node_paths=PackedStringArray("user") instance=ExtResource("4_bgaui")]
-user = NodePath("..")
+[editable path="VisionComponent"]
+[editable path="MilitiaSpearAttack"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ydo25uiqa5c4"]
+[gd_scene load_steps=23 format=3 uid="uid://ydo25uiqa5c4"]
 
 [ext_resource type="Script" path="res://characters/human_citizen/human_citizen.gd" id="1_dl03e"]
 [ext_resource type="Texture2D" uid="uid://0lxqgdswx3gd" path="res://aseprite/citizen/male.tres" id="2_sig13"]
@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d0b10s33fdy8n" path="res://scripts/Detection/vision_component/vision_component.tscn" id="4_020l5"]
 [ext_resource type="Script" path="res://scripts/Movement/movement_component.gd" id="4_p7ccd"]
 [ext_resource type="Script" path="res://ai/hsm_debug.gd" id="5_81nm0"]
-[ext_resource type="BehaviorTree" uid="uid://b6k06ponlse1f" path="res://ai/trees/human_citizen/aggro.tres" id="5_rjsdt"]
+[ext_resource type="BehaviorTree" uid="uid://b6k06ponlse1f" path="res://ai/trees/human_citizen/citizen_aggro.tres" id="5_rjsdt"]
 [ext_resource type="Script" path="res://scripts/Navigation/navigation_component.gd" id="5_s4xqs"]
 [ext_resource type="BehaviorTree" uid="uid://bnw1vcxcyoj0u" path="res://ai/trees/human_citizen/idle.tres" id="6_vaeu3"]
 [ext_resource type="Script" path="res://ai/states/IdleState.gd" id="6_w2tby"]
@@ -16,6 +16,10 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wsf7e"]
 height = 34.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kxsts"]
+resource_local_to_scene = true
+radius = 115.0
 
 [sub_resource type="Animation" id="Animation_uqbtw"]
 resource_name = "Idle"
@@ -115,11 +119,12 @@ movement_component = NodePath("MovementComponent")
 navigation_agent = NodePath("NavigationAgent2D")
 navigation_component = NodePath("NavigationComponent")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_wsf7e")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-1, 0)
+texture = ExtResource("2_sig13")
 hframes = 5
 
 [node name="StatsComponent" parent="." node_paths=PackedStringArray("root") instance=ExtResource("3_c06hs")]
@@ -134,13 +139,21 @@ friction = 128.0
 
 [node name="OrientationHandler" parent="." node_paths=PackedStringArray("body") instance=ExtResource("13_pdb3n")]
 body = NodePath("..")
-nodes_to_flip = Array[NodePath]([NodePath("../Sprite2D"), NodePath("../CollisionShape2D")])
+nodes_to_flip = Array[NodePath]([NodePath("../Sprite2D"), NodePath("../Hurtbox")])
 
 [node name="VisionComponent" parent="." instance=ExtResource("4_020l5")]
-position = Vector2(0, 10)
-vision_distance = 250.0
+vision_distance = 115.0
 target_layers = Array[int]([5])
 occlusion_layers = Array[int]([1])
+
+[node name="Area2D" parent="VisionComponent" index="0"]
+collision_mask = 16
+
+[node name="CollisionShape2D" parent="VisionComponent/Area2D" index="0"]
+shape = SubResource("CircleShape2D_kxsts")
+
+[node name="DetectionRaycaster" parent="VisionComponent" index="1"]
+collision_layers = Array[int]([5, 1])
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_postprocessing = 1
@@ -173,3 +186,5 @@ script = ExtResource("7_pavjj")
 [node name="AggroTimer" type="Timer" parent="."]
 wait_time = 4.0
 one_shot = true
+
+[editable path="VisionComponent"]

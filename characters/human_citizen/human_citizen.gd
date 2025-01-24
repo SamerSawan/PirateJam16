@@ -16,10 +16,10 @@ signal change_orientation
 @export var aggro_state: LimboState
 @export_category("")
 
-@export var flee_distance : float = 128.0
 @export var atlas_type : String = "Female"
 
 func _ready():
+	_randomize_atlas_type()
 	_setup_texture_variant()
 	_init_state_machines()
 	vision_component.sees_target.connect(_on_see_target)
@@ -28,6 +28,14 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	movement_component.apply_friction(delta)
 	move_and_slide()
+
+func _randomize_atlas_type():
+	var rng = randi_range(0, 1)
+	match rng:
+		0:
+			atlas_type = "Female"
+		1:
+			atlas_type = "Male"
 
 func _setup_texture_variant():
 	match atlas_type:
@@ -50,9 +58,9 @@ func _on_see_target(raycast : RayCast2D, target : Node):
 		var target_team : Dictionary = GameState.get_first_team_of_node(target)
 		var self_team : Dictionary = GameState.get_first_team_of_node(self)
 		var enemy_teams : Dictionary = GameState.get_hostile_to_team(self_team.keys()[0])
-		print("Target- %s\n" % target_team)
-		print("	Self- %s\n" % self_team)
-		print("Enemies- %s\n" % enemy_teams)
+		#print("Target- %s\n" % target_team)
+		#print("	Self- %s\n" % self_team)
+		#print("Enemies- %s\n" % enemy_teams)
 		for team in target_team:
 			if team in enemy_teams: # we are aggro'd if they are an enemy
 				if not aggro_hsm.get_active_state() is AggroState: # set state to aggro start
