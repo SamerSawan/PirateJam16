@@ -28,3 +28,7 @@ func update_form_visibility():
 	for i in range(forms.size()):
 		forms[i].visible = (i == current_form_index) 
 		print("Switched to form:", current_form_index)
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("swap_form"):
+		swap_form()
