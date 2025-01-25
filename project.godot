@@ -19,7 +19,6 @@ config/icon="res://icon.svg"
 
 Utils="*res://globals/utils.gd"
 Debug="*res://globals/debug.gd"
-CharacterSwitcher="*res://CharacterSwitcher.gd"
 
 [input]
 

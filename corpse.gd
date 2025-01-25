@@ -1,7 +1,9 @@
 extends Node2D
 
 
-# Called when the node enters the scene tree for the first time.
+signal add_form(texture)
+
+
 func _ready():
 	pass
 
@@ -24,4 +26,4 @@ func _on_area_2d_body_exited(body):
 
 func infest():
 	print("infested")
-	
+	emit_signal("add_form", $"Goblin-corpse".texture) 

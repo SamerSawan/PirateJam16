@@ -45,4 +45,6 @@ position = Vector2(474, -83)
 navigation_polygon = SubResource("NavigationPolygon_4cm5m")
 
 [node name="Corpse" parent="." groups=["corpses"] instance=ExtResource("4_qr2g6")]
-position = Vector2(-91, 49)
+position = Vector2(-107, 49)
+
+[connection signal="add_form" from="Corpse" to="Player" method="_on_corpse_add_form"]
