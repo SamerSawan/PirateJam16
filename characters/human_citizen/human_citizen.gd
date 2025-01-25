@@ -63,12 +63,12 @@ func _on_see_target(raycast : RayCast2D, target : Node):
 		#print("Enemies- %s\n" % enemy_teams)
 		for team in target_team:
 			if team in enemy_teams: # we are aggro'd if they are an enemy
-				if not aggro_hsm.get_active_state() is AggroState: # set state to aggro start
+				if not aggro_hsm.get_active_state() == aggro_state: # set state to aggro start
 					print("Dispatching transition to start aggro")
 					aggro_hsm.dispatch(&"aggro_start")
 				aggro_timer.start() # start aggro timer
 
 func _on_aggro_timer_timeout():
-	if not aggro_hsm.get_active_state() is IdleState:
+	if not aggro_hsm.get_active_state() == idle_state:
 		print("Dispatching transition to end aggro")
 		aggro_hsm.dispatch(&"aggro_stop")
