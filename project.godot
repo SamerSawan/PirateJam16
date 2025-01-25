@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Utils="*res://globals/utils.gd"
 Debug="*res://globals/debug.gd"
+SignalBus="*res://SignalBus.gd"
 
 [input]
 
@@ -66,6 +67,7 @@ swap_form={
 [layer_names]
 
 2d_physics/layer_1="Ground"
+2d_physics/layer_2="Wall"
 2d_physics/layer_5="Player"
 2d_physics/layer_6="Enemy"
 2d_physics/layer_7="Friendly"
