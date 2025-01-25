@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://ai/tasks/CanNavigate.gd" id="1_i4jlw"]
 [ext_resource type="Script" path="res://ai/tasks/NavigateToTarget.gd" id="2_1c0le"]
 [ext_resource type="Script" path="res://ai/tasks/HasVisionOfEnemy.gd" id="3_x1hvv"]
-[ext_resource type="Script" path="res://ai/tasks/GetClosestTarget.gd" id="4_qgagq"]
+[ext_resource type="Script" path="res://ai/tasks/GetClosestVisibleTarget.gd" id="4_qgagq"]
 [ext_resource type="Script" path="res://ai/tasks/RunFromClosestTarget.gd" id="5_4lh7q"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_f5t40"]
