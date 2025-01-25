@@ -21,7 +21,6 @@ attack = &"attack"
 
 [node name="Player" type="CharacterBody2D" groups=["Parasite"]]
 collision_layer = 2
-collision_mask = 3
 script = ExtResource("1_p37h2")
 move_speed = 150.0
 
