@@ -176,8 +176,6 @@ libraries = {
 }
 
 [node name="MilitiaSpearAttack" parent="." node_paths=PackedStringArray("user") instance=ExtResource("4_bgaui")]
-position = Vector2(0, 0)
-rotation = 0.0
 user = NodePath("..")
 
 [node name="Hitbox" parent="MilitiaSpearAttack/WeaponArea2D" index="0"]
