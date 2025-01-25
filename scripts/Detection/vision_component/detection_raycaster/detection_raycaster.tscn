@@ -4,7 +4,6 @@
 
 [node name="DetectionRaycaster" type="Node2D" node_paths=PackedStringArray("raycast_cast_timer")]
 script = ExtResource("1_oly1x")
-raycast_lifespan_in_seconds = 0.2
 raycast_cast_timer = NodePath("RaycastCastTimer")
 
 [node name="RaycastCastTimer" type="Timer" parent="."]
