@@ -8,5 +8,5 @@ signal change_orientation
 func _ready() -> void:
 	trigger.connect(_on_trigger)
 
-func _on_trigger(direction : Vector2) -> void:
-	change_orientation.emit(direction)
+func _on_trigger(enemy : Creature):
+	change_orientation.emit(self.global_position.direction_to(enemy.global_position))

@@ -8,10 +8,6 @@ func _enter() -> void:
 		_agent = agent
 
 func _tick(delta: float) -> Status:
-	if agent and _agent.current_enemy_direction:
-		_agent.primary_attack.trigger.emit(_agent.current_enemy_direction)
-		print("\n")
-		print("primary attack success")
-		print("\n")
-		return SUCCESS
-	return FAILURE
+	_agent.primary_attack.trigger.emit(_agent.primary_attack.get_closest_enemy())
+	print("Primary attack triggered")
+	return SUCCESS
