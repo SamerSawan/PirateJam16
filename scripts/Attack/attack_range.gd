@@ -21,7 +21,7 @@ class_name AttackRange
 
 func get_enemies_in_range() -> Array[Node2D]:
 	var bodies : Array[Node2D] = attack_area.get_overlapping_bodies()
-	print(bodies)
+	print("Bodies in attack area: " + str(bodies))
 	return bodies.filter(func(body): 
 		return body is Creature and GameState.is_user_hostile_to_node(attack.user, body)
 	)
