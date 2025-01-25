@@ -71,4 +71,22 @@ func get_friendly_to_team(team_name : StringName) -> Dictionary:
 		return friendlies
 	else:
 		return {}
+
+## Is user hostile to node
+func is_user_hostile_to_node(user, node):
+	var user_team = GameState.get_first_team_of_node(user)
+	var hostiles = GameState.get_hostile_to_team(user_team)
+	var node_team = GameState.get_first_team_of_node(node)
+	if node_team in hostiles:
+		return true
+	return false
+
+## Is user friendly to node
+func is_user_friendly_to_node(user, node):
+	var user_team = GameState.get_first_team_of_node(user)
+	var friendlies = GameState.get_friendly_to_team(user_team)
+	var node_team = GameState.get_first_team_of_node(node)
+	if node_team in friendlies:
+		return true
+	return false
 #endregion
