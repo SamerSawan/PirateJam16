@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://d3y5dqpl0by0j"]
+[gd_scene load_steps=23 format=3 uid="uid://d3y5dqpl0by0j"]
 
 [ext_resource type="Script" path="res://characters/human_militia/human_militia.gd" id="1_ggmv3"]
 [ext_resource type="Texture2D" uid="uid://0lxqgdswx3gd" path="res://aseprite/citizen/male.tres" id="2_jsvo2"]
@@ -11,9 +11,7 @@
 [ext_resource type="Script" path="res://scripts/Navigation/navigation_component.gd" id="8_sbaaj"]
 [ext_resource type="Script" path="res://ai/hsm_debug.gd" id="9_akwm4"]
 [ext_resource type="BehaviorTree" uid="uid://bnw1vcxcyoj0u" path="res://ai/trees/human_citizen/idle.tres" id="10_syx6v"]
-[ext_resource type="Script" path="res://ai/states/IdleState.gd" id="11_74kud"]
 [ext_resource type="BehaviorTree" uid="uid://b60rf2etvxe18" path="res://ai/trees/human_militia/militia_aggro.tres" id="12_cnuyu"]
-[ext_resource type="Script" path="res://ai/states/AggroState.gd" id="13_vh68f"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wsf7e"]
 height = 34.0
@@ -107,14 +105,15 @@ size = Vector2(36, 2)
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_oe6x5"]
 
 [node name="Human Militia" type="CharacterBody2D" node_paths=PackedStringArray("orientation_handler", "vision_component", "aggro_timer", "aggro_hsm", "idle_state", "aggro_state", "root_sprite", "stats_component", "movement_component", "navigation_agent", "navigation_component", "primary_attack", "secondary_attack") groups=["Human"]]
-collision_layer = 32
+collision_layer = 2
+collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_ggmv3")
+male_atlas = ExtResource("2_jsvo2")
+female_atlas = ExtResource("3_r82yy")
 orientation_handler = NodePath("OrientationHandler")
 vision_component = NodePath("VisionComponent")
 aggro_timer = NodePath("AggroTimer")
-male_atlas = ExtResource("2_jsvo2")
-female_atlas = ExtResource("3_r82yy")
 aggro_hsm = NodePath("AggroLimboHSM")
 idle_state = NodePath("AggroLimboHSM/IdleState")
 aggro_state = NodePath("AggroLimboHSM/AggroState")
@@ -150,7 +149,7 @@ nodes_to_flip = Array[NodePath]([NodePath("../Sprite2D"), NodePath("../Hurtbox")
 
 [node name="VisionComponent" parent="." instance=ExtResource("7_0gt6o")]
 vision_distance = 180.0
-target_layers = Array[int]([5])
+target_layers = Array[int]([2])
 occlusion_layers = Array[int]([1])
 
 [node name="Area2D" parent="VisionComponent" index="0"]
@@ -177,6 +176,8 @@ libraries = {
 }
 
 [node name="MilitiaSpearAttack" parent="." node_paths=PackedStringArray("user") instance=ExtResource("4_bgaui")]
+position = Vector2(0, 0)
+rotation = 0.0
 user = NodePath("..")
 
 [node name="Hitbox" parent="MilitiaSpearAttack/WeaponArea2D" index="0"]
@@ -192,12 +193,10 @@ script = ExtResource("9_akwm4")
 [node name="IdleState" type="BTState" parent="AggroLimboHSM"]
 behavior_tree = ExtResource("10_syx6v")
 blackboard_plan = SubResource("BlackboardPlan_0bx61")
-script = ExtResource("11_74kud")
 
 [node name="AggroState" type="BTState" parent="AggroLimboHSM"]
 behavior_tree = ExtResource("12_cnuyu")
 blackboard_plan = SubResource("BlackboardPlan_oe6x5")
-script = ExtResource("13_vh68f")
 
 [editable path="VisionComponent"]
 [editable path="MilitiaSpearAttack"]
