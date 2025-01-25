@@ -9,9 +9,9 @@ signal is_colliding_with_target(raycast, target)
 @export var collide_with_bodies: bool = true ## does raycast collide with bodies
 @export var collide_with_areas: bool = false ## does raycast collide with areas
 @export var collision_layers: Array[int] = [2] ## layers on which the raycasts should detect visibility with
-@export var raycast_lifespan_in_seconds: float = 0.25 ## Ideally you want lifespan to be double the cast timer length. With this you can calculate the difference between them
+@export var raycast_lifespan_in_seconds: float = 0.5 ## Ideally you want lifespan to be double the cast timer length. With this you can calculate the difference between them
 @export var raycast_cast_timer : Timer ## Timer for how long it takes between each casting. Edit children to change timer settings.
-@export var raycast_cast_rate : float = 1
+@export var raycast_cast_rate : float = 0.5
 @export var delete_raycasts_instantly: bool = false ## for testing
 @export var raycast_for_tilemap_layers: bool = true ## simply to not send unnecesary raycasts at tilemaps and such
 
@@ -23,6 +23,7 @@ func _ready():
 	if detection_area:
 		detection_area.body_entered.connect(_on_body_entered)
 		detection_area.body_exited.connect(_on_body_exited)
+		raycast_cast_timer.wait_time = raycast_cast_rate
 		raycast_cast_timer.one_shot = true
 		raycast_cast_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
 		raycast_cast_timer.timeout.connect(_on_raycast_cast_timer_timeout)
