@@ -16,7 +16,6 @@ signal change_orientation
 @export var aggro_state: LimboState
 @export_category("")
 
-@export var flee_distance : float = 64.0
 @export var atlas_type : String = "Female"
 
 func _ready():
