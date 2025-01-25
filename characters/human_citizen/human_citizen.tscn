@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ydo25uiqa5c4"]
+[gd_scene load_steps=21 format=3 uid="uid://ydo25uiqa5c4"]
 
 [ext_resource type="Script" path="res://characters/human_citizen/human_citizen.gd" id="1_dl03e"]
 [ext_resource type="Texture2D" uid="uid://0lxqgdswx3gd" path="res://aseprite/citizen/male.tres" id="2_sig13"]
@@ -97,17 +97,7 @@ _data = {
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_0bx61"]
 
-[sub_resource type="GDScript" id="GDScript_tgar6"]
-script/source = "extends BTState
-class_name IdleState
-"
-
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_oe6x5"]
-
-[sub_resource type="GDScript" id="GDScript_6y7j3"]
-script/source = "extends BTState
-class_name AggroState
-"
 
 [node name="Human Citizen" type="CharacterBody2D" node_paths=PackedStringArray("orientation_handler", "vision_component", "aggro_timer", "aggro_hsm", "idle_state", "aggro_state", "root_sprite", "stats_component", "movement_component", "navigation_agent", "navigation_component") groups=["Human"]]
 collision_layer = 32
@@ -184,12 +174,10 @@ debug = true
 [node name="IdleState" type="BTState" parent="AggroLimboHSM"]
 behavior_tree = ExtResource("6_vaeu3")
 blackboard_plan = SubResource("BlackboardPlan_0bx61")
-script = SubResource("GDScript_tgar6")
 
 [node name="AggroState" type="BTState" parent="AggroLimboHSM"]
 behavior_tree = ExtResource("5_rjsdt")
 blackboard_plan = SubResource("BlackboardPlan_oe6x5")
-script = SubResource("GDScript_6y7j3")
 
 [node name="AggroTimer" type="Timer" parent="."]
 wait_time = 4.0
