@@ -68,9 +68,10 @@ heavy_attack={
 [layer_names]
 
 2d_physics/layer_1="Ground"
-2d_physics/layer_5="Player"
-2d_physics/layer_6="Enemy"
-2d_physics/layer_7="Friendly"
+2d_physics/layer_2="Creature"
+2d_physics/layer_5="Parasite"
+2d_physics/layer_6="Human"
+2d_physics/layer_7="Goblin"
 
 [rendering]
 
