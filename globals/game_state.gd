@@ -3,70 +3,74 @@ extends Node
 #region Teams
 
 ## Group relations
-const teams_resource : TeamsResource = preload("res://resources/teams/GlobalTeams.tres")
-const Teams = teams_resource.teams
+var Teams : TeamsLoader = TeamsLoader.new()
 
-## Filter and return all team names that are in the nodes groups
-func get_teams_of_node(node: Node2D) -> Array[TeamResource]:
+## Filter and return all team names that are in the node's groups
+func get_teams_of_node(node: Node2D) -> Array[StringName]:
 	var node_groups = node.get_groups()
-	return Teams.filter(func(t): t.name in node_groups)
+	var map = Teams.map(func(t): t.name)
+	return node_groups.filter(func(grp): grp in map)
 
-## Returns the first (front) team of a node
-func get_first_team_of_node(node: Node2D) -> TeamResource:
+## Returns the first (front) team name of a node
+func get_first_team_of_node(node: Node2D) -> StringName:
 	return get_teams_of_node(node).front()
 
-## Sets nodes team safely
-func set_team_of_node(node: Node2D, team: TeamResource) -> void:
-	if team in Teams:
-		node.add_to_group(team.name)
+## Sets a node's team safely
+func set_team_of_node(node: Node2D, team_name: StringName) -> void:
+	if Teams.any(func(t): t.name == team_name):
+		node.add_to_group(team_name)
 
-## Removes the first occurrence of team_name
-func remove_team_of_node(node: Node2D, team: TeamResource) -> void:
-	if node.is_in_group(team.name):
-		node.remove_from_group(team.name)
+## Removes the first occurrence of a team name
+func remove_team_of_node(node: Node2D, team_name: StringName) -> void:
+	if node.is_in_group(team_name):
+		node.remove_from_group(team_name)
 
-## Removes all existing teams from node
+## Removes all existing teams from a node
 func reset_teams_of_node(node: Node2D) -> void:
-	var teams_of_node : Array[TeamResource] = get_teams_of_node(node)
+	var teams_of_node: Array[StringName] = get_teams_of_node(node)
 	node.get_groups().all(
 		func(grp):
 			if grp in teams_of_node:
 				node.remove_from_group(grp)
 	)
 
-## Returns an array of teams that consider the given team hostile
-func get_teams_hostile_to_team(team: TeamResource) -> Array[TeamResource]:
-	return Teams.filter( ## filter all other_team that have team as hostile
+## Returns an array of teams that consider the given team name hostile
+func get_teams_hostile_to_team(team_name: StringName) -> Array[StringName]:
+	return Teams.filter(
 		func(other_team):
-			return team in other_team.hostile
-	)
-## Returns an array of teams that consider the given team friendly
-func get_teams_friendly_to_team(team: TeamResource) -> Array[TeamResource]:
-	return Teams.filter( ## filter all other_team that have team as friendly
+			return team_name in other_team.hostile
+	).map(func(t): t.name)
+
+## Returns an array of teams that consider the given team name friendly
+func get_teams_friendly_to_team(team_name: StringName) -> Array[StringName]:
+	return Teams.filter(
 		func(other_team):
-			return team in other_team.friendly
-	)
+			return team_name in other_team.friendly
+	).map(func(t): t.name)
 
 ## Checks if the user is hostile to the given node
 func is_user_hostile_to_node(user: Node2D, node: Node2D) -> bool:
-	if user == node: ## If user is the node then we shouldnt do anything
+	if user == node: ## If the user is the node, we shouldn't do anything
 		return false
-	var user_team: TeamResource = get_first_team_of_node(user)
-	var node_teams: Array[TeamResource] = get_teams_of_node(node)
+	var user_team: StringName = get_first_team_of_node(user)
+	var node_teams: Array[StringName] = get_teams_of_node(node)
 	if user_team:
 		for t in node_teams:
-			if t in user_team.hostile:
+			var team = Teams.find(func(te): te.name == t)
+			if team and user_team in team.hostile:
 				return true
 	return false
+
 ## Checks if the user is friendly to the given node
 func is_user_friendly_to_node(user: Node2D, node: Node2D) -> bool:
-	if user == node: ## If user is the node then we shouldnt do anything
+	if user == node: ## If the user is the node, we shouldn't do anything
 		return false
-	var user_team: TeamResource = get_first_team_of_node(user)
-	var node_teams: Array[TeamResource] = get_teams_of_node(node)
+	var user_team: StringName = get_first_team_of_node(user)
+	var node_teams: Array[StringName] = get_teams_of_node(node)
 	if user_team:
 		for t in node_teams:
-			if t in user_team.friendly:
+			var team = Teams.find(func(te): te.name == t)
+			if team and user_team in team.friendly:
 				return true
 	return false
 

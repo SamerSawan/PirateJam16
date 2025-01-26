@@ -1,12 +1,10 @@
-[gd_resource type="Resource" script_class="Team" load_steps=4 format=3 uid="uid://b4llqctivp1uo"]
+[gd_resource type="Resource" script_class="TeamResource" load_steps=2 format=3 uid="uid://b4llqctivp1uo"]
 
 [ext_resource type="Script" path="res://resources/teams/TeamResource.gd" id="1_45dk2"]
-[ext_resource type="Resource" uid="uid://cjpgovdjkh3g8" path="res://resources/teams/Human.tres" id="2_ctdiq"]
-[ext_resource type="Resource" uid="uid://cl68sh2vciyp4" path="res://resources/teams/Goblin.tres" id="3_j1juj"]
 
 [resource]
 script = ExtResource("1_45dk2")
 name = &"Parasite"
-hostile = Array[ExtResource("1_45dk2")]([ExtResource("2_ctdiq"), ExtResource("3_j1juj")])
-neutral = Array[ExtResource("1_45dk2")]([])
-friendly = Array[ExtResource("1_45dk2")]([])
+hostile = Array[StringName]([&"Human", &"Goblin"])
+neutral = Array[StringName]([])
+friendly = Array[StringName]([])
