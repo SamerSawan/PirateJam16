@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=39 format=3 uid="uid://b60rf2etvxe18"]
+[gd_resource type="BehaviorTree" load_steps=38 format=3 uid="uid://b60rf2etvxe18"]
 
 [ext_resource type="Script" path="res://ai/tasks/CanNavigate.gd" id="1_43jcq"]
 [ext_resource type="Script" path="res://ai/tasks/NavigateToTarget.gd" id="2_6e7l3"]
@@ -9,11 +9,6 @@
 [ext_resource type="Script" path="res://ai/tasks/RunFromClosestTarget.gd" id="7_kxe25"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_f5t40"]
-var/var/name = &"var"
-var/var/type = 3
-var/var/value = 0.0
-var/var/hint = 0
-var/var/hint_string = ""
 
 [sub_resource type="BTCondition" id="BTCondition_3lgq3"]
 script = ExtResource("3_mf2eh")
@@ -21,22 +16,17 @@ script = ExtResource("3_mf2eh")
 [sub_resource type="BTAction" id="BTAction_dshi2"]
 script = ExtResource("4_bxxes")
 
-[sub_resource type="BBNode" id="BBNode_0v58u"]
-saved_value = NodePath("MilitiaSpearAttack/SpearAnimationPlayer")
-resource_name = "MilitiaSpearAttack/SpearAnimationPlayer"
-
-[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_ilvbw"]
-await_completion = 2.045
-animation_player = SubResource("BBNode_0v58u")
-animation_name = &"SpearAttack"
-blend = 0.1
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_cyrya"]
+time_limit = 1.0
+custom_name = "Await Anim"
+children = [SubResource("BTAction_dshi2")]
 
 [sub_resource type="BTSequence" id="BTSequence_5s4y2"]
 custom_name = "Attack If Able"
-children = [SubResource("BTCondition_3lgq3"), SubResource("BTAction_dshi2"), SubResource("BTPlayAnimation_ilvbw")]
+children = [SubResource("BTCondition_3lgq3"), SubResource("BTTimeLimit_cyrya")]
 
 [sub_resource type="BTCooldown" id="BTCooldown_potj6"]
-duration = 0.6
+duration = 1.0
 trigger_on_failure = true
 children = [SubResource("BTSequence_5s4y2")]
 
@@ -135,9 +125,10 @@ children = [SubResource("BTCooldown_70r2v"), SubResource("BTCooldown_fauat")]
 custom_name = "Navigate"
 children = [SubResource("BTSequence_xt1c5")]
 
-[sub_resource type="BTParallel" id="BTParallel_wf8ve"]
+[sub_resource type="BTParallel" id="BTParallel_gu7u2"]
+repeat = true
 children = [SubResource("BTSelector_sb2xk"), SubResource("BTSelector_l6mcm")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_f5t40")
-root_task = SubResource("BTParallel_wf8ve")
+root_task = SubResource("BTParallel_gu7u2")
