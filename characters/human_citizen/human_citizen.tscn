@@ -141,7 +141,7 @@ nodes_to_flip = Array[NodePath]([NodePath("../Sprite2D"), NodePath("../Hurtbox")
 
 [node name="VisionComponent" parent="." instance=ExtResource("4_020l5")]
 vision_distance = 115.0
-target_layers = Array[int]([5])
+target_layers = Array[int]([2])
 occlusion_layers = Array[int]([1])
 
 [node name="Area2D" parent="VisionComponent" index="0"]
