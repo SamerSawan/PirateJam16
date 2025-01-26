@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dcb130c58ncx1"]
+[gd_scene load_steps=3 format=3 uid="uid://bf07uxi5mgaj2"]
 
 [ext_resource type="Texture2D" uid="uid://degb4epk8u0u" path="res://assets/enemies/E_button.png" id="1_a0234"]
 [ext_resource type="Script" path="res://e_button.gd" id="2_8we7r"]
