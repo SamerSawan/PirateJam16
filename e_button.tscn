@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bf07uxi5mgaj2"]
+
+[ext_resource type="Texture2D" uid="uid://degb4epk8u0u" path="res://assets/enemies/E_button.png" id="1_a0234"]
+[ext_resource type="Script" path="res://e_button.gd" id="2_8we7r"]
+
+[node name="EButton" type="Node2D"]
+
+[node name="EButton" type="Sprite2D" parent="."]
+position = Vector2(-33, 29)
+scale = Vector2(8, 6.25)
+texture = ExtResource("1_a0234")
+script = ExtResource("2_8we7r")

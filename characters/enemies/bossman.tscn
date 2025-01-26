@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhb0yb38ywj21"]
+
+[ext_resource type="Script" path="res://thebausffs.gd" id="1_g32ee"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3kkhv"]
+size = Vector2(270, 224)
+
+[node name="Bossman" type="Node2D"]
+script = ExtResource("1_g32ee")
+
+[node name="BossTriggerArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossTriggerArea"]
+shape = SubResource("RectangleShape2D_3kkhv")
+
+[connection signal="body_entered" from="BossTriggerArea" to="." method="_on_boss_trigger_area_body_entered"]
+[connection signal="body_exited" from="BossTriggerArea" to="." method="_on_boss_trigger_area_body_exited"]

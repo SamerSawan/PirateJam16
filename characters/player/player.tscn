@@ -7,8 +7,8 @@
 [ext_resource type="Script" path="res://characters/player/player_input.gd" id="5_u8ori"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lkjkp"]
-radius = 6.5
-height = 26.0
+radius = 2.0
+height = 16.0
 
 [sub_resource type="Resource" id="Resource_u8x2m"]
 script = ExtResource("2_r73oq")
@@ -20,7 +20,9 @@ jump = &"jump"
 attack = &"attack"
 
 [node name="Player" type="CharacterBody2D" groups=["Parasite"]]
-collision_layer = 2
+collision_layer = 16
+z_index = 10
+collision_mask = 3
 script = ExtResource("1_p37h2")
 move_speed = 150.0
 
@@ -28,7 +30,8 @@ move_speed = 150.0
 zoom = Vector2(3, 3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 3)
+position = Vector2(0, 6)
+rotation = 1.5708
 shape = SubResource("CapsuleShape2D_lkjkp")
 
 [node name="Facing" type="Node2D" parent="." node_paths=PackedStringArray("character")]
@@ -36,6 +39,7 @@ script = ExtResource("3_01yg7")
 character = NodePath("..")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Facing"]
+scale = Vector2(-1, 1)
 sprite_frames = ExtResource("1_6d5qq")
 animation = &"run"
 
