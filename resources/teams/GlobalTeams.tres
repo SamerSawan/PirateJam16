@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="TeamsResource" load_steps=6 format=3 uid="uid://mdkaaktfya3p"]
+
+[ext_resource type="Script" path="res://resources/teams/TeamsResource.gd" id="1_3ag5d"]
+[ext_resource type="Script" path="res://resources/teams/TeamResource.gd" id="2_8ysv0"]
+[ext_resource type="Resource" uid="uid://b4llqctivp1uo" path="res://resources/teams/Parasite.tres" id="3_g3e0r"]
+[ext_resource type="Resource" uid="uid://cjpgovdjkh3g8" path="res://resources/teams/Human.tres" id="4_u3ejd"]
+[ext_resource type="Resource" uid="uid://cl68sh2vciyp4" path="res://resources/teams/Goblin.tres" id="5_3kccd"]
+
+[resource]
+script = ExtResource("1_3ag5d")
+teams = Array[ExtResource("2_8ysv0")]([ExtResource("3_g3e0r"), ExtResource("4_u3ejd"), ExtResource("5_3kccd")])
