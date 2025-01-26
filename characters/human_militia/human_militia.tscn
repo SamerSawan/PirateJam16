@@ -96,7 +96,7 @@ _data = {
 "Walk": SubResource("Animation_e0o3c")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_m5g8q"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yuqxq"]
 resource_local_to_scene = true
 size = Vector2(36, 2)
 
@@ -179,7 +179,7 @@ libraries = {
 user = NodePath("..")
 
 [node name="Hitbox" parent="MilitiaSpearAttack/WeaponArea2D" index="0"]
-shape = SubResource("RectangleShape2D_m5g8q")
+shape = SubResource("RectangleShape2D_yuqxq")
 
 [node name="AggroTimer" type="Timer" parent="."]
 wait_time = 4.0
