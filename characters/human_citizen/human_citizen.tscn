@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ydo25uiqa5c4"]
+[gd_scene load_steps=22 format=3 uid="uid://ydo25uiqa5c4"]
 
 [ext_resource type="Script" path="res://characters/human_citizen/human_citizen.gd" id="1_dl03e"]
 [ext_resource type="Texture2D" uid="uid://0lxqgdswx3gd" path="res://aseprite/citizen/male.tres" id="2_sig13"]
@@ -10,6 +10,7 @@
 [ext_resource type="BehaviorTree" uid="uid://b6k06ponlse1f" path="res://ai/trees/human_citizen/citizen_aggro.tres" id="5_rjsdt"]
 [ext_resource type="Script" path="res://scripts/Navigation/navigation_component.gd" id="5_s4xqs"]
 [ext_resource type="BehaviorTree" uid="uid://bnw1vcxcyoj0u" path="res://ai/trees/human_citizen/idle.tres" id="6_vaeu3"]
+[ext_resource type="PackedScene" uid="uid://dyvybxauq1dss" path="res://scripts/Navigation/home_area.tscn" id="12_iqsn4"]
 [ext_resource type="PackedScene" uid="uid://dyj8580mnvnry" path="res://scripts/OrientationHandler.tscn" id="13_pdb3n"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wsf7e"]
@@ -106,8 +107,6 @@ script = ExtResource("1_dl03e")
 orientation_handler = NodePath("OrientationHandler")
 vision_component = NodePath("VisionComponent")
 aggro_timer = NodePath("AggroTimer")
-male_atlas = ExtResource("2_sig13")
-female_atlas = ExtResource("3_our81")
 aggro_hsm = NodePath("AggroLimboHSM")
 idle_state = NodePath("AggroLimboHSM/IdleState")
 aggro_state = NodePath("AggroLimboHSM/AggroState")
@@ -116,6 +115,7 @@ stats_component = NodePath("StatsComponent")
 movement_component = NodePath("MovementComponent")
 navigation_agent = NodePath("NavigationAgent2D")
 navigation_component = NodePath("NavigationComponent")
+atlases = Array[Texture2D]([ExtResource("2_sig13"), ExtResource("3_our81")])
 
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_wsf7e")
@@ -182,5 +182,7 @@ blackboard_plan = SubResource("BlackboardPlan_oe6x5")
 [node name="AggroTimer" type="Timer" parent="."]
 wait_time = 4.0
 one_shot = true
+
+[node name="HomeArea" parent="." instance=ExtResource("12_iqsn4")]
 
 [editable path="VisionComponent"]

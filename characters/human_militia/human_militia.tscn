@@ -112,8 +112,6 @@ script = ExtResource("1_ggmv3")
 orientation_handler = NodePath("OrientationHandler")
 vision_component = NodePath("VisionComponent")
 aggro_timer = NodePath("AggroTimer")
-male_atlas = ExtResource("2_jsvo2")
-female_atlas = ExtResource("3_r82yy")
 aggro_hsm = NodePath("AggroLimboHSM")
 idle_state = NodePath("AggroLimboHSM/IdleState")
 aggro_state = NodePath("AggroLimboHSM/AggroState")
@@ -122,8 +120,10 @@ stats_component = NodePath("StatsComponent")
 movement_component = NodePath("MovementComponent")
 navigation_agent = NodePath("NavigationAgent2D")
 navigation_component = NodePath("NavigationComponent")
+atlases = Array[Texture2D]([ExtResource("2_jsvo2"), ExtResource("3_r82yy")])
 primary_attack = NodePath("MilitiaSpearAttack")
 secondary_attack = NodePath("MilitiaSpearAttack")
+is_friendly_fire = null
 
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_wsf7e")
@@ -176,7 +176,12 @@ libraries = {
 }
 
 [node name="MilitiaSpearAttack" parent="." node_paths=PackedStringArray("user") instance=ExtResource("4_bgaui")]
+position = Vector2(0, 0)
+rotation = 0.0
 user = NodePath("..")
+
+[node name="SpearAnimationPlayer" parent="MilitiaSpearAttack" index="2"]
+blend_times = [&"PrimaryAttack", &"PrimaryAttack", 0.1]
 
 [node name="Hitbox" parent="MilitiaSpearAttack/WeaponArea2D" index="0"]
 shape = SubResource("RectangleShape2D_yuqxq")

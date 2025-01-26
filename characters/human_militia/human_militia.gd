@@ -7,20 +7,13 @@ signal change_orientation
 @export var vision_component : VisionComponent
 @export var aggro_timer : Timer
 
-@export var male_atlas : Texture2D ## setting these to atlas texture breaks the animation for some reason, so dont do that
-@export var female_atlas : Texture2D ## setting these to atlas texture breaks the animation for some reason, so dont do that
-
 @export_category("Aggro State Machine")
 @export var aggro_hsm : LimboHSM
 @export var idle_state: LimboState
 @export var aggro_state: LimboState
 @export_category("")
 
-@export var atlas_type : String = "Female"
-
 func _ready():
-	_randomize_atlas_type()
-	_setup_texture_variant()
 	_init_state_machines()
 	vision_component.sees_target.connect(_on_see_target)
 	aggro_timer.timeout.connect(_on_aggro_timer_timeout)
@@ -28,21 +21,6 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	movement_component.apply_friction(delta)
 	move_and_slide()
-
-func _randomize_atlas_type():
-	var rng = randi_range(0, 1)
-	match rng:
-		0:
-			atlas_type = "Female"
-		1:
-			atlas_type = "Male"
-
-func _setup_texture_variant():
-	match atlas_type:
-		"Female":
-			root_sprite.set_texture(female_atlas)
-		"Male":
-			root_sprite.set_texture(male_atlas)
 
 func _init_state_machines():
 	aggro_hsm.add_transition(idle_state, aggro_state, &"aggro_start")
