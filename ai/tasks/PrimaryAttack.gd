@@ -1,13 +1,20 @@
 extends BTAction
 
-# Primary attackkkkk
+## PrimaryAttack
+## attached trigger_finished signal
 
-var _agent : Creature
 func _enter() -> void:
 	if agent is Creature:
-		_agent = agent
+		if not agent.primary_attack.trigger_finished.is_connected(_on_trigger_finished):
+			agent.primary_attack.trigger_finished.connect(_on_trigger_finished)
+			agent.primary_attack.trigger.emit(agent.primary_attack.attack_range.get_closest_enemy(agent), &"PrimaryAttack")
+			print("Primary attack triggered")
 
 func _tick(delta: float) -> Status:
-	_agent.primary_attack.trigger.emit(_agent.primary_attack.get_closest_enemy())
-	print("Primary attack triggered")
+	if agent.primary_attack.trigger_finished.is_connected(_on_trigger_finished):
+		return RUNNING
 	return SUCCESS
+
+func _on_trigger_finished():
+	if agent.primary_attack.trigger_finished.is_connected(_on_trigger_finished):
+		agent.primary_attack.trigger_finished.disconnect(_on_trigger_finished)
