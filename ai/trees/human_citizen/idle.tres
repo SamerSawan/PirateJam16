@@ -1,21 +1,56 @@
-[gd_resource type="BehaviorTree" load_steps=21 format=3 uid="uid://bnw1vcxcyoj0u"]
+[gd_resource type="BehaviorTree" load_steps=36 format=3 uid="uid://bnw1vcxcyoj0u"]
 
+[ext_resource type="Script" path="res://ai/tasks/IsControlled.gd" id="1_8dax5"]
 [ext_resource type="Script" path="res://ai/tasks/CanNavigate.gd" id="1_yhady"]
+[ext_resource type="Script" path="res://ai/tasks/SetControlledMovementDirection.gd" id="2_4ss3s"]
 [ext_resource type="Script" path="res://ai/tasks/NavigateToTarget.gd" id="2_tbxbl"]
 [ext_resource type="Script" path="res://ai/tasks/IdleToRandomPos.gd" id="3_fli4r"]
+[ext_resource type="Script" path="res://ai/tasks/CallMovement.gd" id="4_j31wy"]
+[ext_resource type="Script" path="res://ai/tasks/IsAwayFromHome.gd" id="5_43ful"]
+[ext_resource type="Script" path="res://ai/tasks/NavigateToHome.gd" id="6_y7pdy"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_w2k2i"]
+
+[sub_resource type="BTCondition" id="BTCondition_gjlcq"]
+script = ExtResource("1_8dax5")
+
+[sub_resource type="BTAction" id="BTAction_3y5ww"]
+script = ExtResource("2_4ss3s")
+
+[sub_resource type="BTSequence" id="BTSequence_ffcxi"]
+custom_name = "Player"
+children = [SubResource("BTCondition_gjlcq"), SubResource("BTAction_3y5ww")]
 
 [sub_resource type="BTCondition" id="BTCondition_3u5sa"]
 script = ExtResource("1_yhady")
 
 [sub_resource type="BTAction" id="BTAction_diy08"]
 script = ExtResource("2_tbxbl")
-speed_modifier = 0
+
+[sub_resource type="BTSequence" id="BTSequence_ie7td"]
+custom_name = "AI"
+children = [SubResource("BTCondition_3u5sa"), SubResource("BTAction_diy08")]
+
+[sub_resource type="BTSelector" id="BTSelector_4xtum"]
+custom_name = "Player Or AI"
+children = [SubResource("BTSequence_ffcxi"), SubResource("BTSequence_ie7td")]
+
+[sub_resource type="BTAction" id="BTAction_yfohv"]
+script = ExtResource("4_j31wy")
 
 [sub_resource type="BTSequence" id="BTSequence_2bpg1"]
 custom_name = "Movement"
-children = [SubResource("BTCondition_3u5sa"), SubResource("BTAction_diy08")]
+children = [SubResource("BTSelector_4xtum"), SubResource("BTAction_yfohv")]
+
+[sub_resource type="BTCondition" id="BTCondition_bjobv"]
+script = ExtResource("5_43ful")
+
+[sub_resource type="BTAction" id="BTAction_vggpq"]
+script = ExtResource("6_y7pdy")
+
+[sub_resource type="BTSequence" id="BTSequence_1ygif"]
+custom_name = "Go Home"
+children = [SubResource("BTCondition_bjobv"), SubResource("BTAction_vggpq")]
 
 [sub_resource type="BTAction" id="BTAction_wh76l"]
 script = ExtResource("3_fli4r")
@@ -66,11 +101,16 @@ children = [SubResource("BTPlayAnimation_fmkcg"), SubResource("BTRandomWait_h5bw
 metadata/_weight_ = 4.39084
 
 [sub_resource type="BTProbabilitySelector" id="BTProbabilitySelector_hekkq"]
-custom_name = "Navigate"
+custom_name = "Navigate Normally"
 children = [SubResource("BTCooldown_i5bam"), SubResource("BTSequence_ab2tl")]
 
+[sub_resource type="BTSelector" id="BTSelector_xs6cy"]
+custom_name = "Navigate"
+children = [SubResource("BTSequence_1ygif"), SubResource("BTProbabilitySelector_hekkq")]
+
 [sub_resource type="BTParallel" id="BTParallel_0evp1"]
-children = [SubResource("BTSequence_2bpg1"), SubResource("BTProbabilitySelector_hekkq")]
+num_successes_required = 999
+children = [SubResource("BTSequence_2bpg1"), SubResource("BTSelector_xs6cy")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_w2k2i")
