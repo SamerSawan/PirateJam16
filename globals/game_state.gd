@@ -3,21 +3,35 @@ extends Node
 #region Teams
 
 ## Group relations
-var Teams : TeamsLoader = TeamsLoader.new()
+var Teams : TeamsLoader = preload("res://resources/teams/TeamsLoader.tscn").instantiate()
+var team_names = Teams.teams.map(func(t): return t.name)
+
+func _ready() -> void:
+	get_tree().root.add_child.call_deferred(Teams)
 
 ## Filter and return all team names that are in the node's groups
 func get_teams_of_node(node: Node2D) -> Array[StringName]:
 	var node_groups = node.get_groups()
-	var map = Teams.map(func(t): t.name)
-	return node_groups.filter(func(grp): grp in map)
+	#print("Node groups: " + str(node_groups))
+	
+	var teams : Array[StringName] = []
+	teams.append_array( node_groups.filter( func(grp): return grp in team_names ) ) 
+	print("Teams of " + str(node) + " : " + str(teams))
+	return teams
 
 ## Returns the first (front) team name of a node
 func get_first_team_of_node(node: Node2D) -> StringName:
-	return get_teams_of_node(node).front()
+	var teams = get_teams_of_node(node)
+	#print("teams of node: " + str(teams))
+	if teams:
+		var filtered_teams = teams.front()
+		if filtered_teams:
+			return filtered_teams
+	return ""
 
 ## Sets a node's team safely
 func set_team_of_node(node: Node2D, team_name: StringName) -> void:
-	if Teams.any(func(t): t.name == team_name):
+	if Teams.teams.any(func(t): t.name == team_name):
 		node.add_to_group(team_name)
 
 ## Removes the first occurrence of a team name
@@ -36,29 +50,39 @@ func reset_teams_of_node(node: Node2D) -> void:
 
 ## Returns an array of teams that consider the given team name hostile
 func get_teams_hostile_to_team(team_name: StringName) -> Array[StringName]:
-	return Teams.filter(
-		func(other_team):
-			return team_name in other_team.hostile
-	).map(func(t): t.name)
+	var teams = []
+	teams.append_array(
+		Teams.teams.filter(
+			func(other_team): 
+				return team_name in other_team.hostile)
+				.map(
+					func(t): t.name
+				)
+	)
+	return teams
 
 ## Returns an array of teams that consider the given team name friendly
 func get_teams_friendly_to_team(team_name: StringName) -> Array[StringName]:
-	return Teams.filter(
-		func(other_team):
-			return team_name in other_team.friendly
-	).map(func(t): t.name)
+	var teams = []
+	teams.append_array(
+		Teams.teams.filter(
+			func(other_team):
+				return team_name in other_team.friendly)
+				.map(
+					func(t): t.name
+				)
+	) 
+	return teams
 
 ## Checks if the user is hostile to the given node
 func is_user_hostile_to_node(user: Node2D, node: Node2D) -> bool:
 	if user == node: ## If the user is the node, we shouldn't do anything
 		return false
 	var user_team: StringName = get_first_team_of_node(user)
-	var node_teams: Array[StringName] = get_teams_of_node(node)
-	if user_team:
-		for t in node_teams:
-			var team = Teams.find(func(te): te.name == t)
-			if team and user_team in team.hostile:
-				return true
+	var node_team: StringName = get_first_team_of_node(node)
+	# if user_team.hostiles contains node_team
+	if user_team and node_team:
+		return Teams.team_name_to_team_resource[user_team].hostile.has(node_team)
 	return false
 
 ## Checks if the user is friendly to the given node
@@ -66,12 +90,10 @@ func is_user_friendly_to_node(user: Node2D, node: Node2D) -> bool:
 	if user == node: ## If the user is the node, we shouldn't do anything
 		return false
 	var user_team: StringName = get_first_team_of_node(user)
-	var node_teams: Array[StringName] = get_teams_of_node(node)
-	if user_team:
-		for t in node_teams:
-			var team = Teams.find(func(te): te.name == t)
-			if team and user_team in team.friendly:
-				return true
+	var node_team: StringName = get_first_team_of_node(node)
+	# if user_team.hostiles contains node_team
+	if user_team and node_team:
+		return Teams.team_name_to_team_resource[user_team].friendly.has(node_team)
 	return false
 
 #endregion
