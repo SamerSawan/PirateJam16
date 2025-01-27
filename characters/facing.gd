@@ -3,7 +3,7 @@ extends Node2D
 
 # This script is for facing logic and can be used with any of the characters. See the player scene to see how to use it
 
-@export var character : PlatformerCharacter2D :
+@export var character : Node2D :
 	set(value):
 		if is_instance_valid(character):
 			character.direction_changed.disconnect(_on_direction_changed)

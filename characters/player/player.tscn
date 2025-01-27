@@ -31,9 +31,8 @@ position = Vector2(0, 6)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_lkjkp")
 
-[node name="Facing" type="Node2D" parent="." node_paths=PackedStringArray("character")]
+[node name="Facing" type="Node2D" parent="."]
 script = ExtResource("3_01yg7")
-character = NodePath("..")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Facing"]
 scale = Vector2(-1, 1)

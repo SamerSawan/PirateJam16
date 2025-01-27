@@ -26,4 +26,4 @@ func _on_area_2d_body_exited(body):
 
 func infest():
 	print("infested")
-	emit_signal("add_form", $"Goblin-corpse".texture) 
+	emit_signal("add_form", $Sprite1Test.texture, $Sprite1Test) 

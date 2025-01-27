@@ -9,9 +9,9 @@ var current_form_index: int = 0
 var forms: Array[Sprite2D] = []
 
 func _ready():
-	for child in get_children():
-		if child is Sprite2D:
-			forms.append(child)
+#	for child in get_children(): 
+#		if child is Sprite2D:
+#			forms.append(child)
 	
 	update_old_form()
 
@@ -21,8 +21,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 func swap_form():
-	current_form_index = (current_form_index + 1) % forms.size()
-	update_old_form()
+	current_form_index = (current_form_index + 1) % (forms.size() +1)
+	update_old_form() 
 
 func update_old_form():
 	for i in range(forms.size()):
@@ -34,10 +34,12 @@ func _process(delta: float) -> void:
 		swap_form()
 
 
-func _on_corpse_add_form(texture: Texture):
+func _on_corpse_add_form(texture: Texture, source_sprite: Sprite2D):
 	var new_sprite = Sprite2D.new()
 	new_sprite.texture = texture
 	new_sprite.visible = false
+	var source_animation_player = source_sprite.get_node("AnimationPlayer")
+	var new_animation = source_animation_player.duplicate()
 	add_child(new_sprite)
 	forms.append(new_sprite)
 	print("signal test:")
