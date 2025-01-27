@@ -18,7 +18,6 @@ script = ExtResource("1_i4jlw")
 
 [sub_resource type="BTAction" id="BTAction_g2erx"]
 script = ExtResource("2_1c0le")
-speed_modifier = 2
 
 [sub_resource type="BTSequence" id="BTSequence_54nsq"]
 custom_name = "Movement"
