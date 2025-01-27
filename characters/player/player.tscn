@@ -7,8 +7,8 @@
 [ext_resource type="Script" path="res://characters/player/player_input.gd" id="5_u8ori"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lkjkp"]
-radius = 2.0
-height = 16.0
+radius = 6.0
+height = 24.0
 
 [sub_resource type="Resource" id="Resource_u8x2m"]
 script = ExtResource("2_r73oq")
@@ -20,9 +20,8 @@ jump = &"jump"
 attack = &"attack"
 
 [node name="Player" type="CharacterBody2D" groups=["Parasite"]]
-collision_layer = 16
 z_index = 10
-collision_mask = 3
+collision_layer = 2
 script = ExtResource("1_p37h2")
 move_speed = 150.0
 
