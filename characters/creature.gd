@@ -11,26 +11,30 @@ class_name Creature
 @export var atlases : Array[Texture2D]  ## setting these to atlas texture breaks the animation for some reason, so dont do that
 @export var random_atlas : bool = true
 
+## Movement
+var direction : Vector2
+
 @export_category("Attacks")
 @export var primary_attack : Attack
 @export var secondary_attack : Attack
 
-@export var is_friendly_fire : bool = false
+signal input_move ## Emitted when we want creature to move in a specified direction
+signal input_attack_first ## Emitted when we want creature to attack with varargs for any needed data
+signal input_attack_second ## Emitted when we want creature to attack with varargs for any needed data
+
+signal change_orientation # Orientation handler is not guaranteed but signal will exist regardless
 
 func _ready():
+	input_move.connect(func(delta, direction, speed):
+		movement_component.move(delta, direction, speed)
+		change_orientation.emit(direction)
+	)
+	
+	input_attack_first.connect(func(enemy):primary_attack.trigger.emit(enemy))
+	input_attack_second.connect(func(enemy):secondary_attack.trigger.emit(enemy))
+	
 	if random_atlas:
 		_randomize_atlas_type()
-	# duplicate code bc may change in the future, we shall see
-	if primary_attack:
-		primary_attack.attack_range.enemy_in_range.connect(func(enemy):
-			#current_enemy_direction = global_position.direction_to(enemy.global_position)
-			pass
-		)
-	if secondary_attack:
-		secondary_attack.attack_range.enemy_in_range.connect(func(enemy):
-			#current_enemy_direction = global_position.direction_to(enemy.global_position)
-			pass
-		)
 
 func _randomize_atlas_type():
 	root_sprite.set_texture(atlases.pick_random())

@@ -1,7 +1,6 @@
 extends Creature
 class_name HumanCitizen
 
-signal change_orientation
 @export var orientation_handler : OrientationHandler
 
 @export var vision_component : VisionComponent
