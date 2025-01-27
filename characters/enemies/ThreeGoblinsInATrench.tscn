@@ -81,6 +81,8 @@ root_task = SubResource("BTSequence_e4dlm")
 
 [node name="ThreeGoblinsInATrench" type="CharacterBody2D"]
 script = ExtResource("1_ovf5t")
+speed = null
+health = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_8pp7i")

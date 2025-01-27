@@ -50,4 +50,17 @@ func perform_ranged_attack():
 	pass
 
 func perform_jump_attack():
-	pass
+	#Play jump animation
+	
+	var jump_target = player.global_position
+	
+	var tween = create_tween()
+	tween.tween_property(self, "global_transform:origin", jump_target, 0.5)
+	
+	await tween
+	
+	#play land animation
+	
+	var players_in_area = $AttackBox.get_overlapping_bodies
+	for p in players_in_area:
+		player.take_damage(15)
