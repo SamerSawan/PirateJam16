@@ -11,9 +11,9 @@ func _ready() -> void:
 
 #region Speed
 @export var max_speed : Vector2 = Vector2(16, 16) ## How many units per second this entity will be able to move, ideally
-@onready var cur_speed : Vector2 = max_speed
-func set_cur_speed(speed):
-	cur_speed = (speed)
+@onready var cur_speed : Vector2 = max_speed:
+	set(speed):
+		cur_speed = speed
 #endregion
 
 #region Health
