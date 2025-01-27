@@ -11,6 +11,8 @@ radius = 200.0
 script = ExtResource("1_6uurm")
 vision_area_2d = NodePath("Area2D")
 detection_raycaster = NodePath("DetectionRaycaster")
+target_layers = Array[int]([2])
+occlusion_layers = Array[int]([1])
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
@@ -21,5 +23,4 @@ shape = SubResource("CircleShape2D_4q5uv")
 
 [node name="DetectionRaycaster" parent="." node_paths=PackedStringArray("detection_area") instance=ExtResource("2_pif1h")]
 detection_area = NodePath("../Area2D")
-collision_layers = Array[int]([1])
 raycast_for_tilemap_layers = false

@@ -5,6 +5,8 @@ class_name VisionComponent
 ## Edit children if needed
 signal sees_target(raycast, target)
 
+@export var root : Node2D
+
 @export var vision_area_2d : Area2D
 @export var detection_raycaster : DetectionRaycaster
 
@@ -18,8 +20,10 @@ func _ready():
 	$Area2D/CollisionShape2D.get_shape().radius = vision_distance
 	for layer in target_layers:
 		vision_area_2d.set_collision_mask_value(layer, true)
-	detection_raycaster.collision_layers = target_layers + occlusion_layers
+	detection_raycaster.collision_masks = target_layers + occlusion_layers
 	detection_raycaster.is_colliding_with_target.connect(_is_colliding_with_target)
+	if root:
+		detection_raycaster.ignored_bodies.append(root)
 
 func _is_colliding_with_target(raycast : RayCast2D, target : Node2D):
 	if not target in visible_targets:
