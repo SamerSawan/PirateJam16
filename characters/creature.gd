@@ -1,6 +1,9 @@
 extends CharacterBody2D
 class_name Creature
 
+var controller : Node2D
+var home : HomeArea2D
+
 @export var root_sprite : Sprite2D
 @export var stats_component : StatsComponent
 @export var movement_component : MovementComponent
@@ -12,8 +15,6 @@ class_name Creature
 @export var random_atlas : bool = true
 
 ## Movement
-var direction : Vector2
-
 @export_category("Attacks")
 @export var primary_attack : Attack
 @export var secondary_attack : Attack
@@ -25,13 +26,13 @@ signal input_attack_second ## Emitted when we want creature to attack with varar
 signal change_orientation # Orientation handler is not guaranteed but signal will exist regardless
 
 func _ready():
-	input_move.connect(func(delta, direction, speed):
+	input_move.connect(func(delta : float, direction : Vector2, speed : Vector2):
 		movement_component.move(delta, direction, speed)
 		change_orientation.emit(direction)
 	)
 	
-	input_attack_first.connect(func(enemy):primary_attack.trigger.emit(enemy))
-	input_attack_second.connect(func(enemy):secondary_attack.trigger.emit(enemy))
+	input_attack_first.connect(func(d : Dictionary):primary_attack.trigger.emit(d))
+	input_attack_second.connect(func(d : Dictionary):secondary_attack.trigger.emit(d))
 	
 	if random_atlas:
 		_randomize_atlas_type()

@@ -24,7 +24,7 @@ func get_enemies_in_range() -> Array[Node2D]:
 	var enemy_creatures : Array[Node2D] = bodies.filter(func(body): 
 		return GameState.is_user_hostile_to_node(attack.user, body)
 	)
-	print("Enemies in range of attack area: " + str(enemy_creatures))
+	#print("Enemies in range of attack area: " + str(enemy_creatures))
 	return enemy_creatures
 
 func get_closest_enemy(node) -> Creature:

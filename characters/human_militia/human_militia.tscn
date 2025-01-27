@@ -123,7 +123,6 @@ navigation_component = NodePath("NavigationComponent")
 atlases = Array[Texture2D]([ExtResource("2_jsvo2"), ExtResource("3_r82yy")])
 primary_attack = NodePath("MilitiaSpearAttack")
 secondary_attack = NodePath("MilitiaSpearAttack")
-is_friendly_fire = null
 
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_wsf7e")
@@ -147,19 +146,12 @@ friction = 128.0
 body = NodePath("..")
 nodes_to_flip = Array[NodePath]([NodePath("../Sprite2D"), NodePath("../Hurtbox")])
 
-[node name="VisionComponent" parent="." instance=ExtResource("7_0gt6o")]
+[node name="VisionComponent" parent="." node_paths=PackedStringArray("root") instance=ExtResource("7_0gt6o")]
+root = NodePath("..")
 vision_distance = 180.0
-target_layers = Array[int]([2])
-occlusion_layers = Array[int]([1])
-
-[node name="Area2D" parent="VisionComponent" index="0"]
-collision_mask = 16
 
 [node name="CollisionShape2D" parent="VisionComponent/Area2D" index="0"]
 shape = SubResource("CircleShape2D_qhu15")
-
-[node name="DetectionRaycaster" parent="VisionComponent" index="1"]
-collision_layers = Array[int]([5, 1])
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_postprocessing = 1
@@ -179,9 +171,6 @@ libraries = {
 position = Vector2(0, 0)
 rotation = 0.0
 user = NodePath("..")
-
-[node name="SpearAnimationPlayer" parent="MilitiaSpearAttack" index="2"]
-blend_times = [&"PrimaryAttack", &"PrimaryAttack", 0.1]
 
 [node name="Hitbox" parent="MilitiaSpearAttack/WeaponArea2D" index="0"]
 shape = SubResource("RectangleShape2D_yuqxq")

@@ -13,6 +13,7 @@ class_name HumanMilitia
 @export_category("")
 
 func _ready():
+	super._ready()
 	_init_state_machines()
 	vision_component.sees_target.connect(_on_see_target)
 	aggro_timer.timeout.connect(_on_aggro_timer_timeout)
@@ -31,6 +32,7 @@ func _init_state_machines():
 func _on_see_target(raycast : RayCast2D, target : Node):
 	if target in vision_component.detection_raycaster.detection_targets: # if has line of sight
 		if GameState.is_user_hostile_to_node(self, target):
+			#print("Hostile to: " + str(target))
 			if not aggro_hsm.get_active_state() == aggro_state: # set state to aggro start
 				print("Dispatching transition to start aggro")
 				aggro_hsm.dispatch(&"aggro_start")

@@ -139,10 +139,9 @@ friction = 128.0
 body = NodePath("..")
 nodes_to_flip = Array[NodePath]([NodePath("../Sprite2D"), NodePath("../Hurtbox")])
 
-[node name="VisionComponent" parent="." instance=ExtResource("4_020l5")]
+[node name="VisionComponent" parent="." node_paths=PackedStringArray("root") instance=ExtResource("4_020l5")]
+root = NodePath("..")
 vision_distance = 115.0
-target_layers = Array[int]([2])
-occlusion_layers = Array[int]([1])
 
 [node name="Area2D" parent="VisionComponent" index="0"]
 collision_mask = 16
@@ -150,8 +149,8 @@ collision_mask = 16
 [node name="CollisionShape2D" parent="VisionComponent/Area2D" index="0"]
 shape = SubResource("CircleShape2D_kxsts")
 
-[node name="DetectionRaycaster" parent="VisionComponent" index="1"]
-collision_layers = Array[int]([5, 1])
+[node name="DetectionRaycaster" parent="VisionComponent" index="1" node_paths=PackedStringArray("ignored_bodies")]
+ignored_bodies = [null]
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_postprocessing = 1
