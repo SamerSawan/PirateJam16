@@ -1,5 +1,5 @@
 class_name PlatformerCharacter2D
-extends CharacterBody2D
+extends Creature
 
 # This script is specifically for things that any character in the game needs (mobs, player, enemies, npcs, allies, etc)
 

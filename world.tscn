@@ -3,18 +3,18 @@
 [ext_resource type="Texture2D" uid="uid://dl567o5rpbvf8" path="res://assets/Tileset Piratejam 16.png" id="1_swvg1"]
 [ext_resource type="PackedScene" uid="uid://cn4ikwt7enju2" path="res://characters/player/player.tscn" id="2_g308q"]
 [ext_resource type="PackedScene" uid="uid://brsr2g8tgoaxx" path="res://world/storage_room.tscn" id="3_0lihq"]
-[ext_resource type="PackedScene" uid="uid://ydo25uiqa5c4" path="res://characters/human_citizen/human_citizen.tscn" id="3_6r5yq"]
 [ext_resource type="Texture2D" uid="uid://bn5d2jgmpculo" path="res://assets/enemies/goblin-corpse.png" id="3_lgjug"]
 [ext_resource type="PackedScene" uid="uid://c3s8xlsy4jmmk" path="res://world/gym_room.tscn" id="4_1nhn6"]
 [ext_resource type="Texture2D" uid="uid://degb4epk8u0u" path="res://assets/enemies/E_button.png" id="4_bvdgb"]
-[ext_resource type="PackedScene" path="res://corpse.tscn" id="4_qr2g6"]
-[ext_resource type="PackedScene" path="res://tile_sets/fogwall.tscn" id="4_u3haa"]
-[ext_resource type="PackedScene" path="res://characters/enemies/bossman.tscn" id="5_cpvgj"]
+[ext_resource type="PackedScene" uid="uid://wpqxxpdwj8bd" path="res://corpse.tscn" id="4_qr2g6"]
+[ext_resource type="PackedScene" uid="uid://en70glxq832p" path="res://tile_sets/fogwall.tscn" id="4_u3haa"]
+[ext_resource type="PackedScene" uid="uid://dhb0yb38ywj21" path="res://characters/enemies/bossman.tscn" id="5_cpvgj"]
 [ext_resource type="PackedScene" uid="uid://b6vmujpvdb0br" path="res://world/Room1.tscn" id="5_rotv3"]
 [ext_resource type="PackedScene" uid="uid://y0mn2wg4yns4" path="res://world/Room2.tscn" id="6_rragx"]
 [ext_resource type="PackedScene" uid="uid://cx84xvhpplsss" path="res://world/Room3.tscn" id="7_kiiwc"]
 [ext_resource type="PackedScene" uid="uid://ch6knr5i7v02s" path="res://world/BossRoom.tscn" id="8_uc42p"]
 [ext_resource type="PackedScene" uid="uid://drdunh3bxiyaq" path="res://world/sacrifice_room.tscn" id="9_kaj24"]
+[ext_resource type="PackedScene" uid="uid://d3y5dqpl0by0j" path="res://characters/human_militia/human_militia.tscn" id="13_gpulw"]
 [ext_resource type="PackedScene" uid="uid://yovpvw34it05" path="res://characters/enemies/ThreeGoblinsInATrench.tscn" id="16_eopcx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_11b7i"]
@@ -97,10 +97,10 @@ physics_layer_0/collision_layer = 2
 physics_layer_0/collision_mask = 16
 sources/0 = SubResource("TileSetAtlasSource_11b7i")
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_4cm5m"]
-vertices = PackedVector2Array(260.578, -24.7578, 262.563, 21.8594, 204.992, 21.1016, 193.969, -27, 103.133, -58.7969, 14, -60.7813, 14, -118.789, 147.813, -116.148, 154.938, -81.5625, 407.594, -28.2031, 285.391, -88.4766, 287.344, -117.859, 609.594, -113.172, 549.008, 1.21875, 106.109, -27, 580.148, 20.1563, 555.172, 17.6563, 442.867, -2.24219, 414.617, 19, 435.789, 19)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7, 8), PackedInt32Array(9, 10, 11, 12, 13), PackedInt32Array(3, 14, 4, 8, 10), PackedInt32Array(0, 3, 10, 9), PackedInt32Array(12, 15, 16, 13), PackedInt32Array(9, 13, 17), PackedInt32Array(18, 9, 17, 19)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(4, -129, 4, -51, 94, -49, 97, -17, 186, -17, 197, 31, 273, 32, 271, -15, 399, -18, 406, 29, 443, 29, 450, 8, 542, 11, 548, 27, 588, 31, 622, -123, 278, -128, 276, -98, 163, -92, 156, -126)])
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_fetsk"]
+vertices = PackedVector2Array(554, -512.391, 582, -520.172, 582, -446.172, 554, -438, 518.023, -414.188, 454, -438, 490, -413.539, 794, -346, 538, -346, 538, -358, 806, -358, 806, -170, 794, -182, 662, -170, 517.109, -182, 662, 54, 10, 54, 490, -182, 10, -182, 426, -453.539, 454, -518, 426, -518, 687.578, -538, 628.43, -533.07, 689.383, -550, 836.063, -538, 844.453, -550, 950, -644.344, 922, -636.156, 922, -726, 950, -726)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 2, 4), PackedInt32Array(5, 3, 4, 6), PackedInt32Array(7, 8, 9, 10), PackedInt32Array(7, 10, 11, 12), PackedInt32Array(12, 11, 13, 14), PackedInt32Array(14, 13, 15, 16, 17), PackedInt32Array(16, 18, 17), PackedInt32Array(14, 17, 6, 4), PackedInt32Array(5, 6, 19), PackedInt32Array(20, 5, 19, 21), PackedInt32Array(22, 23, 24), PackedInt32Array(25, 22, 24, 26), PackedInt32Array(27, 25, 26, 28), PackedInt32Array(27, 28, 29, 30)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(0, -192, 480, -192, 480, -408, 416, -448, 416, -528, 464, -528, 464, -448, 480, -448, 528, -448, 544, -448, 544, -520, 688, -560, 840, -560, 912, -640, 912, -736, 960, -736, 960, -640, 840, -528, 688, -528, 592, -520, 592, -440, 528, -408, 527.148, -192, 672, -192, 784, -192, 784, -336, 528, -336, 528, -368, 784, -368, 816, -368, 816, -192, 816, -160, 672, -160, 672, 64, 0, 64)])
 
 [node name="World" type="Node2D"]
 
@@ -129,6 +129,9 @@ position = Vector2(880, -576)
 [node name="BOSS ROOM" parent="TileMapLayer" instance=ExtResource("8_uc42p")]
 position = Vector2(928, -256)
 
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_fetsk")
+
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("2_g308q")]
 position = Vector2(1336, -152)
 
@@ -149,13 +152,6 @@ texture = ExtResource("4_bvdgb")
 position = Vector2(1336, -152)
 zoom = Vector2(3, 3)
 
-[node name="Human Citizen" parent="." instance=ExtResource("3_6r5yq")]
-position = Vector2(474, -83)
-
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-position = Vector2(72, -32)
-navigation_polygon = SubResource("NavigationPolygon_4cm5m")
-
 [node name="Corpse" parent="." groups=["corpses"] instance=ExtResource("4_qr2g6")]
 position = Vector2(122, -1)
 
@@ -167,5 +163,8 @@ position = Vector2(1576, -520)
 
 [node name="ThreeGoblinsInATrench" parent="." instance=ExtResource("16_eopcx")]
 position = Vector2(1408, -160)
+
+[node name="Human Militia" parent="." instance=ExtResource("13_gpulw")]
+position = Vector2(503, -163)
 
 [connection signal="add_form" from="Corpse" to="Player" method="_on_corpse_add_form"]

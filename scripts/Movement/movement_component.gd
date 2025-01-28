@@ -23,7 +23,7 @@ func take_knockback(knockback : Vector2): # take knockback in a direction
 
 #region Movement
 ## Applys movement, moving from velocity, to speed * direction, by delta * acceleration coefficient, clamping the result by the max_speed in the stats_component
-func move(delta: float, direction: Vector2, speed : Vector2, max_speed : Vector2 = stats_component.get_max_speed()):
+func move(delta: float, direction: Vector2, speed : Vector2, max_speed : Vector2 = stats_component.max_speed):
 	# store new velocity
 	var new_velocity : Vector2 = Vector2.ZERO 
 	
@@ -37,7 +37,7 @@ func move(delta: float, direction: Vector2, speed : Vector2, max_speed : Vector2
 	# store new velocity but clamped to max speed stat which is from the stats component by default
 	body.velocity.x = clampf(new_velocity.x, -max_speed.x, max_speed.x)
 	body.velocity.y = clampf(new_velocity.y, -max_speed.y, max_speed.y)
-	print("New velocity: " + str(body.velocity))
+	#print("New velocity: " + str(body.velocity))
 #endregion
 
 ##region Jump

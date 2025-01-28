@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TeamResource" load_steps=2 format=3 uid="uid://cjpgovdjkh3g8"]
+
+[ext_resource type="Script" path="res://resources/teams/TeamResource.gd" id="1_xe7uw"]
+
+[resource]
+script = ExtResource("1_xe7uw")
+name = &"Human"
+hostile = Array[StringName]([&"Parasite", &"Goblin"])
+neutral = Array[StringName]([])
+friendly = Array[StringName]([])

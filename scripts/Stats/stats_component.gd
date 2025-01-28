@@ -11,8 +11,9 @@ func _ready() -> void:
 
 #region Speed
 @export var max_speed : Vector2 = Vector2(16, 16) ## How many units per second this entity will be able to move, ideally
-func get_max_speed():
-	return max_speed
+@onready var cur_speed : Vector2 = max_speed:
+	set(speed):
+		cur_speed = speed
 #endregion
 
 #region Health
@@ -29,10 +30,10 @@ func set_cur_health(new_health : int) -> void:
 	prev_health = clamp(cur_health, 0, max_health)
 	cur_health = clamp(new_health, 0, max_health)
 	health_changed.emit(cur_health, prev_health)
-	print("Health changed on " + root.name + " to " + str(cur_health))
+	#print("Health changed on " + root.name + " to " + str(cur_health))
 
 func take_damage(damage):
-	print(root.name + " took " + str(damage) + " damage ")
+	#print(root.name + " took " + str(damage) + " damage ")
 	set_cur_health(cur_health - abs(damage))
 
 func heal(amount):

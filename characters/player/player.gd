@@ -15,7 +15,6 @@ func _ready():
 	
 	update_old_form()
 
-
 func _physics_process(delta: float) -> void:
 	velocity = move_speed * direction.normalized()
 	move_and_slide()
@@ -32,7 +31,6 @@ func update_old_form():
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("swap_form"):
 		swap_form()
-
 
 func _on_corpse_add_form(texture: Texture):
 	var new_sprite = Sprite2D.new()

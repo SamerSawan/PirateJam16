@@ -14,14 +14,14 @@ func apply_collision_effects(collider): # custom collision effects based on proj
 	if collider.is_in_group("Enemy"):
 		var components : Array[Node] = [
 			collider.get_node_or_null("StatsComponent"),
-			collider.get_node_or_null("VelocityComponent")
+			collider.get_node_or_null("MovementComponent")
 		]
 		
 		for component in components:
 			if component is StatsComponent:
 				if component.has_method("take_damage"): # always check for methods if its unknown what the component is
 					component.take_damage(projectile_component.damage)
-			if component is VelocityComponent:
+			if component is MovementComponent:
 				if component.has_method("take_knockback"):
 					var knockback = -get_velocity()
 					component.take_knockback(knockback)

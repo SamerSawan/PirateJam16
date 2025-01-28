@@ -1,0 +1,11 @@
+[gd_scene load_steps=6 format=3 uid="uid://b4s52cwwculgd"]
+
+[ext_resource type="Script" path="res://resources/teams/teams_loader.gd" id="1_ecl0h"]
+[ext_resource type="Script" path="res://resources/teams/TeamResource.gd" id="2_826t2"]
+[ext_resource type="Resource" uid="uid://b4llqctivp1uo" path="res://resources/teams/Parasite.tres" id="3_4eu8f"]
+[ext_resource type="Resource" uid="uid://cjpgovdjkh3g8" path="res://resources/teams/Human.tres" id="4_4rrb4"]
+[ext_resource type="Resource" uid="uid://cl68sh2vciyp4" path="res://resources/teams/Goblin.tres" id="5_h1vvn"]
+
+[node name="TeamsLoader" type="Node"]
+script = ExtResource("1_ecl0h")
+teams = Array[ExtResource("2_826t2")]([ExtResource("3_4eu8f"), ExtResource("4_4rrb4"), ExtResource("5_h1vvn")])

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=4 uid="uid://brsr2g8tgoaxx"]
+[gd_scene load_steps=5 format=4 uid="uid://brsr2g8tgoaxx"]
 
 [ext_resource type="Texture2D" uid="uid://dl567o5rpbvf8" path="res://assets/Tileset Piratejam 16.png" id="1_ymve6"]
 
@@ -79,6 +79,11 @@ physics_layer_0/collision_layer = 2
 physics_layer_0/collision_mask = 16
 sources/0 = SubResource("TileSetAtlasSource_ppdns")
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_2c7uf"]
+vertices = PackedVector2Array(342, 134, 202, 134, 202, -54, 342, -54)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(192, -64, 352, -64, 352, 144, 192, 144)])
+
 [node name="Storage Room" type="Node2D"]
 
 [node name="Ground" type="TileMapLayer" parent="."]
@@ -89,3 +94,6 @@ tile_set = SubResource("TileSet_lscde")
 z_index = 1
 tile_map_data = PackedByteArray("AAAUAPz/AAABAAAAAAARAP//AAABAAMAAAASAPz/AAABAAMAAAAUAP7/AAABAAAAAAAPAP3/AAABAAAAAAAQAP3/AAABAAMAAAAVAPz/AAABAAMAAAAMAPz/AAAAAAMAAAAOAPz/AAAAAAQAAAATAAAAAAAAAAMAAAATAPz/AAADAAYAAAAMAAUAAAABAAMAAAAOAAYAAAABAAMAAAATAAYAAAABAAAAAAAUAAQAAAABAAAAAAARAAUAAAAAAAMAAAAOAAQAAAAAAAMAAAAUAAAAAAAAAAQAAAAOAPv/AAAEAAUAAAAUAPv/AAAEAAUAAAA=")
 tile_set = SubResource("TileSet_lscde")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_2c7uf")

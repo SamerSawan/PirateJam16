@@ -1,15 +1,17 @@
 extends BTAction
 
+## Set move direction to the direction of the next navigation point
+
 func _tick(delta: float) -> Status:
-	var _agent : CharacterBody2D = agent
-	if _agent is Creature:
-		var next_pos : Vector2 = _agent.navigation_agent.get_next_path_position()
+	if agent is Creature:
+		var next_pos : Vector2 = agent.navigation_agent.get_next_path_position()
 		if not next_pos:
 			return FAILURE
-		var direction_of_next_nav_point = _agent.global_position.direction_to(next_pos).normalized()
-		print("Direction of next nav point: " + str(direction_of_next_nav_point))
-		_agent.movement_component.move( delta, direction_of_next_nav_point, _agent.stats_component.max_speed )
-		
-		print("Navigating to target")
+		var direction_of_next_nav_point = agent.global_position.direction_to(next_pos).normalized()
+		blackboard.set_var("move_direction", direction_of_next_nav_point)
+		#print("Direction of next nav point: " + str(direction_of_next_nav_point))
+		#print("\n")
+		#print("Navigating to target")
+		#print("\n")
 		return SUCCESS
 	return FAILURE

@@ -1,13 +1,14 @@
 extends BTCondition
 
-## Is enemy in my area
+@export var min_range: float = 0.0
+@export var max_range: float = 10.0
 
-func _tick(delta: float) -> Status:
-	var _agent : CharacterBody2D = agent
-	if _agent is Creature and "vision_component" in _agent:
-		var vision : VisionComponent = agent.vision_component
-		var has_target = vision.visible_targets.size() > 0
-		if has_target:
-			print("Enemy is in area")
-			return SUCCESS
+func _tick(delta) -> Status:
+	if blackboard.has_var("player"):
+		var player = blackboard.get_var("player")
+		if player:
+			var distance = agent.global_position.distance_to(player.global_position)
+			
+			if distance >= min_range and distance <= max_range:
+				return SUCCESS
 	return FAILURE
