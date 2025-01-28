@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyvybxauq1dss"]
+
+[ext_resource type="Script" path="res://scripts/Navigation/home_area.gd" id="1_aaxlt"]
+
+[node name="HomeArea2D" type="Area2D"]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_aaxlt")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
