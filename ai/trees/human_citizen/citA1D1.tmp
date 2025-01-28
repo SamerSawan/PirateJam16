@@ -11,7 +11,7 @@ var/var/value = 0.0
 var/var/hint = 0
 var/var/hint_string = ""
 
-[sub_resource type="BTAction" id="BTAction_0oprm"]
+[sub_resource type="BTAction" id="BTAction_4st1d"]
 script = ExtResource("4_qgagq")
 bb_closest_target_node = &"target_node"
 
@@ -20,8 +20,8 @@ script = ExtResource("5_4lh7q")
 bb_closest_target_node = &"target_node"
 flee_distance_max = 256.0
 flee_distance_min = 128.0
-target_direction_modifier_min = -30.0
-target_direction_modifier_max = 30.0
+target_direction_modifier_min = -30
+target_direction_modifier_max = 30
 
 [sub_resource type="BBNode" id="BBNode_txafw"]
 saved_value = NodePath("AnimationPlayer")
@@ -30,19 +30,22 @@ resource_name = "AnimationPlayer"
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_dwx1e"]
 animation_player = SubResource("BBNode_txafw")
 animation_name = &"RunAway"
+blend = 0.1
 
 [sub_resource type="BTAction" id="BTAction_j0s1s"]
 script = ExtResource("2_ypbhp")
 
 [sub_resource type="BTTimeLimit" id="BTTimeLimit_7pevl"]
+time_limit = 1.0
 children = [SubResource("BTAction_j0s1s")]
 
 [sub_resource type="BTSequence" id="BTSequence_lfbks"]
 custom_name = "Run Away"
-children = [SubResource("BTAction_0oprm"), SubResource("BTAction_bcpt6"), SubResource("BTPlayAnimation_dwx1e"), SubResource("BTTimeLimit_7pevl")]
+children = [SubResource("BTAction_4st1d"), SubResource("BTAction_bcpt6"), SubResource("BTPlayAnimation_dwx1e"), SubResource("BTTimeLimit_7pevl")]
 
 [sub_resource type="BTCooldown" id="BTCooldown_l5j11"]
-duration = 0.1
+duration = 1.0
+trigger_on_failure = true
 children = [SubResource("BTSequence_lfbks")]
 
 [sub_resource type="BBNode" id="BBNode_hmjlh"]
@@ -51,7 +54,8 @@ resource_name = "AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_tygkv"]
 animation_player = SubResource("BBNode_hmjlh")
-animation_name = &"Cower"
+animation_name = &"Idle"
+blend = 0.1
 
 [sub_resource type="BTSequence" id="BTSequence_e7n3y"]
 custom_name = "Idle"

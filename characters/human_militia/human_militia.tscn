@@ -170,6 +170,9 @@ position = Vector2(0, 0)
 rotation = 0.0
 user = NodePath("..")
 
+[node name="SpearAnimationPlayer" parent="MilitiaSpearAttack/Node2D" index="0"]
+blend_times = [&"PrimaryAttack", &"PrimaryAttack", 0.1]
+
 [node name="Hitbox" parent="MilitiaSpearAttack/Node2D/WeaponArea2D" index="0"]
 position = Vector2(1.84521, -0.341092)
 shape = SubResource("RectangleShape2D_gy4kq")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ydo25uiqa5c4"]
+[gd_scene load_steps=22 format=3 uid="uid://ydo25uiqa5c4"]
 
 [ext_resource type="Script" path="res://characters/human_citizen/human_citizen.gd" id="1_dl03e"]
 [ext_resource type="Texture2D" uid="uid://0lxqgdswx3gd" path="res://aseprite/citizen/male.tres" id="2_sig13"]
@@ -18,6 +18,23 @@ height = 34.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_kxsts"]
 resource_local_to_scene = true
 radius = 115.0
+
+[sub_resource type="Animation" id="Animation_qltmw"]
+resource_name = "Cower"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 0]
+}
 
 [sub_resource type="Animation" id="Animation_uqbtw"]
 resource_name = "Idle"
@@ -89,6 +106,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3rxky"]
 _data = {
+"Cower": SubResource("Animation_qltmw"),
 "Idle": SubResource("Animation_uqbtw"),
 "RESET": SubResource("Animation_bxffr"),
 "RunAway": SubResource("Animation_d5cdg"),
@@ -138,7 +156,7 @@ nodes_to_flip = Array[NodePath]([NodePath("../Sprite2D"), NodePath("../Hurtbox")
 
 [node name="VisionComponent" parent="." node_paths=PackedStringArray("root") instance=ExtResource("4_020l5")]
 root = NodePath("..")
-vision_distance = 115.0
+vision_distance = 155.0
 
 [node name="Area2D" parent="VisionComponent" index="0"]
 collision_mask = 16

@@ -16,7 +16,7 @@ func get_teams_of_node(node: Node2D) -> Array[StringName]:
 	
 	var teams : Array[StringName] = []
 	teams.append_array( node_groups.filter( func(grp): return grp in team_names ) ) 
-	print("Teams of " + str(node) + " : " + str(teams))
+	#print("Teams of " + str(node) + " : " + str(teams))
 	return teams
 
 ## Returns the first (front) team name of a node
@@ -84,10 +84,10 @@ func is_user_hostile_to_node(user: Node2D, node: Node2D) -> bool:
 	if user_team and node_team:
 		var team_resource : TeamResource = Teams.team_name_to_team_resource[user_team]
 		var is_hostile = team_resource.hostile.has(node_team)
-		if is_hostile:
-			print("User is hostile to node")
-		else:
-			print("User is not hostile to node")
+		#if is_hostile:
+			#print("User is hostile to node")
+		#else:
+			#print("User is not hostile to node")
 		return is_hostile
 	return false
 

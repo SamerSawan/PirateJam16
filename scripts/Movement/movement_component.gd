@@ -10,7 +10,7 @@ class_name MovementComponent
 ## will ideally be a very high number
 @export var acceleration_coefficient : Vector2 = Vector2(256, 256)
 ## Base friction that is multipled by the friction coefficient and delta to move towards 0
-@export var friction : float = 10
+@export var friction : float = 8
 
 ## Applys friction, moving from velocity.x, to zero, by friction * coefficient * delta
 func apply_friction(delta: float, friction_coefficient : float = 1): # for moving x via friction

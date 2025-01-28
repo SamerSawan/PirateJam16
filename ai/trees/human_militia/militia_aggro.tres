@@ -1,7 +1,7 @@
 [gd_resource type="BehaviorTree" load_steps=47 format=3 uid="uid://b60rf2etvxe18"]
 
-[ext_resource type="Script" path="res://ai/tasks/ArriveAtTargetPos.gd" id="1_a5mbh"]
 [ext_resource type="Script" path="res://ai/tasks/NavigateToTarget.gd" id="2_6e7l3"]
+[ext_resource type="Script" path="res://ai/tasks/ArriveAtNavTargetPos.gd" id="3_k2u11"]
 [ext_resource type="Script" path="res://ai/tasks/AbleToPrimaryAttack.gd" id="3_mf2eh"]
 [ext_resource type="Script" path="res://ai/tasks/PrimaryAttack.gd" id="4_bxxes"]
 [ext_resource type="Script" path="res://ai/tasks/GetClosestTarget.gd" id="5_mhf3m"]
@@ -29,7 +29,6 @@ children = [SubResource("BTPlayAnimation_cyt54"), SubResource("BTRandomWait_iuyt
 [sub_resource type="BTAction" id="BTAction_qe08v"]
 script = ExtResource("5_mhf3m")
 bb_closest_target_node = &"target_node"
-bb_closest_target_pos = &"target_pos"
 
 [sub_resource type="BTCooldown" id="BTCooldown_eat7g"]
 duration = 1.0
@@ -37,11 +36,9 @@ children = [SubResource("BTAction_qe08v")]
 
 [sub_resource type="BTAction" id="BTAction_g2erx"]
 script = ExtResource("2_6e7l3")
-bb_move_direction = &"target_pos"
 
 [sub_resource type="BTAction" id="BTAction_6om71"]
-script = ExtResource("1_a5mbh")
-bb_target_pos = &"target_pos"
+script = ExtResource("3_k2u11")
 
 [sub_resource type="BTTimeLimit" id="BTTimeLimit_w1tmp"]
 children = [SubResource("BTAction_6om71")]
@@ -73,7 +70,6 @@ children = [SubResource("BTSequence_5s4y2")]
 [sub_resource type="BTAction" id="BTAction_yntyi"]
 script = ExtResource("5_mhf3m")
 bb_closest_target_node = &"target_node"
-bb_closest_target_pos = &"target_node_pos"
 
 [sub_resource type="BTSequence" id="BTSequence_nyhbk"]
 children = [SubResource("BTAction_yntyi")]
@@ -134,14 +130,14 @@ children = [SubResource("BTCooldown_potj6"), SubResource("BTSelector_l6mcm")]
 
 [sub_resource type="BTAction" id="BTAction_xwj1j"]
 script = ExtResource("7_kxe25")
-flee_distance_max = 192.0
-flee_distance_min = 64.0
-target_direction_modifier_min = -30
-target_direction_modifier_max = 30
+bb_closest_target_node = &"target_node"
+flee_distance_max = 256.0
+flee_distance_min = 128.0
+target_direction_modifier_min = -30.0
+target_direction_modifier_max = 30.0
 
 [sub_resource type="BTAction" id="BTAction_x4hmm"]
-script = ExtResource("1_a5mbh")
-bb_target_pos = &"move_direction"
+script = ExtResource("3_k2u11")
 
 [sub_resource type="BBNode" id="BBNode_71dlb"]
 saved_value = NodePath("AnimationPlayer")

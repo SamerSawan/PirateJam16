@@ -37,9 +37,8 @@ func _clear_visible_targets() -> void:
 	if not visible_targets.is_empty():
 		visible_targets.clear()
 
-func get_closest_visible_node() -> Node2D:
+func get_closest_visible_node():
 	if not visible_targets.is_empty():
 		var closest_body = Utils.get_closest_body(self, visible_targets)
 		if closest_body is Node2D:
 			return closest_body
-	return

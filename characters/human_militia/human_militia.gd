@@ -5,6 +5,7 @@ class_name HumanMilitia
 
 @export var vision_component : VisionComponent
 @export var aggro_timer : Timer
+@export var aggro_time : float = 5
 
 @export_category("Aggro State Machine")
 @export var aggro_hsm : LimboHSM
@@ -16,6 +17,7 @@ func _ready():
 	super._ready()
 	_init_state_machines()
 	vision_component.sees_target.connect(_on_see_target)
+	aggro_timer.wait_time = aggro_time
 	aggro_timer.timeout.connect(_on_aggro_timer_timeout)
 
 func _physics_process(delta: float) -> void:

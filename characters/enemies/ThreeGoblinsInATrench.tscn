@@ -32,6 +32,7 @@ text = "enemy is in area"
 
 [sub_resource type="BTAction" id="BTAction_snwhn"]
 script = ExtResource("4_a8c8w")
+bb_closest_target_node = &"target_node"
 
 [sub_resource type="BTAction" id="BTAction_vg8yf"]
 script = ExtResource("5_xgvo6")
