@@ -4,8 +4,8 @@ extends BTCondition
 @export var max_range: float = 10.0
 
 func _tick(delta) -> Status:
-	if blackboard.has_var("player"):
-		var player = blackboard.get_var("player")
+	if  blackboard.has_var("cur_target"):
+		var player = blackboard.get_var("cur_target")
 		if player:
 			var distance = agent.global_position.distance_to(player.global_position)
 			

@@ -2,5 +2,9 @@
 
 [ext_resource type="Script" path="res://scripts/Stats/stats_component.gd" id="1_3ihjj"]
 
-[node name="StatsComponent" type="Node"]
+[node name="StatsComponent" type="Node" node_paths=PackedStringArray("immunity_frames_timer")]
 script = ExtResource("1_3ihjj")
+immunity_frames_timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

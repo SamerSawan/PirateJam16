@@ -1,7 +1,8 @@
-[gd_resource type="BehaviorTree" load_steps=24 format=3 uid="uid://b6k06ponlse1f"]
+[gd_resource type="BehaviorTree" load_steps=26 format=3 uid="uid://b6k06ponlse1f"]
 
 [ext_resource type="Script" path="res://ai/tasks/CanNavigate.gd" id="1_i4jlw"]
 [ext_resource type="Script" path="res://ai/tasks/NavigateToTarget.gd" id="2_1c0le"]
+[ext_resource type="Script" path="res://ai/tasks/CallMovement.gd" id="3_rjbf7"]
 [ext_resource type="Script" path="res://ai/tasks/HasVisionOfEnemy.gd" id="3_x1hvv"]
 [ext_resource type="Script" path="res://ai/tasks/GetClosestTarget.gd" id="4_qgagq"]
 [ext_resource type="Script" path="res://ai/tasks/RunFromClosestTarget.gd" id="5_4lh7q"]
@@ -18,16 +19,22 @@ script = ExtResource("1_i4jlw")
 
 [sub_resource type="BTAction" id="BTAction_g2erx"]
 script = ExtResource("2_1c0le")
+bb_move_direction = &"move_direction"
+
+[sub_resource type="BTAction" id="BTAction_dvtn2"]
+script = ExtResource("3_rjbf7")
 
 [sub_resource type="BTSequence" id="BTSequence_54nsq"]
 custom_name = "Movement"
-children = [SubResource("BTCondition_lmvhi"), SubResource("BTAction_g2erx")]
+children = [SubResource("BTCondition_lmvhi"), SubResource("BTAction_g2erx"), SubResource("BTAction_dvtn2")]
 
 [sub_resource type="BTCondition" id="BTCondition_p0282"]
 script = ExtResource("3_x1hvv")
 
 [sub_resource type="BTAction" id="BTAction_4st1d"]
 script = ExtResource("4_qgagq")
+bb_closest_target_node = &"target_node"
+bb_closest_target_pos = &"target_node_pos"
 
 [sub_resource type="BTCooldown" id="BTCooldown_wxtl2"]
 duration = 0.5

@@ -10,12 +10,12 @@ class_name MovementComponent
 ## will ideally be a very high number
 @export var acceleration_coefficient : Vector2 = Vector2(256, 256)
 ## Base friction that is multipled by the friction coefficient and delta to move towards 0
-@export var friction : float = 32
+@export var friction : float = 10
 
 ## Applys friction, moving from velocity.x, to zero, by friction * coefficient * delta
 func apply_friction(delta: float, friction_coefficient : float = 1): # for moving x via friction
-	body.velocity.x = move_toward(body.velocity.x, 0, (friction * friction_coefficient) * delta)
-	body.velocity.y = move_toward(body.velocity.y, 0, (friction * friction_coefficient) * delta)
+	body.velocity.x = move_toward(body.velocity.x, 0, (128 * friction * friction_coefficient) * delta)
+	body.velocity.y = move_toward(body.velocity.y, 0, (128 * friction * friction_coefficient) * delta)
 
 ## Applys knockback in direction
 func take_knockback(knockback : Vector2): # take knockback in a direction

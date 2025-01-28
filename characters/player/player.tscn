@@ -1,48 +1,48 @@
-[gd_scene load_steps=8 format=3 uid="uid://cn4ikwt7enju2"]
+[gd_scene load_steps=7 format=3 uid="uid://cn4ikwt7enju2"]
 
 [ext_resource type="SpriteFrames" uid="uid://dwfoflau0w6pf" path="res://characters/player/player_sprite_frames.tres" id="1_6d5qq"]
 [ext_resource type="Script" path="res://characters/player/player.gd" id="1_p37h2"]
-[ext_resource type="Script" path="res://characters/player/player_input_actions.gd" id="2_r73oq"]
-[ext_resource type="Script" path="res://characters/facing.gd" id="3_01yg7"]
-[ext_resource type="Script" path="res://characters/player/player_input.gd" id="5_u8ori"]
+[ext_resource type="Script" path="res://scripts/Movement/movement_component.gd" id="4_0d5un"]
+[ext_resource type="PackedScene" uid="uid://bc7oaxyg4mtb6" path="res://scripts/Stats/StatsComponent.tscn" id="5_8h4ff"]
+[ext_resource type="PackedScene" uid="uid://dyj8580mnvnry" path="res://scripts/OrientationHandler.tscn" id="6_1g2mt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lkjkp"]
 radius = 6.0
 height = 24.0
 
-[sub_resource type="Resource" id="Resource_u8x2m"]
-script = ExtResource("2_r73oq")
-left = &"left"
-right = &"right"
-up = &"up"
-down = &"down"
-jump = &"jump"
-attack = &"attack"
-
-[node name="Player" type="CharacterBody2D" groups=["Parasite", "player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("body", "stats_component", "movement_component") groups=["Parasite", "player"]]
 z_index = 10
 collision_layer = 2
 script = ExtResource("1_p37h2")
 move_speed = 150.0
+body = NodePath(".")
+stats_component = NodePath("StatsComponent")
+movement_component = NodePath("MovementComponent")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 6)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_lkjkp")
 
-[node name="Facing" type="Node2D" parent="." node_paths=PackedStringArray("character")]
-script = ExtResource("3_01yg7")
-character = NodePath("..")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Facing"]
-scale = Vector2(-1, 1)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -6)
+rotation = 3.14159
+scale = Vector2(1, -1)
 sprite_frames = ExtResource("1_6d5qq")
 animation = &"run"
 
-[node name="PlayerInput" type="Node" parent="." node_paths=PackedStringArray("player")]
-script = ExtResource("5_u8ori")
-player = NodePath("..")
-actions = SubResource("Resource_u8x2m")
+[node name="OrientationHandler" parent="." node_paths=PackedStringArray("body") instance=ExtResource("6_1g2mt")]
+body = NodePath("..")
+nodes_to_flip = Array[NodePath]([NodePath("..")])
+should_rotate = true
+
+[node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("body", "stats_component")]
+script = ExtResource("4_0d5un")
+body = NodePath("..")
+stats_component = NodePath("../StatsComponent")
+
+[node name="StatsComponent" parent="." node_paths=PackedStringArray("root") instance=ExtResource("5_8h4ff")]
+root = NodePath("..")
+max_speed = Vector2(256, 256)

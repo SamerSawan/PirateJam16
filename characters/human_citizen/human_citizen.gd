@@ -13,11 +13,13 @@ class_name HumanCitizen
 @export_category("")
 
 func _ready():
+	super._ready()
 	_init_state_machines()
 	vision_component.sees_target.connect(_on_see_target)
 	aggro_timer.timeout.connect(_on_aggro_timer_timeout)
 
 func _physics_process(delta: float) -> void:
+	#super._physics_process(delta)
 	movement_component.apply_friction(delta)
 	move_and_slide()
 

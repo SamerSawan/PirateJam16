@@ -96,9 +96,9 @@ _data = {
 "Walk": SubResource("Animation_e0o3c")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yuqxq"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gy4kq"]
 resource_local_to_scene = true
-size = Vector2(36, 2)
+size = Vector2(39.6904, 9.05487)
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_0bx61"]
 
@@ -134,13 +134,11 @@ hframes = 5
 
 [node name="StatsComponent" parent="." node_paths=PackedStringArray("root") instance=ExtResource("4_c540q")]
 root = NodePath("..")
-max_speed = Vector2(128, 128)
 
 [node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("body", "stats_component")]
 script = ExtResource("5_ojoqp")
 body = NodePath("..")
 stats_component = NodePath("../StatsComponent")
-friction = 128.0
 
 [node name="OrientationHandler" parent="." node_paths=PackedStringArray("body") instance=ExtResource("6_musuf")]
 body = NodePath("..")
@@ -148,7 +146,7 @@ nodes_to_flip = Array[NodePath]([NodePath("../Sprite2D"), NodePath("../Hurtbox")
 
 [node name="VisionComponent" parent="." node_paths=PackedStringArray("root") instance=ExtResource("7_0gt6o")]
 root = NodePath("..")
-vision_distance = 180.0
+vision_distance = 250.0
 
 [node name="CollisionShape2D" parent="VisionComponent/Area2D" index="0"]
 shape = SubResource("CircleShape2D_qhu15")
@@ -172,11 +170,9 @@ position = Vector2(0, 0)
 rotation = 0.0
 user = NodePath("..")
 
-[node name="SpearAnimationPlayer" parent="MilitiaSpearAttack" index="2"]
-blend_times = [&"PrimaryAttack", &"PrimaryAttack", 0.1]
-
-[node name="Hitbox" parent="MilitiaSpearAttack/WeaponArea2D" index="0"]
-shape = SubResource("RectangleShape2D_yuqxq")
+[node name="Hitbox" parent="MilitiaSpearAttack/Node2D/WeaponArea2D" index="0"]
+position = Vector2(1.84521, -0.341092)
+shape = SubResource("RectangleShape2D_gy4kq")
 
 [node name="AggroTimer" type="Timer" parent="."]
 wait_time = 4.0

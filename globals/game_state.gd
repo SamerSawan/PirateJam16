@@ -78,11 +78,17 @@ func get_teams_friendly_to_team(team_name: StringName) -> Array[StringName]:
 func is_user_hostile_to_node(user: Node2D, node: Node2D) -> bool:
 	if user == node: ## If the user is the node, we shouldn't do anything
 		return false
-	var user_team: StringName = get_first_team_of_node(user)
-	var node_team: StringName = get_first_team_of_node(node)
+	var user_team : StringName = get_first_team_of_node(user)
+	var node_team : StringName = get_first_team_of_node(node)
 	# if user_team.hostiles contains node_team
 	if user_team and node_team:
-		return Teams.team_name_to_team_resource[user_team].hostile.has(node_team)
+		var team_resource : TeamResource = Teams.team_name_to_team_resource[user_team]
+		var is_hostile = team_resource.hostile.has(node_team)
+		if is_hostile:
+			print("User is hostile to node")
+		else:
+			print("User is not hostile to node")
+		return is_hostile
 	return false
 
 ## Checks if the user is friendly to the given node

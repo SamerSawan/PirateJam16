@@ -11,6 +11,7 @@ var home : Area2D
 @export var navigation_component : NavigationComponent
 
 @export_category("Atlas")
+@export var use_atlases : bool = false
 @export var atlases : Array[Texture2D]  ## setting these to atlas texture breaks the animation for some reason, so dont do that
 @export var random_atlas : bool = true
 
@@ -24,8 +25,11 @@ signal input_attack_first ## Emitted when we want creature to attack with vararg
 signal input_attack_second ## Emitted when we want creature to attack with varargs for any needed data
 
 signal change_orientation # Orientation handler is not guaranteed but signal will exist regardless
+signal take_damage(damage : int)
 
 func _ready():
+	take_damage.connect(stats_component.take_damage)
+	
 	input_move.connect(func(delta : float, direction : Vector2, speed : Vector2):
 		movement_component.move(delta, direction, speed)
 		change_orientation.emit(direction)
@@ -34,8 +38,9 @@ func _ready():
 	input_attack_first.connect(func(d : Dictionary):primary_attack.trigger.emit(d))
 	input_attack_second.connect(func(d : Dictionary):secondary_attack.trigger.emit(d))
 	
-	if random_atlas:
-		_randomize_atlas_type()
+	if use_atlases:
+		if random_atlas:
+			_randomize_atlas_type()
 
 func _randomize_atlas_type():
 	root_sprite.set_texture(atlases.pick_random())

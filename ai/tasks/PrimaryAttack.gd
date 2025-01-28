@@ -17,9 +17,14 @@ func _enter() -> void:
 
 func _tick(delta: float) -> Status:
 	if agent.primary_attack.trigger_finished.is_connected(_on_trigger_finished):
+		#print("attack anim running")
 		return RUNNING
 	return SUCCESS
 
 func _on_trigger_finished():
+	if agent.primary_attack.trigger_finished.is_connected(_on_trigger_finished):
+		agent.primary_attack.trigger_finished.disconnect(_on_trigger_finished)
+
+func _exit() -> void:
 	if agent.primary_attack.trigger_finished.is_connected(_on_trigger_finished):
 		agent.primary_attack.trigger_finished.disconnect(_on_trigger_finished)

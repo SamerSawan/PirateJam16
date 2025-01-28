@@ -1,8 +1,7 @@
 class_name PlatformerCharacter2D
-extends Creature
+extends MovementController2D
 
 # This script is specifically for things that any character in the game needs (mobs, player, enemies, npcs, allies, etc)
-
 
 signal direction_changed(direction : Vector2)
 

@@ -14,6 +14,7 @@ func _ready():
 
 var last_orientation : Vector2 = Vector2.RIGHT
 func _on_change_orientation(direction : Vector2):
+	#print("Changing orientation to: " + str(direction) + " on: " + str(body))
 	if ignore_orientation_changes:
 		return
 	direction = Vector2(snappedf(direction.x, 0.01), snappedf(direction.y, 0.01))

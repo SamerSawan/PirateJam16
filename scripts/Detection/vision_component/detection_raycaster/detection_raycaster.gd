@@ -11,7 +11,7 @@ signal is_colliding_with_target(raycast, target)
 @export var collision_masks: Array[int] = [2] ## mask on which the raycasts should detect visibility with
 @export var raycast_lifespan_in_seconds: float = 0.5 ## Ideally you want lifespan to be double the cast timer length. With this you can calculate the difference between them
 @export var raycast_cast_timer : Timer ## Timer for how long it takes between each casting. Edit children to change timer settings.
-@export var raycast_cast_rate : float = 0.5
+@export var raycast_cast_rate : float = 0.25
 @export var delete_raycasts_instantly: bool = false ## for testing
 @export var raycast_for_tilemap_layers: bool = true ## simply to not send unnecesary raycasts at tilemaps and such
 

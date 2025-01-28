@@ -126,13 +126,11 @@ hframes = 5
 
 [node name="StatsComponent" parent="." node_paths=PackedStringArray("root") instance=ExtResource("3_c06hs")]
 root = NodePath("..")
-max_speed = Vector2(128, 128)
 
 [node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("body", "stats_component")]
 script = ExtResource("4_p7ccd")
 body = NodePath("..")
 stats_component = NodePath("../StatsComponent")
-friction = 128.0
 
 [node name="OrientationHandler" parent="." node_paths=PackedStringArray("body") instance=ExtResource("13_pdb3n")]
 body = NodePath("..")
