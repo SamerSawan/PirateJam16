@@ -19,7 +19,7 @@ down = &"down"
 jump = &"jump"
 attack = &"attack"
 
-[node name="Player" type="CharacterBody2D" groups=["Parasite"]]
+[node name="Player" type="CharacterBody2D" groups=["Parasite", "player"]]
 z_index = 10
 collision_layer = 2
 script = ExtResource("1_p37h2")

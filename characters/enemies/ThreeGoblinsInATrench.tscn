@@ -1,0 +1,109 @@
+[gd_scene load_steps=30 format=3 uid="uid://yovpvw34it05"]
+
+[ext_resource type="Texture2D" uid="uid://ckr5ducuxmsuf" path="res://icon.svg" id="1_kwbbi"]
+[ext_resource type="Script" path="res://characters/enemies/three_goblins_in_a_trench.gd" id="1_ovf5t"]
+[ext_resource type="Script" path="res://ai/tasks/IsEnemyInArea.gd" id="3_skb52"]
+[ext_resource type="Script" path="res://ai/tasks/GetClosestTarget.gd" id="4_a8c8w"]
+[ext_resource type="Script" path="res://ai/tasks/NavigateToTarget.gd" id="5_xgvo6"]
+[ext_resource type="Script" path="res://ai/tasks/IsEnemyInRange.gd" id="6_5ltps"]
+[ext_resource type="Script" path="res://ai/tasks/PerformMeleeAttack.gd" id="7_vweie"]
+[ext_resource type="Script" path="res://ai/tasks/PerformRangedAttack.gd" id="8_e2q5d"]
+[ext_resource type="Script" path="res://ai/tasks/PerformJumpAttack.gd" id="9_4rax7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8pp7i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_kwbbi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_aornk"]
+
+[sub_resource type="BTCondition" id="BTCondition_gfkp6"]
+script = ExtResource("3_skb52")
+
+[sub_resource type="BTConsolePrint" id="BTConsolePrint_w15t7"]
+text = "enemy is in area"
+
+[sub_resource type="BTAction" id="BTAction_snwhn"]
+script = ExtResource("4_a8c8w")
+
+[sub_resource type="BTAction" id="BTAction_vg8yf"]
+script = ExtResource("5_xgvo6")
+
+[sub_resource type="BTCondition" id="BTCondition_18wtq"]
+script = ExtResource("6_5ltps")
+min_range = 0.0
+max_range = 10.0
+
+[sub_resource type="BTAction" id="BTAction_ofw5r"]
+script = ExtResource("7_vweie")
+
+[sub_resource type="BTSequence" id="BTSequence_q57ju"]
+children = [SubResource("BTCondition_18wtq"), SubResource("BTAction_ofw5r")]
+
+[sub_resource type="BTCondition" id="BTCondition_18n8k"]
+script = ExtResource("6_5ltps")
+min_range = 11.0
+max_range = 30.0
+
+[sub_resource type="BTAction" id="BTAction_1rlx7"]
+script = ExtResource("8_e2q5d")
+
+[sub_resource type="BTSequence" id="BTSequence_rbgjo"]
+children = [SubResource("BTCondition_18n8k"), SubResource("BTAction_1rlx7")]
+
+[sub_resource type="BTCondition" id="BTCondition_e86nd"]
+script = ExtResource("6_5ltps")
+min_range = 30.0
+max_range = 60.0
+
+[sub_resource type="BTAction" id="BTAction_q2gj7"]
+script = ExtResource("9_4rax7")
+
+[sub_resource type="BTSequence" id="BTSequence_ynm1i"]
+children = [SubResource("BTCondition_e86nd"), SubResource("BTAction_q2gj7")]
+
+[sub_resource type="BTSelector" id="BTSelector_80yew"]
+children = [SubResource("BTSequence_q57ju"), SubResource("BTSequence_rbgjo"), SubResource("BTSequence_ynm1i")]
+
+[sub_resource type="BTSequence" id="BTSequence_e4dlm"]
+children = [SubResource("BTCondition_gfkp6"), SubResource("BTConsolePrint_w15t7"), SubResource("BTAction_snwhn"), SubResource("BTAction_vg8yf"), SubResource("BTSelector_80yew")]
+
+[sub_resource type="BehaviorTree" id="BehaviorTree_tq74x"]
+blackboard_plan = SubResource("BlackboardPlan_aornk")
+root_task = SubResource("BTSequence_e4dlm")
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_asw60"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_jun41"]
+
+[node name="ThreeGoblinsInATrench" type="CharacterBody2D" node_paths=PackedStringArray("hsm", "phase1", "phase2")]
+script = ExtResource("1_ovf5t")
+hsm = NodePath("Boss HSM")
+phase1 = NodePath("Boss HSM/Phase1")
+phase2 = NodePath("Boss HSM/Phase2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-3.8147e-06, 3.8147e-06)
+scale = Vector2(0.6875, 0.6875)
+sprite_frames = SubResource("SpriteFrames_8pp7i")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+
+[node name="AttackBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBox"]
+
+[node name="Boss HSM" type="LimboHSM" parent="."]
+
+[node name="Phase1" type="BTState" parent="Boss HSM"]
+behavior_tree = SubResource("BehaviorTree_tq74x")
+blackboard_plan = SubResource("BlackboardPlan_asw60")
+
+[node name="Phase2" type="BTState" parent="Boss HSM"]
+blackboard_plan = SubResource("BlackboardPlan_jun41")

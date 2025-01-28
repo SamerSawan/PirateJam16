@@ -1,0 +1,146 @@
+[gd_scene load_steps=8 format=3 uid="uid://dkdm3fhyhn4dk"]
+
+[ext_resource type="Texture2D" uid="uid://bd510fnpfwhmr" path="res://assets/enemies/enraged-ranged-spritesheet.png" id="1_or8vl"]
+[ext_resource type="Texture2D" uid="uid://driqbc01lllel" path="res://assets/enemies/generic shadow.png" id="2_d8g2n"]
+
+[sub_resource type="Animation" id="Animation_uryrc"]
+resource_name = "Move"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3), Vector2i(5, 3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 3), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2a2wj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [12]
+}
+
+[sub_resource type="Animation" id="Animation_hl3eq"]
+resource_name = "Zap"
+length = 1.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.65, 0.75, 0.85, 0.95, 1.05, 1.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 16, 18, 18, 17, 18, 17, 17]
+}
+
+[sub_resource type="Animation" id="Animation_m0ix0"]
+resource_name = "Death"
+length = 2.0
+step = 0.075
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0769231, 0.153846, 0.230769, 0.307692, 0.384615, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [24, 25, 26, 27, 28, 29, 30]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.384615, 1.46154),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 14)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wxion"]
+_data = {
+"Death": SubResource("Animation_m0ix0"),
+"Move": SubResource("Animation_uryrc"),
+"RESET": SubResource("Animation_2a2wj"),
+"Zap": SubResource("Animation_hl3eq")
+}
+
+[node name="WizardEnemy" type="Node2D"]
+
+[node name="WizardSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_or8vl")
+hframes = 12
+vframes = 4
+frame = 12
+
+[node name="Shadow" type="Sprite2D" parent="WizardSprite"]
+z_index = -1
+position = Vector2(0, 24)
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("2_d8g2n")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WizardSprite"]
+libraries = {
+"": SubResource("AnimationLibrary_wxion")
+}
