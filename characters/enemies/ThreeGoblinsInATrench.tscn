@@ -1,51 +1,72 @@
-[gd_scene load_steps=29 format=3 uid="uid://yovpvw34it05"]
+[gd_scene load_steps=62 format=3 uid="uid://yovpvw34it05"]
 
 [ext_resource type="Texture2D" uid="uid://ckr5ducuxmsuf" path="res://icon.svg" id="1_kwbbi"]
 [ext_resource type="Script" path="res://characters/enemies/three_goblins_in_a_trench.gd" id="1_ovf5t"]
+[ext_resource type="Script" path="res://scripts/Navigation/navigation_component.gd" id="2_rf6du"]
+[ext_resource type="PackedScene" uid="uid://d0b10s33fdy8n" path="res://scripts/Detection/vision_component/vision_component.tscn" id="3_mlarb"]
 [ext_resource type="Script" path="res://ai/tasks/GetClosestTarget.gd" id="4_a8c8w"]
 [ext_resource type="Script" path="res://ai/tasks/NavigateToTarget.gd" id="5_xgvo6"]
 [ext_resource type="Script" path="res://ai/tasks/IsEnemyInArea.gd" id="6_5ltps"]
 [ext_resource type="Script" path="res://ai/tasks/PerformMeleeAttack.gd" id="7_vweie"]
 [ext_resource type="Script" path="res://ai/tasks/PerformRangedAttack.gd" id="8_e2q5d"]
 [ext_resource type="Script" path="res://ai/tasks/PerformJumpAttack.gd" id="9_4rax7"]
+[ext_resource type="Script" path="res://ai/tasks/CanNavigate.gd" id="11_0ugm7"]
+[ext_resource type="Script" path="res://ai/tasks/MoveTowardsClosestTarget.gd" id="12_n62l0"]
+[ext_resource type="Script" path="res://ai/tasks/RunFromClosestTarget.gd" id="13_s2pft"]
+[ext_resource type="PackedScene" uid="uid://bc7oaxyg4mtb6" path="res://scripts/Stats/StatsComponent.tscn" id="14_kaksh"]
+[ext_resource type="Script" path="res://scripts/Movement/movement_component.gd" id="15_03di7"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_8pp7i"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_kwbbi")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+[sub_resource type="CircleShape2D" id="CircleShape2D_tbt3s"]
+radius = 59.15
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2bgqo"]
+radius = 372.65
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_aornk"]
+
+[sub_resource type="BTCondition" id="BTCondition_byy0x"]
+script = ExtResource("11_0ugm7")
+
+[sub_resource type="BTAction" id="BTAction_ejfir"]
+script = ExtResource("5_xgvo6")
+bb_move_direction = &"move_direction"
+
+[sub_resource type="BTSequence" id="BTSequence_j8wca"]
+custom_name = "Movement"
+children = [SubResource("BTCondition_byy0x"), SubResource("BTAction_ejfir")]
 
 [sub_resource type="BTCondition" id="BTCondition_gfkp6"]
 script = ExtResource("6_5ltps")
 min_range = 0.0
 max_range = 10.0
 
-[sub_resource type="BTConsolePrint" id="BTConsolePrint_w15t7"]
-text = "enemy is in area"
-
 [sub_resource type="BTAction" id="BTAction_snwhn"]
 script = ExtResource("4_a8c8w")
+bb_closest_target_node = &"target_node"
 
-[sub_resource type="BTAction" id="BTAction_vg8yf"]
-script = ExtResource("5_xgvo6")
+[sub_resource type="BTCooldown" id="BTCooldown_eucyu"]
+duration = 1.0
+children = [SubResource("BTAction_snwhn")]
 
-[sub_resource type="BTCondition" id="BTCondition_18wtq"]
+[sub_resource type="BTSequence" id="BTSequence_e4dlm"]
+custom_name = "Target Acquire"
+children = [SubResource("BTCondition_gfkp6"), SubResource("BTCooldown_eucyu")]
+
+[sub_resource type="BTCondition" id="BTCondition_tg8rt"]
 script = ExtResource("6_5ltps")
-min_range = 0.0
-max_range = 10.0
+min_range = 11.0
+max_range = 30.0
 
 [sub_resource type="BTAction" id="BTAction_ofw5r"]
 script = ExtResource("7_vweie")
 
 [sub_resource type="BTSequence" id="BTSequence_q57ju"]
-children = [SubResource("BTCondition_18wtq"), SubResource("BTAction_ofw5r")]
+children = [SubResource("BTCondition_tg8rt"), SubResource("BTAction_ofw5r")]
+
+[sub_resource type="BTCooldown" id="BTCooldown_6p5tg"]
+duration = 2.0
+children = [SubResource("BTSequence_q57ju")]
+metadata/_weight_ = 4.8
 
 [sub_resource type="BTCondition" id="BTCondition_18n8k"]
 script = ExtResource("6_5ltps")
@@ -58,6 +79,11 @@ script = ExtResource("8_e2q5d")
 [sub_resource type="BTSequence" id="BTSequence_rbgjo"]
 children = [SubResource("BTCondition_18n8k"), SubResource("BTAction_1rlx7")]
 
+[sub_resource type="BTCooldown" id="BTCooldown_mul21"]
+duration = 3.0
+children = [SubResource("BTSequence_rbgjo")]
+metadata/_weight_ = 2.3
+
 [sub_resource type="BTCondition" id="BTCondition_e86nd"]
 script = ExtResource("6_5ltps")
 min_range = 30.0
@@ -69,36 +95,135 @@ script = ExtResource("9_4rax7")
 [sub_resource type="BTSequence" id="BTSequence_ynm1i"]
 children = [SubResource("BTCondition_e86nd"), SubResource("BTAction_q2gj7")]
 
-[sub_resource type="BTSelector" id="BTSelector_80yew"]
-children = [SubResource("BTSequence_q57ju"), SubResource("BTSequence_rbgjo"), SubResource("BTSequence_ynm1i")]
+[sub_resource type="BTCooldown" id="BTCooldown_05d3j"]
+duration = 12.0
+children = [SubResource("BTSequence_ynm1i")]
 
-[sub_resource type="BTSequence" id="BTSequence_e4dlm"]
-children = [SubResource("BTCondition_gfkp6"), SubResource("BTConsolePrint_w15t7"), SubResource("BTAction_snwhn"), SubResource("BTAction_vg8yf"), SubResource("BTSelector_80yew")]
+[sub_resource type="BTProbabilitySelector" id="BTProbabilitySelector_jb0my"]
+children = [SubResource("BTCooldown_6p5tg"), SubResource("BTCooldown_mul21"), SubResource("BTCooldown_05d3j")]
+
+[sub_resource type="BTCooldown" id="BTCooldown_3hrpv"]
+duration = 1.0
+trigger_on_failure = true
+children = [SubResource("BTProbabilitySelector_jb0my")]
+
+[sub_resource type="BTSelector" id="BTSelector_uk4qh"]
+custom_name = "Move or Attack"
+children = [SubResource("BTCooldown_3hrpv")]
+
+[sub_resource type="BTAction" id="BTAction_o7y3n"]
+script = ExtResource("4_a8c8w")
+bb_closest_target_node = &"target_node"
+
+[sub_resource type="BTSequence" id="BTSequence_0xncp"]
+children = [SubResource("BTAction_o7y3n")]
+
+[sub_resource type="BTCooldown" id="BTCooldown_h2bsr"]
+duration = 1.0
+children = [SubResource("BTSequence_0xncp")]
+
+[sub_resource type="BTAction" id="BTAction_153rv"]
+script = ExtResource("12_n62l0")
+
+[sub_resource type="BTWait" id="BTWait_ntgg2"]
+duration = 5.0
+
+[sub_resource type="BTSequence" id="BTSequence_37niu"]
+custom_name = "Move Towards Enemy"
+children = [SubResource("BTAction_153rv"), SubResource("BTWait_ntgg2")]
+
+[sub_resource type="BTCooldown" id="BTCooldown_00qet"]
+duration = 2.0
+trigger_on_failure = true
+children = [SubResource("BTSequence_37niu")]
+metadata/_weight_ = 99.0
+
+[sub_resource type="BTAction" id="BTAction_h0hfk"]
+script = ExtResource("13_s2pft")
+flee_distance_max = 192.0
+flee_distance_min = 64.0
+target_direction_modifier_min = -30
+target_direction_modifier_max = 30
+
+[sub_resource type="BTWait" id="BTWait_hm7q0"]
+duration = 5.0
+
+[sub_resource type="BTSequence" id="BTSequence_llswh"]
+custom_name = "Move Away from Enemy"
+children = [SubResource("BTAction_h0hfk"), SubResource("BTWait_hm7q0")]
+
+[sub_resource type="BTCooldown" id="BTCooldown_0yr5n"]
+duration = 3.0
+trigger_on_failure = true
+children = [SubResource("BTSequence_llswh")]
+metadata/_weight_ = 0.0
+
+[sub_resource type="BTProbabilitySelector" id="BTProbabilitySelector_irb34"]
+custom_name = "Towards/Away"
+children = [SubResource("BTCooldown_00qet"), SubResource("BTCooldown_0yr5n")]
+
+[sub_resource type="BTCooldown" id="BTCooldown_1gcsh"]
+duration = 3.0
+children = [SubResource("BTProbabilitySelector_irb34")]
+
+[sub_resource type="BTSequence" id="BTSequence_kj8xb"]
+custom_name = "Pathfind"
+children = [SubResource("BTCooldown_h2bsr"), SubResource("BTCooldown_1gcsh")]
+
+[sub_resource type="BTSelector" id="BTSelector_23baj"]
+custom_name = "Navigate"
+children = [SubResource("BTSequence_kj8xb")]
+
+[sub_resource type="BTParallel" id="BTParallel_e3j38"]
+repeat = true
+children = [SubResource("BTSequence_j8wca"), SubResource("BTSequence_e4dlm"), SubResource("BTSelector_uk4qh"), SubResource("BTSelector_23baj")]
 
 [sub_resource type="BehaviorTree" id="BehaviorTree_tq74x"]
 blackboard_plan = SubResource("BlackboardPlan_aornk")
-root_task = SubResource("BTSequence_e4dlm")
+root_task = SubResource("BTParallel_e3j38")
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_asw60"]
 
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_p3ib1"]
+
+[sub_resource type="BehaviorTree" id="BehaviorTree_yvxrc"]
+blackboard_plan = SubResource("BlackboardPlan_p3ib1")
+
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_jun41"]
 
-[node name="ThreeGoblinsInATrench" type="CharacterBody2D" node_paths=PackedStringArray("hsm", "phase1", "phase2")]
+[node name="ThreeGoblinsInATrench" type="CharacterBody2D" node_paths=PackedStringArray("vision_component", "hsm", "phase1", "phase2", "root_sprite", "stats_component", "movement_component", "navigation_agent", "navigation_component")]
 script = ExtResource("1_ovf5t")
+vision_component = NodePath("VisionComponent")
 hsm = NodePath("Boss HSM")
 phase1 = NodePath("Boss HSM/Phase1")
 phase2 = NodePath("Boss HSM/Phase2")
+root_sprite = NodePath("Sprite2D")
+stats_component = NodePath("StatsComponent")
+movement_component = NodePath("MovementComponent")
+navigation_agent = NodePath("NavigationAgent2D")
+navigation_component = NodePath("NavigationComponent")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-3.8147e-06, 3.8147e-06)
-scale = Vector2(0.6875, 0.6875)
-sprite_frames = SubResource("SpriteFrames_8pp7i")
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="NavigationComponent" type="Node2D" parent="." node_paths=PackedStringArray("root", "navigation_agent")]
+script = ExtResource("2_rf6du")
+root = NodePath("..")
+navigation_agent = NodePath("../NavigationAgent2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_kwbbi")
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_tbt3s")
 
 [node name="AttackBox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBox"]
+shape = SubResource("CircleShape2D_2bgqo")
+
+[node name="VisionComponent" parent="." node_paths=PackedStringArray("root") instance=ExtResource("3_mlarb")]
+root = NodePath("..")
+vision_distance = 250.0
 
 [node name="Boss HSM" type="LimboHSM" parent="."]
 
@@ -107,4 +232,13 @@ behavior_tree = SubResource("BehaviorTree_tq74x")
 blackboard_plan = SubResource("BlackboardPlan_asw60")
 
 [node name="Phase2" type="BTState" parent="Boss HSM"]
+behavior_tree = SubResource("BehaviorTree_yvxrc")
 blackboard_plan = SubResource("BlackboardPlan_jun41")
+
+[node name="StatsComponent" parent="." node_paths=PackedStringArray("root") instance=ExtResource("14_kaksh")]
+root = NodePath("..")
+
+[node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("body", "stats_component")]
+script = ExtResource("15_03di7")
+body = NodePath("..")
+stats_component = NodePath("../StatsComponent")
