@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Creature
 
 var controller : Node2D
-var home : HomeArea2D
+var home : Area2D
 
 @export var root_sprite : Sprite2D
 @export var stats_component : StatsComponent

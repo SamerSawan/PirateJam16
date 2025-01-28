@@ -5,4 +5,5 @@ var speed_mod : float = Utils.SPEED_MOD[speed_modifier]
 
 func _tick(delta: float) -> Status:
 	if not blackboard.get_var("move_speed"):
-		
+		pass
+	return SUCCESS

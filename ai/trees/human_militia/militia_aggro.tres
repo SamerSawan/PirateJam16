@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://ai/tasks/NavigateToTarget.gd" id="2_6e7l3"]
 [ext_resource type="Script" path="res://ai/tasks/AbleToPrimaryAttack.gd" id="3_mf2eh"]
 [ext_resource type="Script" path="res://ai/tasks/PrimaryAttack.gd" id="4_bxxes"]
-[ext_resource type="Script" path="res://ai/tasks/GetClosestVisibleTarget.gd" id="5_mhf3m"]
+[ext_resource type="Script" path="res://ai/tasks/GetClosestTarget.gd" id="5_mhf3m"]
 [ext_resource type="Script" path="res://ai/tasks/MoveTowardsClosestTarget.gd" id="6_p0fi7"]
 [ext_resource type="Script" path="res://ai/tasks/RunFromClosestTarget.gd" id="7_kxe25"]
 

@@ -1,11 +1,10 @@
-[gd_scene load_steps=30 format=3 uid="uid://yovpvw34it05"]
+[gd_scene load_steps=29 format=3 uid="uid://yovpvw34it05"]
 
 [ext_resource type="Texture2D" uid="uid://ckr5ducuxmsuf" path="res://icon.svg" id="1_kwbbi"]
 [ext_resource type="Script" path="res://characters/enemies/three_goblins_in_a_trench.gd" id="1_ovf5t"]
-[ext_resource type="Script" path="res://ai/tasks/IsEnemyInArea.gd" id="3_skb52"]
 [ext_resource type="Script" path="res://ai/tasks/GetClosestTarget.gd" id="4_a8c8w"]
 [ext_resource type="Script" path="res://ai/tasks/NavigateToTarget.gd" id="5_xgvo6"]
-[ext_resource type="Script" path="res://ai/tasks/IsEnemyInRange.gd" id="6_5ltps"]
+[ext_resource type="Script" path="res://ai/tasks/IsEnemyInArea.gd" id="6_5ltps"]
 [ext_resource type="Script" path="res://ai/tasks/PerformMeleeAttack.gd" id="7_vweie"]
 [ext_resource type="Script" path="res://ai/tasks/PerformRangedAttack.gd" id="8_e2q5d"]
 [ext_resource type="Script" path="res://ai/tasks/PerformJumpAttack.gd" id="9_4rax7"]
@@ -24,7 +23,9 @@ animations = [{
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_aornk"]
 
 [sub_resource type="BTCondition" id="BTCondition_gfkp6"]
-script = ExtResource("3_skb52")
+script = ExtResource("6_5ltps")
+min_range = 0.0
+max_range = 10.0
 
 [sub_resource type="BTConsolePrint" id="BTConsolePrint_w15t7"]
 text = "enemy is in area"

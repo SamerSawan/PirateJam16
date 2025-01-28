@@ -16,7 +16,6 @@ func _ready() -> void:
 
 
 func _init_state_machine():
-	
 	hsm.add_transition(phase1, phase2, &"phase2_started")
 	
 	hsm.initial_state = phase1
