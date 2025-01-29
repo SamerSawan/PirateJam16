@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://0lxqgdswx3gd"]
+
+[ext_resource type="Texture2D" uid="uid://bndqj5n47vth3" path="res://aseprite/militia/militia.png" id="1_1flv3"]
+
+[resource]
+atlas = ExtResource("1_1flv3")
+region = Rect2(0, 256, 192, 256)
+margin = Rect2(8, -8, 0, 0)

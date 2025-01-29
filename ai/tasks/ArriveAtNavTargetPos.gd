@@ -1,5 +1,7 @@
 extends BTAction
 
+@export var speed_modifier : float = 1
+
 var nav_agent : NavigationAgent2D
 func _enter() -> void:
 	nav_agent = agent.navigation_agent
@@ -14,7 +16,7 @@ func _tick(delta: float) -> Status:
 		nav_agent.get_next_path_position()
 		var direction_of_next_nav_point = agent.global_position.direction_to(next_pos).normalized()
 		if direction_of_next_nav_point:
-			agent.input_move.emit(delta, direction_of_next_nav_point, agent.stats_component.cur_speed)
+			agent.input_move.emit(delta, direction_of_next_nav_point, agent.stats_component.cur_speed * speed_modifier)
 			return RUNNING
 	
 	return FAILURE

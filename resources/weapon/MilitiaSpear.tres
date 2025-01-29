@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource("1_txlpk")
 damage = 1
-range = 0.0
+knockback = 20.0

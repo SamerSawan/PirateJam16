@@ -1,9 +1,8 @@
-[gd_scene load_steps=29 format=3 uid="uid://yovpvw34it05"]
+[gd_scene load_steps=27 format=3 uid="uid://yovpvw34it05"]
 
 [ext_resource type="Texture2D" uid="uid://ckr5ducuxmsuf" path="res://icon.svg" id="1_kwbbi"]
 [ext_resource type="Script" path="res://characters/enemies/three_goblins_in_a_trench.gd" id="1_ovf5t"]
 [ext_resource type="Script" path="res://ai/tasks/GetClosestTarget.gd" id="4_a8c8w"]
-[ext_resource type="Script" path="res://ai/tasks/NavigateToTarget.gd" id="5_xgvo6"]
 [ext_resource type="Script" path="res://ai/tasks/IsEnemyInArea.gd" id="6_5ltps"]
 [ext_resource type="Script" path="res://ai/tasks/PerformMeleeAttack.gd" id="7_vweie"]
 [ext_resource type="Script" path="res://ai/tasks/PerformRangedAttack.gd" id="8_e2q5d"]
@@ -32,10 +31,7 @@ text = "enemy is in area"
 
 [sub_resource type="BTAction" id="BTAction_snwhn"]
 script = ExtResource("4_a8c8w")
-bb_closest_target_node = &"target_node"
-
-[sub_resource type="BTAction" id="BTAction_vg8yf"]
-script = ExtResource("5_xgvo6")
+bb_closest_target = &"closest_target"
 
 [sub_resource type="BTCondition" id="BTCondition_18wtq"]
 script = ExtResource("6_5ltps")
@@ -74,7 +70,7 @@ children = [SubResource("BTCondition_e86nd"), SubResource("BTAction_q2gj7")]
 children = [SubResource("BTSequence_q57ju"), SubResource("BTSequence_rbgjo"), SubResource("BTSequence_ynm1i")]
 
 [sub_resource type="BTSequence" id="BTSequence_e4dlm"]
-children = [SubResource("BTCondition_gfkp6"), SubResource("BTConsolePrint_w15t7"), SubResource("BTAction_snwhn"), SubResource("BTAction_vg8yf"), SubResource("BTSelector_80yew")]
+children = [SubResource("BTCondition_gfkp6"), SubResource("BTConsolePrint_w15t7"), SubResource("BTAction_snwhn"), SubResource("BTSelector_80yew")]
 
 [sub_resource type="BehaviorTree" id="BehaviorTree_tq74x"]
 blackboard_plan = SubResource("BlackboardPlan_aornk")
@@ -85,6 +81,7 @@ root_task = SubResource("BTSequence_e4dlm")
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_jun41"]
 
 [node name="ThreeGoblinsInATrench" type="CharacterBody2D" node_paths=PackedStringArray("hsm", "phase1", "phase2")]
+collision_layer = 2
 script = ExtResource("1_ovf5t")
 hsm = NodePath("Boss HSM")
 phase1 = NodePath("Boss HSM/Phase1")

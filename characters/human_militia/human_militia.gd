@@ -1,8 +1,7 @@
 extends Creature
 class_name HumanMilitia
 
-@export var orientation_handler : OrientationHandler
-
+@export var animation_player : AnimationPlayer
 @export var vision_component : VisionComponent
 @export var aggro_timer : Timer
 @export var aggro_time : float = 5

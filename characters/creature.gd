@@ -21,22 +21,14 @@ var home : Area2D
 @export var secondary_attack : Attack
 
 signal input_move ## Emitted when we want creature to move in a specified direction
-signal input_attack_first ## Emitted when we want creature to attack with varargs for any needed data
-signal input_attack_second ## Emitted when we want creature to attack with varargs for any needed data
 
 signal change_orientation # Orientation handler is not guaranteed but signal will exist regardless
-signal take_damage(damage : int)
 
 func _ready():
-	take_damage.connect(stats_component.take_damage)
-	
 	input_move.connect(func(delta : float, direction : Vector2, speed : Vector2):
 		movement_component.move(delta, direction, speed)
 		change_orientation.emit(direction)
 	)
-	
-	input_attack_first.connect(func(d : Dictionary):primary_attack.trigger.emit(d))
-	input_attack_second.connect(func(d : Dictionary):secondary_attack.trigger.emit(d))
 	
 	if use_atlases:
 		if random_atlas:

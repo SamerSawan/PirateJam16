@@ -45,4 +45,3 @@ stats_component = NodePath("../StatsComponent")
 
 [node name="StatsComponent" parent="." node_paths=PackedStringArray("root") instance=ExtResource("5_8h4ff")]
 root = NodePath("..")
-max_speed = Vector2(256, 256)

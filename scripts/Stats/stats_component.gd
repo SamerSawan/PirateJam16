@@ -13,10 +13,11 @@ func _ready() -> void:
 	health_ready()
 
 #region Speed
-@export var max_speed : Vector2 = Vector2(128, 128) ## How many units per second this entity will be able to move, ideally
-@onready var cur_speed : Vector2 = max_speed:
+@export var max_speed : Vector2 = Vector2(256, 256) ## How many units per second this entity will be able to move, ideally
+@onready var cur_speed : Vector2 = max_speed / 2:
 	set(speed):
-		cur_speed = speed
+		cur_speed.x = clampf(speed.x, -max_speed.x, max_speed.x)
+		cur_speed.y = clampf(speed.y, -max_speed.y, max_speed.y)
 #endregion
 
 #region Health

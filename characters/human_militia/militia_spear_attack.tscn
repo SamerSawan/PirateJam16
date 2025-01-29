@@ -1,132 +1,21 @@
-[gd_scene load_steps=10 format=3 uid="uid://bqig7thhar84r"]
+[gd_scene load_steps=4 format=3 uid="uid://bqig7thhar84r"]
 
 [ext_resource type="Script" path="res://characters/human_militia/militia_spear_attack.gd" id="1_7sylv"]
-[ext_resource type="PackedScene" uid="uid://bedw4s7550gr4" path="res://scripts/Attack/attack_range.tscn" id="2_8wboj"]
-[ext_resource type="Script" path="res://scripts/orientation_handler.gd" id="2_b2wjv"]
 [ext_resource type="Resource" uid="uid://ycsglooiglxw" path="res://resources/weapon/MilitiaSpear.tres" id="2_wpep1"]
-
-[sub_resource type="Animation" id="Animation_creri"]
-resource_name = "SpearAttack"
-length = 0.8
-step = 0.05
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MilitiaSpearAttack:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 22, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.3, 0.65)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MilitiaSpearAttack:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(2, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 2, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.3, 0.5)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("MilitiaSpearAttack:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0, 0),
-"points": PackedFloat32Array(-0.1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0.025, -0.25, 0, 0.25, 0, -0.1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.3, 0.5, 0.8)
-}
-
-[sub_resource type="Animation" id="Animation_d1rxk"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MilitiaSpearAttack:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MilitiaSpearAttack:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("MilitiaSpearAttack:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_gynwd"]
-_data = {
-"PrimaryAttack": SubResource("Animation_creri"),
-"RESET": SubResource("Animation_d1rxk")
-}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pjt0l"]
 resource_local_to_scene = true
-size = Vector2(36, 2)
+size = Vector2(30, 2)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_vs5d6"]
-size = Vector2(36, 2)
-
-[node name="MilitiaSpearAttack" type="Node2D" node_paths=PackedStringArray("orientation_handler", "animation_player", "weapon_area", "attack_range")]
+[node name="MilitiaSpearAttack" type="Node2D" node_paths=PackedStringArray("weapon_area")]
 z_index = 1
-position = Vector2(0, 2)
-rotation = -0.1
 script = ExtResource("1_7sylv")
-orientation_handler = NodePath("OrientationHandler")
-animation_player = NodePath("Node2D/SpearAnimationPlayer")
-weapon_area = NodePath("Node2D/WeaponArea2D")
+weapon_area = NodePath("WeaponArea2D")
 weapon_resource = ExtResource("2_wpep1")
-attack_range = NodePath("AttackRange")
 
-[node name="Node2D" type="Node2D" parent="."]
-
-[node name="SpearAnimationPlayer" type="AnimationPlayer" parent="Node2D"]
-root_node = NodePath("../../..")
-libraries = {
-"": SubResource("AnimationLibrary_gynwd")
-}
-blend_times = [&"PrimaryAttack", &"PrimaryAttack", 0.1]
-
-[node name="WeaponArea2D" type="Area2D" parent="Node2D"]
+[node name="WeaponArea2D" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
 
-[node name="Hitbox" type="CollisionShape2D" parent="Node2D/WeaponArea2D"]
+[node name="Hitbox" type="CollisionShape2D" parent="WeaponArea2D"]
 shape = SubResource("RectangleShape2D_pjt0l")
-
-[node name="AttackRange" parent="." node_paths=PackedStringArray("attack") instance=ExtResource("2_8wboj")]
-attack = NodePath("..")
-
-[node name="SpearSprite" type="Sprite2D" parent="."]
-texture = SubResource("PlaceholderTexture2D_vs5d6")
-
-[node name="OrientationHandler" type="Node" parent="." node_paths=PackedStringArray("body")]
-script = ExtResource("2_b2wjv")
-body = NodePath("..")
-nodes_to_flip = Array[NodePath]([NodePath("../SpearSprite"), NodePath("../Node2D/WeaponArea2D")])
-should_rotate = true

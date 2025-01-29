@@ -1,0 +1,112 @@
+[gd_resource type="BehaviorTree" load_steps=32 format=3 uid="uid://b60rf2etvxe18"]
+
+[ext_resource type="Script" path="res://ai/tasks/GetTargetPos.gd" id="2_0piyy"]
+[ext_resource type="Script" path="res://ai/tasks/InRange.gd" id="2_dpotf"]
+[ext_resource type="Script" path="res://ai/tasks/SelectPositionHorizontalToTarget.gd" id="2_l05il"]
+[ext_resource type="Script" path="res://ai/tasks/ArriveAtNavTargetPos.gd" id="3_k2u11"]
+[ext_resource type="Script" path="res://ai/tasks/PrimaryAttack.gd" id="4_bxxes"]
+[ext_resource type="Script" path="res://ai/tasks/GetClosestTarget.gd" id="5_mhf3m"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_f5t40"]
+
+[sub_resource type="BTAction" id="BTAction_yntyi"]
+script = ExtResource("5_mhf3m")
+bb_closest_target = &"target"
+
+[sub_resource type="BBNode" id="BBNode_1fnty"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_cyt54"]
+animation_player = SubResource("BBNode_1fnty")
+animation_name = &"Idle"
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_iuytv"]
+min_duration = 0.6
+max_duration = 1.2
+
+[sub_resource type="BTSequence" id="BTSequence_yw1dc"]
+custom_name = "Break"
+children = [SubResource("BTPlayAnimation_cyt54"), SubResource("BTRandomWait_iuytv")]
+metadata/_weight_ = 0.29
+
+[sub_resource type="BTCondition" id="BTCondition_r1woa"]
+script = ExtResource("2_dpotf")
+target = &"target"
+distance_min = 0.0
+distance_max = 50.0
+
+[sub_resource type="BTAction" id="BTAction_vnl6n"]
+script = ExtResource("2_0piyy")
+bb_target = &"target"
+bb_target_pos = &"target_pos"
+
+[sub_resource type="BTAction" id="BTAction_dshi2"]
+script = ExtResource("4_bxxes")
+bb_target_pos = &"target_pos"
+
+[sub_resource type="BTWaitTicks" id="BTWaitTicks_2sbw0"]
+
+[sub_resource type="BBNode" id="BBNode_b1xiw"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_pv5kc"]
+await_completion = 2.0
+animation_player = SubResource("BBNode_b1xiw")
+animation_name = &"SpearStab"
+
+[sub_resource type="BTParallel" id="BTParallel_6k3bl"]
+children = [SubResource("BTPlayAnimation_pv5kc")]
+
+[sub_resource type="BBNode" id="BBNode_mvxst"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_xigx4"]
+animation_player = SubResource("BBNode_mvxst")
+animation_name = &"Idle"
+
+[sub_resource type="BTSequence" id="BTSequence_5s4y2"]
+custom_name = "PrimaryAttack"
+children = [SubResource("BTCondition_r1woa"), SubResource("BTAction_vnl6n"), SubResource("BTAction_dshi2"), SubResource("BTWaitTicks_2sbw0"), SubResource("BTParallel_6k3bl"), SubResource("BTPlayAnimation_xigx4")]
+
+[sub_resource type="BTAction" id="BTAction_67k8j"]
+script = ExtResource("2_l05il")
+bb_target = &"target"
+min_range = 20.0
+max_range = 40.0
+
+[sub_resource type="BBNode" id="BBNode_txafw"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_dwx1e"]
+animation_player = SubResource("BBNode_txafw")
+animation_name = &"RunAway"
+blend = 0.1
+
+[sub_resource type="BTAction" id="BTAction_x4hmm"]
+script = ExtResource("3_k2u11")
+
+[sub_resource type="BTTimeLimit" id="BTTimeLimit_p7b4i"]
+children = [SubResource("BTAction_x4hmm")]
+
+[sub_resource type="BTSequence" id="BTSequence_lfbks"]
+custom_name = "Move Towards Enemy"
+children = [SubResource("BTAction_67k8j"), SubResource("BTPlayAnimation_dwx1e"), SubResource("BTTimeLimit_p7b4i")]
+
+[sub_resource type="BTDynamicSelector" id="BTDynamicSelector_8d0d8"]
+children = [SubResource("BTSequence_5s4y2"), SubResource("BTSequence_lfbks")]
+
+[sub_resource type="BTProbabilitySelector" id="BTProbabilitySelector_8vbxf"]
+custom_name = "Attacks"
+children = [SubResource("BTSequence_yw1dc"), SubResource("BTDynamicSelector_8d0d8")]
+
+[sub_resource type="BTSequence" id="BTSequence_ioo78"]
+custom_name = "Militia Aggro"
+children = [SubResource("BTAction_yntyi"), SubResource("BTProbabilitySelector_8vbxf")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_f5t40")
+root_task = SubResource("BTSequence_ioo78")

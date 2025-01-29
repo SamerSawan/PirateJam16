@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=4 uid="uid://d0vqxcvbo1qrd"]
 
-[ext_resource type="PackedScene" uid="uid://ydo25uiqa5c4" path="res://characters/human_citizen/human_citizen.tscn" id="2_5hha3"]
 [ext_resource type="PackedScene" uid="uid://cn4ikwt7enju2" path="res://characters/player/player.tscn" id="2_cps18"]
+[ext_resource type="PackedScene" uid="uid://d3y5dqpl0by0j" path="res://characters/human_militia/human_militia.tscn" id="3_1sl54"]
 [ext_resource type="TileSet" uid="uid://csnobhxg8s7v6" path="res://tile_sets/new_tile_set.tres" id="3_daerp"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_qu5er"]
@@ -19,8 +19,8 @@ tile_set = ExtResource("3_daerp")
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_qu5er")
 
-[node name="Human Citizen" parent="." instance=ExtResource("2_5hha3")]
-position = Vector2(240, 168)
-
 [node name="Player" parent="." instance=ExtResource("2_cps18")]
 position = Vector2(280, 312)
+
+[node name="Human Militia" parent="." instance=ExtResource("3_1sl54")]
+position = Vector2(272, 216)

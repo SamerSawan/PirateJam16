@@ -1,6 +1,6 @@
 [gd_resource type="BehaviorTree" load_steps=15 format=3 uid="uid://bnw1vcxcyoj0u"]
 
-[ext_resource type="Script" path="res://ai/tasks/SelectRandomNavTargetPos.gd" id="1_uuqnc"]
+[ext_resource type="Script" path="res://ai/tasks/SelectNavTargetPosRandom.gd" id="1_au5ss"]
 [ext_resource type="Script" path="res://ai/tasks/ArriveAtNavTargetPos.gd" id="2_jh7dj"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_w2k2i"]
@@ -24,7 +24,7 @@ children = [SubResource("BTPlayAnimation_fmkcg"), SubResource("BTRandomWait_h5bw
 metadata/_weight_ = 2.11
 
 [sub_resource type="BTAction" id="BTAction_wh76l"]
-script = ExtResource("1_uuqnc")
+script = ExtResource("1_au5ss")
 x_range = Vector2(-128, 128)
 y_range = Vector2(-128, 128)
 
@@ -39,6 +39,7 @@ blend = 0.1
 
 [sub_resource type="BTAction" id="BTAction_dyhea"]
 script = ExtResource("2_jh7dj")
+speed_modifier = 1.0
 
 [sub_resource type="BTTimeLimit" id="BTTimeLimit_rl465"]
 children = [SubResource("BTAction_dyhea")]
