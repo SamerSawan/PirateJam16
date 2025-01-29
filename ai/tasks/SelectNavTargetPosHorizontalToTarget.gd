@@ -11,7 +11,6 @@ func _tick(delta: float) -> Status:
 			if target:
 				var nav_comp : NavigationComponent = agent.navigation_component
 				if nav_comp:
-					var direction_of_target : Vector2 = agent.global_position.direction_to(target.global_position) # comes normalized
 					var sign_x = sign(agent.to_local(target.global_position).x)
 					var new_pos : Vector2 = target.global_position + Vector2(-sign_x * randf_range(min_range, max_range), 0)
 					nav_comp.set_target_position_safely(new_pos)

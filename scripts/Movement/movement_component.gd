@@ -19,7 +19,7 @@ func apply_friction(delta: float, friction_coefficient : float = 1): # for movin
 
 ## Applys knockback in direction
 func take_knockback(knockback : Vector2): # take knockback in a direction
-	body.velocity += knockback
+	body.velocity += knockback * 36
 
 #region Movement
 ## Applys movement, moving from velocity, to speed * direction, by delta * acceleration coefficient, clamping the result by the max_speed in the stats_component

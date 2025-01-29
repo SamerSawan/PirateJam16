@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=37 format=3 uid="uid://b60rf2etvxe18"]
+[gd_resource type="BehaviorTree" load_steps=38 format=3 uid="uid://b60rf2etvxe18"]
 
 [ext_resource type="Script" path="res://ai/tasks/GetTargetPos.gd" id="2_0piyy"]
 [ext_resource type="Script" path="res://ai/tasks/IsTargetPosWithinUpAndDown.gd" id="2_7n0gq"]
@@ -67,6 +67,10 @@ children = [SubResource("BTSequence_nmeyr")]
 [sub_resource type="BTParallel" id="BTParallel_6k3bl"]
 children = [SubResource("BTPlayAnimation_pv5kc"), SubResource("BTRepeat_asyx7")]
 
+[sub_resource type="BTRandomWait" id="BTRandomWait_ovs0i"]
+min_duration = 0.1
+max_duration = 0.7
+
 [sub_resource type="BBNode" id="BBNode_1fnty"]
 saved_value = NodePath("AnimationPlayer")
 resource_name = "AnimationPlayer"
@@ -85,12 +89,12 @@ children = [SubResource("BTPlayAnimation_cyt54"), SubResource("BTRandomWait_iuyt
 metadata/_weight_ = 0.29
 
 [sub_resource type="BTProbability" id="BTProbability_pwhxj"]
-run_chance = 0.7
+run_chance = 0.9
 children = [SubResource("BTSequence_yw1dc")]
 
 [sub_resource type="BTSequence" id="BTSequence_ofrrm"]
 custom_name = "Attack If In Range"
-children = [SubResource("BTAction_vnl6n"), SubResource("BTCondition_4ca5n"), SubResource("BTCondition_r1woa"), SubResource("BTAction_dshi2"), SubResource("BTWaitTicks_2sbw0"), SubResource("BTAction_enki6"), SubResource("BTParallel_6k3bl"), SubResource("BTProbability_pwhxj")]
+children = [SubResource("BTAction_vnl6n"), SubResource("BTCondition_4ca5n"), SubResource("BTCondition_r1woa"), SubResource("BTAction_dshi2"), SubResource("BTWaitTicks_2sbw0"), SubResource("BTAction_enki6"), SubResource("BTParallel_6k3bl"), SubResource("BTRandomWait_ovs0i"), SubResource("BTProbability_pwhxj")]
 
 [sub_resource type="BTAction" id="BTAction_67k8j"]
 script = ExtResource("7_ej8f7")

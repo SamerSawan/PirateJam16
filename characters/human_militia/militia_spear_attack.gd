@@ -7,10 +7,12 @@ class_name MilitiaSpearStab
 ## When AI attack, just trigger attack
 ## When player attack, trigger anim
 
-func _check_for_collisions():
-	for body in weapon_area.get_overlapping_bodies():
-		if GameState.is_user_hostile_to_node(user, body):
-			print("Emitting take damage signal")
-			body.stats_component.take_damage(weapon_resource.damage)
-			var knockback_in_direction : Vector2 = weapon_resource.knockback * user.global_position.direction_to(body.direction)
+func _ready() -> void:
+	weapon_area.body_entered.connect(_check_for_collisions)
+
+func _check_for_collisions(body : Node2D):
+	if GameState.is_user_hostile_to_node(user, body):
+		print("Emitting take damage signal")
+		if body.stats_component.take_damage(weapon_resource.damage):
+			var knockback_in_direction : Vector2 = weapon_resource.knockback * global_position.direction_to(body.global_position)
 			body.movement_component.take_knockback(knockback_in_direction)

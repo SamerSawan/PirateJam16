@@ -11,6 +11,7 @@ class_name StatsComponent
 
 func _ready() -> void:
 	health_ready()
+	immunity_frames_timer.wait_time = immunity_frames_timer_length
 
 #region Speed
 @export var max_speed : Vector2 = Vector2(256, 256) ## How many units per second this entity will be able to move, ideally
@@ -39,10 +40,12 @@ func set_cur_health(new_health : int) -> void:
 func take_damage(damage : int):
 	if immunity_frames_timer.is_stopped():
 		#print(root.name + " took " + str(damage) + " damage ")
+		immunity_frames_timer.start()
 		set_cur_health(cur_health - abs(damage))
-		immunity_frames_timer.start(immunity_frames_timer_length)
-	#else: 
-		#print("Target was immune to attack")
+		return true
+	
+	#print("Target was immune to attack")
+	return false
 
 func heal(amount : int):
 	set_cur_health(cur_health + abs(amount))

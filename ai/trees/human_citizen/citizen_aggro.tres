@@ -13,7 +13,7 @@ var/var/hint_string = ""
 
 [sub_resource type="BTAction" id="BTAction_0oprm"]
 script = ExtResource("4_qgagq")
-bb_closest_target_node = &"target_node"
+bb_closest_target = &"closest_target"
 
 [sub_resource type="BTAction" id="BTAction_bcpt6"]
 script = ExtResource("5_4lh7q")
@@ -33,6 +33,7 @@ animation_name = &"RunAway"
 
 [sub_resource type="BTAction" id="BTAction_j0s1s"]
 script = ExtResource("2_ypbhp")
+speed_modifier = 1.0
 
 [sub_resource type="BTTimeLimit" id="BTTimeLimit_7pevl"]
 children = [SubResource("BTAction_j0s1s")]
