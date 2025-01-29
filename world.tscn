@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://5xolxvllve38"]
+[gd_scene load_steps=16 format=4 uid="uid://5xolxvllve38"]
 
 [ext_resource type="Texture2D" uid="uid://dl567o5rpbvf8" path="res://assets/Tileset Piratejam 16.png" id="1_swvg1"]
 [ext_resource type="PackedScene" uid="uid://cn4ikwt7enju2" path="res://characters/player/player.tscn" id="2_g308q"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://dhb0yb38ywj21" path="res://characters/enemies/bossman.tscn" id="5_cpvgj"]
 [ext_resource type="PackedScene" uid="uid://b6vmujpvdb0br" path="res://world/Room1.tscn" id="5_rotv3"]
 [ext_resource type="PackedScene" uid="uid://y0mn2wg4yns4" path="res://world/Room2.tscn" id="6_rragx"]
-[ext_resource type="Texture2D" uid="uid://cvt45dj7welyv" path="res://melee-spritesheet.png" id="8_g2qn7"]
 [ext_resource type="PackedScene" uid="uid://drdunh3bxiyaq" path="res://world/sacrifice_room.tscn" id="9_kaj24"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_11b7i"]
@@ -94,115 +93,6 @@ physics_layer_0/collision_layer = 2
 physics_layer_0/collision_mask = 16
 sources/0 = SubResource("TileSetAtlasSource_11b7i")
 
-[sub_resource type="Animation" id="Animation_sxq5c"]
-resource_name = "Character"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_hnney"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_75cte"]
-resource_name = "Idle"
-length = 1.65
-loop_mode = 1
-step = 0.27
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.0666667, 0.27, 0.54, 0.81, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [10, 11, 12, 13, 15]
-}
-
-[sub_resource type="Animation" id="Animation_qc7l8"]
-resource_name = "Stab"
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [21, 22, 23, 24, 20]
-}
-
-[sub_resource type="Animation" id="Animation_3tg5d"]
-resource_name = "death"
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [30, 31, 32, 33, 34]
-}
-
-[sub_resource type="Animation" id="Animation_oa4b4"]
-resource_name = "run"
-length = 0.5
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [40, 41, 42, 43, 44]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_jhxmx"]
-_data = {
-"Character": SubResource("Animation_sxq5c"),
-"Idle": SubResource("Animation_75cte"),
-"RESET": SubResource("Animation_hnney"),
-"Stab": SubResource("Animation_qc7l8"),
-"death": SubResource("Animation_3tg5d"),
-"run": SubResource("Animation_oa4b4")
-}
-
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_4cm5m"]
 vertices = PackedVector2Array(260.578, -24.7578, 262.563, 21.8594, 204.992, 21.1016, 193.969, -27, 103.133, -58.7969, 14, -60.7813, 14, -118.789, 147.813, -116.148, 154.938, -81.5625, 407.594, -28.2031, 285.391, -88.4766, 287.344, -117.859, 609.594, -113.172, 549.008, 1.21875, 106.109, -27, 580.148, 20.1563, 555.172, 17.6563, 442.867, -2.24219, 414.617, 19, 435.789, 19)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7, 8), PackedInt32Array(9, 10, 11, 12, 13), PackedInt32Array(3, 14, 4, 8, 10), PackedInt32Array(0, 3, 10, 9), PackedInt32Array(12, 15, 16, 13), PackedInt32Array(9, 13, 17), PackedInt32Array(18, 9, 17, 19)])
@@ -234,19 +124,6 @@ position = Vector2(32, -65)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../Camera2D")
-
-[node name="Sprite1Test" type="Sprite2D" parent="Player"]
-visible = false
-position = Vector2(3, -4)
-texture = ExtResource("8_g2qn7")
-hframes = 10
-vframes = 10
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/Sprite1Test"]
-libraries = {
-"": SubResource("AnimationLibrary_jhxmx")
-}
-autoplay = "run"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(32, -65)

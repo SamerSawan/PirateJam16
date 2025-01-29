@@ -1,7 +1,7 @@
 extends Node2D
 
 
-signal add_form(texture)
+signal add_form(texture, source_sprite)
 
 
 func _ready():
@@ -18,12 +18,15 @@ func _process(delta):
 
 var entered = false;
 func _on_area_2d_body_entered(body):
-	entered = true; # Replace with function body.
+	if body.name == "Player":
+		entered = true; # Replace with function body.
 
 
 func _on_area_2d_body_exited(body):
-	entered = false; # Replace with function body.
+	if body.name == "Player":
+		entered = false; # Replace with function body.
 
 func infest():
 	print("infested")
-	emit_signal("add_form", $Sprite1Test.texture, $Sprite1Test) 
+	emit_signal("add_form", $JOHNNY.sprite_frames, $JOHNNY.animation)
+	queue_free()
